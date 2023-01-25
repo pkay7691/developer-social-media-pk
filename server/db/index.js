@@ -11,7 +11,10 @@ const User = require("./models/User");
 
 module.exports = {
   db,
-  User,
-  Comments,
-  Post_like
+    models: {
+      User,
+      Comments,
+        Post_like
+      },
+
 };
