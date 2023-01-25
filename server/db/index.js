@@ -3,6 +3,9 @@
 const db = require('./db')
 
 const User = require('./models/User')
+const Report = require('./models/Report')
+const Project = require('./models/Project')
+
 
 // User.belongsToMany(User, {through: Friendship}) 
 // User.belongsToMany(Project, {throught: ProjectMembership})
@@ -37,9 +40,12 @@ const User = require('./models/User')
 
 //associations could go here!
 
+
 module.exports = {
   db,
   models: {
     User,
+    Report,
+    Project,
   },
 }
