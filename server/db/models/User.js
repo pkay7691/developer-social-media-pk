@@ -13,6 +13,38 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
+    allowNull: false
+  },
+  is_admin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  location: {
+    type: Sequelize.STRING,
+  },
+  skill_level: {
+    type: Sequelize.STRING,
+  },
+  img_url: {
+    type: Sequelize.STRING,
+    defaultValue: 'default_user.jpg'
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  first_name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  about_me: {
+    type: Sequelize.TEXT,
+  },
+  ban_status: {
+    type: Sequelize.ENUM('good_standing','in_review', 'banned'),
+    allowNull: false,
+    defaultValue: 'good_standing'
   }
 })
 
