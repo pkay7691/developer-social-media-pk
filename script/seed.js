@@ -1,11 +1,13 @@
 'use strict'
 
 const {db, models: {User} } = require('../server/db')
+const { faker } = require('@faker-js/faker')
 
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
+
 async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
@@ -39,6 +41,7 @@ async function seed() {
      }),
 
   ])
+
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
