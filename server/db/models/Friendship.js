@@ -1,4 +1,3 @@
-const { finalizeSession } = require('pg/lib/sasl');
 const Sequelize = require('sequelize');
 const db = require('../db');
 
@@ -9,9 +8,9 @@ const Friendship = db.define('friendship',{
     },
     request_msg:{
         type: Sequelize.ENUM,
-        values:[isFriend, 'isNotFriend']
+        values:['isFriend', 'isNotFriend']
     }
     //went with Enum because either can be true or validate
 })
 
-module.exports =Friendship;
+module.exports = Friendship;
