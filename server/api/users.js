@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const { models: { User } } = require('../db')
+const { models: { User, Friendship, Project, Post, Comments, Comment_Like } } = require('../db')
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -9,6 +10,7 @@ router.get('/', async (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       // attributes: ['id', 'username']
+      include:['friends', Project, Comments, Comment_Like, Post]
     })
     res.send(users)
   } catch (err) {
@@ -19,7 +21,7 @@ router.get('/', async (req, res, next) => {
 //router to find user by id
 router.get('/:id', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.params.id, {include:['friends', Project, Comments, Comment_Like, Post]})
     res.send(user)
   } catch (err) {
     next(err)
