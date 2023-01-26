@@ -25,7 +25,6 @@ async function seed() {
       first_name: 'Nicholas',
       last_name: 'Cage',
       about_me: 'Oscar Winner/Software Developer',
-      ban_status: 'good_standing'
      }),
      User.create({ 
       username: 'regularguy66',
@@ -37,10 +36,13 @@ async function seed() {
       first_name: 'Johnny',
       last_name: 'Tsunami',
       about_me: 'Just a guy',
-      ban_status: 'good_standing'
      }),
-
   ])
+
+
+  
+
+  
 
 
   console.log(`seeded ${users.length} users`)
@@ -52,6 +54,8 @@ async function seed() {
     }
   }
 }
+
+
 
 /*
  We've separated the `seed` function from the `runSeed` function.
