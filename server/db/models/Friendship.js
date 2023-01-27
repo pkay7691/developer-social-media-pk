@@ -5,6 +5,7 @@ const Friendship = db.define('friendship',{
     status:{
         type: Sequelize.STRING,
         allowNull: false,
+        defaultValue: 'inReview',
         validate: {
             customValidator: (value) => {
               const enums = ['inReview', 'isFriend']

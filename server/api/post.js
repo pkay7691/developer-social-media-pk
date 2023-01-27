@@ -1,10 +1,11 @@
 const router = require("express").Router();
-const { Post } = require("../db");
+const { models: { User, Friendship, Project, Post, Comments, Comment_Like } } = require('../db');
+const Post_like = require("../db/models/Post_like");
 
 //find all posts
 router.get("/", async (req, res, next) => {
   try {
-    const posts = await Post.findAll();
+    const posts = await Post.findAll({include: [User, Project, Comments, Post_like]});
     res.send(posts);
   } catch (error) {
     next(error);
@@ -14,7 +15,7 @@ router.get("/", async (req, res, next) => {
 //find post by single post
 router.get("/:id", async (req, res, next) => {
   try {
-    const post = await Post.findByPk(req.params.id);
+    const post = await Post.findByPk(req.params.id, {include: [User, Project, Comments, Post_like]});
     res.send(post);
   } catch (error) {
     next(error);
