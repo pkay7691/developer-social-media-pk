@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../app/store';
 import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode'
+
+
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
@@ -11,10 +14,18 @@ const Navbar = () => {
     dispatch(logout());
     navigate('/login');
   };
-  const credentialResponse = ()=>{
-    console.log(credentialResponse)
-    console.log('Welcome to devUpSocial!');
-  }
+  // const response = ()=>{
+  //   try {
+  //     if (response) {
+  //       let decode = jwt_decode(JSON.stringify(response), { header: true })
+  //       // valid token format
+  //       console.log(decode)
+  //     }
+  //   } catch(error) {
+  //     console.error('token again')
+  //   }
+    
+  // }
   return (
     <div>
       <h1>FS-App-Template</h1>
@@ -35,7 +46,7 @@ const Navbar = () => {
             <GoogleLogin
               clientId= '635857443662-m660ubej5a3g0046gi44j2j8afhkpau6.apps.googleusercontent.com'
               // adding google login function 
-              onSuccess={credentialResponse}
+              onSuccess={(response)=> console.log(response)}
               onError={() => {
                 console.log('Login Failed')
               }}
