@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import authReducer from '../features/auth/authSlice';
+import globalFeedReducer from '../features/globalfeed/globalfeedslice';
 
 const store = configureStore({
-  reducer: { auth: authReducer },
+  reducer: { 
+    auth: authReducer,
+    globalfeed: globalFeedReducer
+   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 

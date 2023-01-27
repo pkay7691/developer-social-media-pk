@@ -7,8 +7,22 @@ import axios from "axios";
 // this fetches all products from the database
 export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
   try {
-    const { data } = await axios.get("/api/posts");
-    return data;
+    const globalFeed = []
+    const posts = await axios.get("/api/post");
+    const projects = await axios.get('/api/project');
+    const comments = await axios.get('/api/comment')
+    console.log(posts.data);
+    console.log(projects.data);
+    console.log(comments.data);
+    posts.data.forEach(post => globalFeed.push(post))
+    projects.data.forEach(project => globalFeed.push(project))
+    comments.data.forEach(comment => globalFeed.push(comment));
+    globalFeed.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt))
+    return globalFeed
+
+
+
+
   } catch (error) {
     console.log(error);
   }
