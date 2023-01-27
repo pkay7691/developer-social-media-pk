@@ -7,6 +7,7 @@ router.use('/project', require('./project'))
 router.use('/comment', require('./comment'))
 router.use('/commentlike', require('./commentlike'))
 router.use('/postlike', require('./postlike'))
+router.use('/projectmembership', require('./projectmembership'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

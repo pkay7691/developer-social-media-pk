@@ -11,6 +11,8 @@ export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
     const posts = await axios.get("/api/post");
     const projects = await axios.get('/api/project');
     const comments = await axios.get('/api/comment')
+    const project_memberships = await axios.get('/api/projectmembership')
+    console.log(project_memberships)
     console.log(posts.data);
     console.log(projects.data);
     console.log(comments.data);

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchGlobalFeed } from './globalfeedslice';
+import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
 
 /**
  * COMPONENT
@@ -8,6 +8,8 @@ import { fetchGlobalFeed } from './globalfeedslice';
 const GlobalFeed = (props) => {
   const username = useSelector((state) => state.auth.me.username);
   const dispatch = useDispatch()
+
+  const globalFeed  = useSelector(selectGlobalFeed)
 
   useEffect(() => {
     dispatch(fetchGlobalFeed())

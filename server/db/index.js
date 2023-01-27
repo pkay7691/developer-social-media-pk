@@ -84,6 +84,7 @@ module.exports = {
     Comments,
     Post_like,
     Comment_Like,
+    Project_Membership,
     
   },
 }
