@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import AuthForm from '../features/auth/AuthForm';
+// import AuthForm from '../features/auth/AuthForm';
 import GlobalFeed from '../features/globalfeed/GlobalFeed';
 import Home from '../features/home/Home';
+import LandingPage from '../features/landing_page/landing_page';
 import { me } from './store';
+import Login from '../features/auth/Login';
+import SignUp from '../features/auth/SignUp';
 
 /**
  * COMPONENT
@@ -28,12 +31,8 @@ const AppRoutes = () => {
       ) : (
         <Routes>
           <Route
-            path="/*"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
-          <Route
             path="/login"
-            element={<AuthForm name="login" displayName="Login" />}
+            element={<Login name="login" displayName="Login" />}
           />
           <Route
             path="/signup"
@@ -43,8 +42,10 @@ const AppRoutes = () => {
             path="/globalfeed"
             element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
           />
+          <Route path='/*' element={<LandingPage/>}/>
         </Routes>
         
+
       )}
     </div>
   );

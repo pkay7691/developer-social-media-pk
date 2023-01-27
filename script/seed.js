@@ -44,6 +44,9 @@ async function seed() {
      await nic.addFriend(johnny)
      await johnny.addFriend(nic)
 
+
+  console.log(`seeded ${users.length} users`)
+
      const report1 = await Report.create({
       reporter: 1,
       message: "He was being mean"
@@ -119,8 +122,6 @@ async function seed() {
   console.log(`seeded successfully`)
   
 }
-
-
 
 /*
  We've separated the `seed` function from the `runSeed` function.
