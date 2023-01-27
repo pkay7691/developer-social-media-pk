@@ -27,10 +27,10 @@ const AppRoutes = () => {
         </Routes>
       ) : (
         <Routes>
-          <Route
+          {/* <Route
             path="/*"
             element={<AuthForm name="login" displayName="Login" />}
-          />
+          /> */}
           <Route
             path="/login"
             element={<AuthForm name="login" displayName="Login" />}
@@ -39,8 +39,7 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
-          <Route path="/landingpage" element={<LandingPage/>}
-          />
+          <Route path='/*' element={<LandingPage/>}/>
         </Routes>
 
       )}

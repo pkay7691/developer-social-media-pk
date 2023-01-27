@@ -3,9 +3,16 @@ const db = require('../db');
 
 const Friendship = db.define('friendship',{
     status:{
-        type: Sequelize.ENUM,
+        type: Sequelize.STRING,
         allowNull: false,
-        values:['inReview', 'isFriend']
+        validate: {
+            customValidator: (value) => {
+              const enums = ['inReview', 'isFriend']
+              if (!enums.includes(value)) {
+                throw new Error('not a valid option')
+              }
+            }
+          }   
     },
     request_msg:{
         type: Sequelize.TEXT   

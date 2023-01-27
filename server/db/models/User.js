@@ -13,6 +13,52 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
+    allowNull: false
+  },
+  is_admin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  location: {
+    type: Sequelize.STRING,
+  },
+  skill_level: {
+    type: Sequelize.STRING,
+  },
+  img_url: {
+    type: Sequelize.STRING,
+    defaultValue: 'default_user.jpg'
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  first_name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  about_me: {
+    type: Sequelize.TEXT,
+  },
+  ban_status: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: 'good_standing',
+    validate: {
+      customValidator: (value) => {
+        const enums = ['good_standing', 'in_review', 'banned']
+        if (!enums.includes(value)) {
+          throw new Error('not a valid option')
+        }
+      }
+    }
+
+  },
+  is_banned: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
   }
 })
 
@@ -21,31 +67,31 @@ module.exports = User
 /**
  * instanceMethods
  */
-User.prototype.correctPassword = function(candidatePwd) {
+User.prototype.correctPassword = function (candidatePwd) {
   //we need to compare the plain version to an encrypted version of the password
   return bcrypt.compare(candidatePwd, this.password);
 }
 
-User.prototype.generateToken = function() {
-  return jwt.sign({id: this.id}, process.env.JWT)
+User.prototype.generateToken = function () {
+  return jwt.sign({ id: this.id }, process.env.JWT)
 }
 
 /**
  * classMethods
  */
-User.authenticate = async function({ username, password }){
-    const user = await this.findOne({where: { username }})
-    if (!user || !(await user.correctPassword(password))) {
-      const error = Error('Incorrect username/password');
-      error.status = 401;
-      throw error;
-    }
-    return user.generateToken();
+User.authenticate = async function ({ username, password }) {
+  const user = await this.findOne({ where: { username } })
+  if (!user || !(await user.correctPassword(password))) {
+    const error = Error('Incorrect username/password');
+    error.status = 401;
+    throw error;
+  }
+  return user.generateToken();
 };
 
-User.findByToken = async function(token) {
+User.findByToken = async function (token) {
   try {
-    const {id} = await jwt.verify(token, process.env.JWT)
+    const { id } = await jwt.verify(token, process.env.JWT)
     const user = User.findByPk(id)
     if (!user) {
       throw 'nooo'
@@ -61,7 +107,7 @@ User.findByToken = async function(token) {
 /**
  * hooks
  */
-const hashPassword = async(user) => {
+const hashPassword = async (user) => {
   //in case the password has been changed, we want to encrypt it with bcrypt
   if (user.changed('password')) {
     user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
