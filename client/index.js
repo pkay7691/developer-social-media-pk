@@ -11,7 +11,7 @@ const root = createRoot(document.getElementById('app'));
 root.render(
   <React.StrictMode>
     <Router>
-      <GoogleOAuthProvider clientId='DEVUPSOCIAL_GOOGLE_API_TOKEN'>
+      <GoogleOAuthProvider clientId= '635857443662-m660ubej5a3g0046gi44j2j8afhkpau6.apps.googleusercontent.com'>
         <Provider store={store}>
           <App />
         </Provider>

@@ -11,7 +11,10 @@ const Navbar = () => {
     dispatch(logout());
     navigate('/login');
   };
-
+  const credentialResponse = ()=>{
+    console.log(credentialResponse)
+    console.log('Welcome to devUpSocial!');
+  }
   return (
     <div>
       <h1>FS-App-Template</h1>
@@ -30,14 +33,13 @@ const Navbar = () => {
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
             <GoogleLogin
+              clientId= '635857443662-m660ubej5a3g0046gi44j2j8afhkpau6.apps.googleusercontent.com'
               // adding google login function 
-              onSuccess={credentialResponse => {
-                console.log(credentialResponse)
-                console.log('Welcome to devUpSocial!');
-              }}
+              onSuccess={credentialResponse}
               onError={() => {
                 console.log('Login Failed')
               }}
+              cookiePolicy={'single_host_origin'}
             />
           </div>
         )}
