@@ -5,10 +5,12 @@ const Project_Membership = db.define('project_membership', {
     is_project_admin:{
         type: Sequelize.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
     },
     is_member:{
         type: Sequelize.BOOLEAN,
-        allowNull: false, 
+        allowNull: false,
+        defaultValue: false, 
     },
     request_msg:{
         type: Sequelize.TEXT   

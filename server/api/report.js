@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { models: { Report }} = require('../db');
+const { models: { Report, User }} = require('../db');
+
 
 module.exports = router;
 
@@ -17,7 +18,7 @@ router.post('/', async (req, res, next) => {
 // shows all reports
 router.get('/', async (req, res, next) => {
     try {
-        const reports = await Report.findAll();
+        const reports = await Report.findAll({include: User});
         res.json(reports);
     } catch (err) {
         next(err)
