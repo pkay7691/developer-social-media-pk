@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import AuthForm from '../features/auth/AuthForm';
+import GlobalFeed from '../features/globalfeed/GlobalFeed';
 import Home from '../features/home/Home';
 import { me } from './store';
 
@@ -38,7 +39,12 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+          <Route
+            path="/globalfeed"
+            element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
+          />
         </Routes>
+        
       )}
     </div>
   );
