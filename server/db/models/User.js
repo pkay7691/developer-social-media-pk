@@ -17,7 +17,6 @@ const User = db.define('user', {
   },
   is_admin: {
     type: Sequelize.BOOLEAN,
-    allowNull: false,
     defaultValue: false,
   },
   location: {
@@ -83,8 +82,8 @@ User.prototype.generateToken = function () {
 /**
  * classMethods
  */
-User.authenticate = async function ({ username, password }) {
-  const user = await this.findOne({ where: { username } })
+User.authenticate = async function ({ email, password }) {
+  const user = await this.findOne({ where: { email } })
   if (!user || !(await user.correctPassword(password))) {
     const error = Error('Incorrect username/password');
     error.status = 401;
