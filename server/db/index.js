@@ -11,7 +11,7 @@ const Friendship = require('./models/Friendship');
 const Project_Membership = require('./models/Project_Membership')
 const Post = require('./models/Post')
 const Comment_Like = require('./models/Comment_Like');
-// const Message = require('./models/Message')
+
 
 
 
@@ -27,14 +27,13 @@ User.belongsToMany(User, {
   through: Friendship,
 }) 
 
-// User.belongsToMany(Message)
 User.belongsToMany(Project, {through: Project_Membership})
 User.hasMany(Report)
 User.hasMany(Post)
 User.hasMany(Comments)
 User.hasMany(Comment_Like)
 User.hasMany(Post_like)
-// User.hasMany(Message, through: )
+
 
 Report.belongsTo(User) 
 
@@ -63,7 +62,7 @@ Project.belongsToMany(User, {
 })
 Project.hasMany(Post)
 
-// Message.belongstoMany(User)
+
 
 
 
@@ -89,7 +88,7 @@ module.exports = {
     Post_like,
     Comment_Like,
     Project_Membership,
-    // Message
+
     
   },
 }
