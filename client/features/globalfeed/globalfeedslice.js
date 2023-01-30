@@ -45,7 +45,7 @@ const globalFeedSlice = createSlice({
 });
 
 export const selectGlobalFeed = (state) => {
-  return state.globalFeed;
+  return state.globalfeed;
 };
 
 
