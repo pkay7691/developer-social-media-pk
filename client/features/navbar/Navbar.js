@@ -1,4 +1,4 @@
-import { AppBar } from '@mui/material';
+import { AppBar, Stack } from '@mui/material';
 import { Container } from '@mui/system';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,11 +28,13 @@ const Navbar = () => {
           </div>
         ) : (
           <div>
-     <AppBar position='static'>
+            {/* The navbar will show these links before you log in */}
+            <AppBar position='static'>
               <Container maxWidth="xl">
+                <Stack spacing={2} direction='row'>
                 <Link to="/login">Login</Link>
                 <Link to="/signup">Sign Up</Link>
-                <Link to="/landingpage">Landing Page</Link>
+                </Stack>
               </Container>
             </AppBar>
 
