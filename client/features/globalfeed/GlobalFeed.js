@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
+import { asyncFetchComments } from './commentslice';
+import { asyncFetchPostLikes } from './postlikesslice';
 import { Box, Container, Stack, Avatar } from '@mui/material';
 import FeedPost from './FeedPost';
 import FeedProject from './FeedProject';
@@ -17,6 +19,8 @@ const GlobalFeed = (props) => {
 
   useEffect(() => {
     dispatch(fetchGlobalFeed())
+    dispatch(asyncFetchComments())
+    dispatch(asyncFetchPostLikes())
   },[dispatch])
   
 
@@ -29,16 +33,16 @@ const GlobalFeed = (props) => {
       {globalFeed && globalFeed.length ? (
         globalFeed.map((feedItem) => (
           feedItem.modelType === 'post' ? 
-          <FeedPost feedItem={feedItem}/>
+          <FeedPost key={`global-feed-post-${feedItem.id}`}feedItem={feedItem}/>
           :  feedItem.modelType === 'project' ? 
-         <FeedProject feedItem={feedItem} />
+         <FeedProject key={`global-feed-project-${feedItem.id}`} feedItem={feedItem} />
 
            : 
            
-           <div>hello</div>
+           <div key='notloaded'>hello</div>
 
         ))
-      ) : <div></div>}
+      ) : null}
       </Stack>
       </Container>
     </div>

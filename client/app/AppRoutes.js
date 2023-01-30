@@ -29,6 +29,10 @@ const AppRoutes = () => {
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
           <Route path="/chat" element={<Messages />} />
+          <Route
+            path="/globalfeed"
+            element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
+          />
         </Routes>
       ) : (
         <Routes>

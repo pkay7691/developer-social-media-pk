@@ -9,7 +9,6 @@ export const asyncFetchComments = createAsyncThunk("fetchComments", async () => 
   try {
 
     const { data } = await axios.get('/api/comment');
-    console.log(data)
     return data
 
 

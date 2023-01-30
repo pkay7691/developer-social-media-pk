@@ -4,7 +4,7 @@ import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField } from '@mui/material';
 import { sizing } from '@mui/system';
 import Comments from './Comments';
-
+import PostLikes from './PostLikes';
 
 /**
  * COMPONENT
@@ -36,6 +36,7 @@ const FeedPost = ({feedItem}) => {
               <div>{feedItem.title}</div>
               <div>{feedItem.url}</div>
               <div>{feedItem.description}</div>
+              <PostLikes feedItem={feedItem} />
               <ButtonGroup variant='outlined' aria-label='outlined button group' sx={{ width: 1 }}>
               
                   <Button sx={{ width: 1/3 }}>Like</Button>

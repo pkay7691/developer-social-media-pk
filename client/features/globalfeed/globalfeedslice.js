@@ -12,13 +12,8 @@ export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
     const projects = await axios.get('/api/project');
     const comments = await axios.get('/api/comment')
     const project_memberships = await axios.get('/api/projectmembership')
-    console.log(project_memberships)
-    console.log(posts.data);
-    console.log(projects.data);
-    console.log(comments.data);
     posts.data.forEach(post => globalFeed.push(post))
     projects.data.forEach(project => globalFeed.push(project))
-    comments.data.forEach(comment => globalFeed.push(comment));
     globalFeed.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt))
     return globalFeed
 

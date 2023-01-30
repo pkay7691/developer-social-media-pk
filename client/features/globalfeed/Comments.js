@@ -15,14 +15,14 @@ const Comments = ({feedItem}) => {
 
   const username = useSelector((state) => state.auth.me.username);
   const dispatch = useDispatch()
-  console.log('feeditem', feedItem)
+
   const allComments = useSelector(selectComments);
   const postComments = allComments.filter(comment => feedItem.id === comment.postId )
-  console.log(postComments)
+
   
-  useEffect(() => {
-    dispatch(asyncFetchComments())
-  },[dispatch])
+  // useEffect(() => {
+  //   dispatch(asyncFetchComments())
+  // },[dispatch])
 
 
 
@@ -35,9 +35,14 @@ const Comments = ({feedItem}) => {
     <div>
       {postComments && postComments.length ? 
       postComments.map((comment) => (
-        <Box>
-          <div>{comment.user.first_name} {comment.user.last_name}</div>
+        <Box key={`post-comment-${comment.id}`} className='border'>
+          <div className='flex flex-row'>
+            <Avatar src={comment.user.img_url}/>
+            <div>{comment.user.first_name} {comment.user.last_name}</div>
+          </div>
+          
           <div>{comment.text_field}</div>
+          <Button size='small' variant="text">Like</Button> 
 
         </Box> 
         

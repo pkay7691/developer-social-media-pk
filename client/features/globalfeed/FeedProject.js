@@ -12,7 +12,7 @@ const FeedProject = ({feedItem}) => {
 
   const username = useSelector((state) => state.auth.me.username);
   const dispatch = useDispatch()
-  console.log('feeditem', feedItem)
+
 
 
 
