@@ -7,6 +7,7 @@ import LandingPage from '../features/landing_page/landing_page';
 import { me } from './store';
 import Login from '../features/auth/Login';
 import SignUp from '../features/auth/SignUp';
+import Messages from '../features/messages/Messages';
 
 /**
  * COMPONENT
@@ -26,6 +27,7 @@ const AppRoutes = () => {
         <Routes>
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
+          <Route path="/chat" element={<Messages />} />
         </Routes>
       ) : (
         <Routes>

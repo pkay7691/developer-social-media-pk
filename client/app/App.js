@@ -1,13 +1,14 @@
 import React from 'react';
 import Navbar from '../features/navbar/Navbar';
 import AppRoutes from './AppRoutes';
+import Footer from '../features/footer/footer';
 
 const App = () => {
   return (
     <div>
-      <h1 className='text-xl'>hello!</h1>
       <Navbar />
       <AppRoutes />
+      <Footer/>
     </div>
 
   );
