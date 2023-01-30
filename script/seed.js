@@ -15,8 +15,8 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Users
- 
-    const nic = await User.create({ 
+
+    const nic = await User.create({
       username: 'TheRealNicCage',
       password: 'password',
       is_admin: true,
@@ -29,7 +29,7 @@ async function seed() {
       about_me: 'Oscar Winner/Software Developer',
      })
 
-     const johnny = await User.create({ 
+     const johnny = await User.create({
       username: 'regularguy66',
       password: 'password',
       is_admin: false,
@@ -45,13 +45,13 @@ async function seed() {
      await johnny.addFriend(nic)
 
 
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${User.length} users`)
 
      const report1 = await Report.create({
       reporter: 1,
       message: "He was being mean"
      })
-    
+
     //  Reporting User
     await johnny.addReport(report1)
 
@@ -111,16 +111,16 @@ async function seed() {
 
 
 
-    
 
-    
+
+
 
 
 
 
   console.log(`seeded users`)
   console.log(`seeded successfully`)
-  
+
 }
 
 /*

@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <div>
 
-
+    <nav>
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
