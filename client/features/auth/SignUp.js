@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   TextField,
@@ -14,8 +14,9 @@ import { useNavigate } from "react-router-dom";
 import theme from "../../app/theme";
 
 const SignUp = () => {
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const validationSchema = yup.object({
     first_name: yup
       .string("Enter your first name")
@@ -38,7 +39,7 @@ const SignUp = () => {
     confirm_password: yup
       .string("Confirm your password")
       .oneOf([yup.ref("password"), null], "Passwords must match")
-      .required("Confirm password is required"),
+      .required("Please confirm your password"),
   });
   const formik = useFormik({
     initialValues: {
@@ -47,13 +48,20 @@ const SignUp = () => {
       username: "",
       email: "",
       password: "",
+      confirm_password: "",
       method: "signup",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-        console.log(values)
-        dispatch(authenticate(values, "signup"));
-        navigate("/");
+      console.log(values, "values");
+      dispatch(authenticate(values, "signup")).then((res) => {
+        console.log(res, "res");
+        if (res.error) {
+            setError(res.payload);
+        } else {
+            navigate("/");
+        }
+      });
     },
   });
 
@@ -73,6 +81,7 @@ const SignUp = () => {
       <Typography variant="h4" align="center" color="primary">
         Create Account
       </Typography>
+
       <TextField
         fullWidth
         id="first_name"
@@ -95,6 +104,10 @@ const SignUp = () => {
         error={formik.touched.last_name && Boolean(formik.errors.last_name)}
         helperText={formik.touched.last_name && formik.errors.last_name}
       />
+      <Typography variant="h4" align="center" color="error">
+        {error === "Username already in use!" && <p className="uppercase bg-red text-xl font-large bg-red-400">{error}</p>}
+      </Typography>
+
       <TextField
         fullWidth
         id="username"
@@ -106,6 +119,10 @@ const SignUp = () => {
         error={formik.touched.username && Boolean(formik.errors.username)}
         helperText={formik.touched.username && formik.errors.username}
       />
+      <Typography variant="h4" align="center" color="error">
+      {error === "Email already in use!" && <p className="uppercase bg-red text-xl font-large">{error}</p>}
+      </Typography>
+
       <TextField
         fullWidth
         id="email"

@@ -45,7 +45,6 @@ async function seed() {
      await johnny.addFriend(nic)
 
 
-  console.log(`seeded ${users.length} users`)
 
      const report1 = await Report.create({
       reporter: 1,
