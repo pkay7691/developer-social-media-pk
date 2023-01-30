@@ -4,6 +4,7 @@ const app = require('./app')
 const seed = require('../script/seed');
 require('dotenv').config()
 
+
 const init = async () => {
   try {
     if(process.env.SEED === 'true'){

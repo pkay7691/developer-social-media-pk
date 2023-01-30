@@ -14,18 +14,21 @@ const Navbar = () => {
     dispatch(logout());
     navigate('/login');
   };
-  // const response = ()=>{
-  //   try {
-  //     if (response) {
-  //       let decode = jwt_decode(JSON.stringify(response), { header: true })
-  //       // valid token format
-  //       console.log(decode)
-  //     }
-  //   } catch(error) {
-  //     console.error('token again')
-  //   }
+  const getOrCreateUser = (response)=>{
+    try {
+      if (response) {
+        let decode = jwt_decode(response.credential)
+
+        // const {family_name, given_name, email, picture} = response.credential;
+        //taking name from google API call and creating a user if they do not exist
+        // valid token format
+        console.log(decode)
+      }
+    } catch(error) {
+      console.error('check the response function ')
+    }
     
-  // }
+  }
   return (
     <div>
       <h1>FS-App-Template</h1>
@@ -46,7 +49,7 @@ const Navbar = () => {
             <GoogleLogin
               clientId= '635857443662-m660ubej5a3g0046gi44j2j8afhkpau6.apps.googleusercontent.com'
               // adding google login function 
-              onSuccess={(response)=> console.log(response)}
+              onSuccess={getOrCreateUser}
               onError={() => {
                 console.log('Login Failed')
               }}

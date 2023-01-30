@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const passport = require('passport');
 const {
   models: { User },
 } = require('../db');
@@ -32,3 +33,17 @@ router.get('/me', async (req, res, next) => {
     next(ex);
   }
 });
+
+router.get('/google',
+  passport.authenticate('google', { scope:
+  	[ 'name' ] }
+));
+ 
+router.get( '/google/callback',
+    passport.authenticate( 'google', {
+        successRedirect: '/google/success',
+        //success will show the logout and home page
+        failureRedirect: '/google/failure'
+        // failure will show login or signup
+        //routes will be determined later
+}));
