@@ -9,7 +9,16 @@ const User = db.define('user', {
   username: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validator: {
+      // if username is taken, throw error
+      isUnique: async (value) => {
+        const username = await User.findOne({ where: { username: value } });
+        if (username) {
+          throw new Error('Username already in use!');
+        }
+      }
+    }
   },
   password: {
     type: Sequelize.STRING,
@@ -32,6 +41,7 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: true,
   },
   first_name: {
     type: Sequelize.STRING,
@@ -85,12 +95,29 @@ User.prototype.generateToken = function () {
 User.authenticate = async function ({ email, password }) {
   const user = await this.findOne({ where: { email } })
   if (!user || !(await user.correctPassword(password))) {
-    const error = Error('Incorrect username/password');
+    const error = Error('Incorrect email/password');
     error.status = 401;
     throw error;
   }
   return user.generateToken();
 };
+
+
+//if username is taken, throw error
+User.beforeCreate(async (user) => {
+  const username = await User.findOne({ where: { username: user.username } });
+  if (username) {
+    throw new Error('Username already in use!');
+  }
+})
+
+//if email is taken, throw error
+User.beforeCreate(async (user) => {
+  const email = await User.findOne({ where: { email: user.email } });
+  if (email) {
+    throw new Error('Email already in use!');
+  }
+})
 
 User.findByToken = async function (token) {
   try {
