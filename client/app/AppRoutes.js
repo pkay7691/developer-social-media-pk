@@ -7,6 +7,8 @@ import LandingPage from '../features/landing_page/landing_page';
 import { me } from './store';
 import Login from '../features/auth/Login';
 import SignUp from '../features/auth/SignUp';
+import AllUsers from '../features/all_users/allUsers';
+import SingleUser from '../features/single_user/singleUser';
 
 /**
  * COMPONENT
@@ -38,6 +40,8 @@ const AppRoutes = () => {
             element={<SignUp name="signup" displayName="Sign Up" />}
           />
           <Route path='/*' element={<LandingPage/>}/>
+          <Route path='/users' element={<AllUsers/>}/>
+          <Route path='/users/:userId' element={<SingleUser/>}/>
         </Routes>
 
       )}
