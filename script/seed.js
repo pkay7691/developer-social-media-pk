@@ -22,7 +22,7 @@ async function seed() {
       is_admin: true,
       location: 'Chicago IL',
       skill_level: 'Master',
-      img_url: 'https://static01.nyt.com/images/2019/08/11/magazine/11mag-talk/11mag-talk-jumbo.jpg',
+      img_url: 'https://variety.com/wp-content/uploads/2022/04/Nicolas-Cage.jpg',
       email: 'admin@gmail.com',
       first_name: 'Nicholas',
       last_name: 'Cage',

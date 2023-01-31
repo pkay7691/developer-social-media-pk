@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const { models: { User, Comments, Comment_Like } } = require('../db');
+const { models: { User, Comments, Comment_Like, Post } } = require('../db');
 
 
 //find all comments
 router.get("/", async (req, res, next) => {
   try {
-    const comments = await Comments.findAll({include: [User, Comment_Like]});
+    const comments = await Comments.findAll({include: [User, Comment_Like, Post]});
     res.send(comments);
   } catch (error) {
     next(error);
@@ -15,7 +15,7 @@ router.get("/", async (req, res, next) => {
 //find single comment by id
 router.get("/:id", async (req, res, next) => {
   try {
-    const comment = await Comments.findByPk(req.params.id, {include: [User, Comment_Like]});
+    const comment = await Comments.findByPk(req.params.id, {include: [User, Comment_Like, Post]});
     res.send(comment);
   } catch (error) {
     next(error);

@@ -37,6 +37,7 @@ User.hasMany(Comment_Like)
 User.hasMany(Post_like)
 User.belongsToMany(Message, {through: Chat})
 
+
 Report.belongsTo(User) 
 
 Post.hasMany(Comments);
@@ -67,6 +68,15 @@ Project.belongsToMany(User, {
 Project.hasMany(Post)
 
 
+
+
+
+
+
+
+
+
+
 //associations could go here!
 
 
@@ -82,6 +92,9 @@ module.exports = {
     Comments,
     Post_like,
     Comment_Like,
+    Project_Membership,
+
+    
     Message,
     Chat,    
   },

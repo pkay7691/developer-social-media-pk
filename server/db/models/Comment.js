@@ -4,7 +4,11 @@ const db= require('../db')
 const Comments = db.define('comment',{
   text_field:{
     type: Sequelize.TEXT,
-  }
+  },
+  modelType: {
+    type: Sequelize.STRING,
+    defaultValue: 'comment'
+},
 })
 
 module.exports = Comments
