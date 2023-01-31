@@ -1,26 +1,66 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField } from '@mui/material';
 import { sizing } from '@mui/system';
 import Comments from './Comments';
 import PostLikes from './PostLikes';
+import { asyncCreateLike, asyncDeleteLike, asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
+import { createSerializableStateInvariantMiddleware } from '@reduxjs/toolkit';
 
 /**
  * COMPONENT
  */
 const FeedPost = ({feedItem}) => {
 
+const [likeButton, setLikeButton] = useState('')
 
+  
   const username = useSelector((state) => state.auth.me.username);
+  const user = useSelector((state) => state.auth.me);
   const dispatch = useDispatch()
-  console.log('feeditem', feedItem)
-
+  const postLikes = useSelector(selectPostLikes)
+  const postLikeCheck = postLikes && postLikes.length ? postLikes.filter(postLike => postLike.userId === user.id && postLike.postId === feedItem.id) : null
 
 
 
   
+   
 
+
+
+  useEffect(() => {
+    dispatch(asyncFetchPostLikes())
+    if (postLikeCheck && postLikeCheck.length) {
+      setLikeButton('Unlike')   
+    } else {
+      setLikeButton('Like')
+    }
+    },[dispatch])
+
+  
+  const handlePostLike = (userId, postId) => {
+
+  
+    if (postLikeCheck && postLikeCheck.length) {
+      let id = postLikeCheck[0].id;
+      dispatch(asyncDeleteLike(id));
+      setLikeButton('Like')
+
+      
+    } else {
+      const like = {
+        userId: userId,
+        postId: postId,
+      }
+      dispatch(asyncCreateLike(like))
+      setLikeButton('Unlike')
+    }
+
+    
+  }
+
+  
 
   
   return (
@@ -39,7 +79,7 @@ const FeedPost = ({feedItem}) => {
               <PostLikes feedItem={feedItem} />
               <ButtonGroup variant='outlined' aria-label='outlined button group' sx={{ width: 1 }}>
               
-                  <Button sx={{ width: 1/3 }}>Like</Button>
+                  <Button onClick={(e) => handlePostLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>{likeButton}</Button>
                   <Button sx={{ width: 1/3 }}>Comment</Button>
                   <Button sx={{ width: 1/3 }}>Share</Button>
                 </ButtonGroup>
