@@ -6,6 +6,10 @@ const Post = db.define('post', {
         type: Sequelize.TEXT,
         allowNull: false
     },
+    modelType: {
+        type: Sequelize.STRING,
+        defaultValue: 'post'
+    },
     description: {
         type: Sequelize.TEXT,
         allowNull: false
