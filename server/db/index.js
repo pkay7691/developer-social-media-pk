@@ -11,6 +11,8 @@ const Friendship = require('./models/Friendship');
 const Project_Membership = require('./models/Project_Membership')
 const Post = require('./models/Post')
 const Comment_Like = require('./models/Comment_Like');
+const Message = require('./models/Message');
+const Chat = require('./models/Chat');
 
 
 
@@ -33,6 +35,8 @@ User.hasMany(Post)
 User.hasMany(Comments)
 User.hasMany(Comment_Like)
 User.hasMany(Post_like)
+User.belongsToMany(Message, {through: Chat})
+
 
 Report.belongsTo(User) 
 
@@ -51,7 +55,9 @@ Comments.belongsTo(Post);
 Comments.belongsTo(User)
 
 Comment_Like.belongsTo(Comments);
-Comment_Like.belongsTo(User)
+Comment_Like.belongsTo(User);
+
+Message.belongsToMany(User, {through: Chat})
 
 
 Project.belongsToMany(User, {
@@ -60,6 +66,8 @@ Project.belongsToMany(User, {
   foreignKey: 'userId',
 })
 Project.hasMany(Post)
+
+
 
 
 
@@ -84,7 +92,11 @@ module.exports = {
     Comments,
     Post_like,
     Comment_Like,
+    Project_Membership,
+
     
+    Message,
+    Chat,    
   },
 }
 

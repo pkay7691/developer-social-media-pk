@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   TextField,
@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { authenticate } from "../../app/store";
 
 const Login = () => {
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const validationSchema = yup.object({
@@ -35,8 +36,14 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
-      dispatch(authenticate(values, "login"));
-      navigate("/");
+      dispatch(authenticate(values, "login")).then((res) => {
+        console.log(res);
+        if (res.payload) {
+          setError(res.payload);
+        } else {
+          navigate("/");
+        }
+      });
     },
   });
 
@@ -54,6 +61,11 @@ const Login = () => {
       <Typography variant="h4" align="center" color="primary">
         Login
       </Typography>
+
+      <Typography variant="h6" align="center" color="error">
+        {error}
+      </Typography>
+
       <TextField
         fullWidth
         id="email"
