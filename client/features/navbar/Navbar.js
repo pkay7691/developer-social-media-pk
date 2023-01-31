@@ -49,9 +49,10 @@ const Navbar = () => {
             {/* The navbar will show these links before you log in */}
             <AppBar position="static">
               <Container maxWidth="xl">
-                <Stack spacing={2} direction="row">
-                  <Link to="/login">Login</Link>
-                  <Link to="/signup">Sign Up</Link>
+                <Stack spacing={2} direction='row'>
+                <Link to="/login">Login</Link>
+                <Link to="/signup">Sign Up</Link>
+                <Link to='/users'>Users</Link>
                 </Stack>
               </Container>
             </AppBar>
