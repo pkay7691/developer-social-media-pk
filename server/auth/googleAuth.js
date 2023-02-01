@@ -43,26 +43,31 @@ passport.use(new GoogleStrategy({
         console.log("Email here", JSON.stringify(profile._json.email))
         // console.log(JSON.stringify(profile[0].email))
 
-
-        try {
-            let userExist = await User.findOne({
-                where:{
-                    username: profile.displayName
+        console.log('FUNCTION RUNNING------------')
+        console.log('<<<<<<<<<<<<',profile)
+                try {
+                    let userExist = await User.findOne({
+                        where:{
+                            username: profile.displayName
+                        }
+                    })
+                    console.log('BEFORE BOOLEAN+++++++')
+                    if(userExist){
+                        console.log('************userExist')
+                        return done(null,userExist);
+                    }
+                    // const mail = profile.emails[0].value
+                    // console.log("this is the profile",profile)
+                    console.log('Creating new user......')
+                    const newUser = await User.create({ username: profile.displayName, 
+                        password: profile.sub
+                        // email: mail
+                     })
+                    return done(null,newUser)
+                } catch (error) {
+                    console.log('+++++++++=',error)
+                    return done(error, false)
                 }
-            })
-            if(userExist){
-                return done(null,userExist);
+                //using express findoOrCreate to create user if not found in database
             }
-            // console.log("this is the profile",profile)
-            console.log('Creating new user......')
-            const newUser = await User.create({ username: profile.displayName, 
-                password: profile.sub,
-                email: profile._json.email
-             })
-            return done(null,newUser)
-        } catch (error) {
-            return done(error, false)
-        }
-        //using express findoOrCreate to create user if not found in database
-    }
-))
+        ))
