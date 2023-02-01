@@ -1,6 +1,4 @@
 //this is the access point for all things database related!
-
-
 const db = require("./db");
 const Comments = require("./models/Comment");
 const Post_like = require('./models/Post_like');
@@ -13,9 +11,6 @@ const Post = require('./models/Post')
 const Comment_Like = require('./models/Comment_Like');
 const Message = require('./models/Message');
 const Chat = require('./models/Chat');
-
-
-
 
 
 User.belongsToMany(User, {

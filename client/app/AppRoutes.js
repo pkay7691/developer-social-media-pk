@@ -14,6 +14,7 @@ import SingleUser from '../features/single_user/singleUser';
 import Messages from '../features/messages/Messages';
 import Banned from '../features/banned/Banned';
 import ContactUs from '../features/contactUs/ContactUs';
+import Friends from '../features/friends/friends';
 
 
 /**
@@ -41,13 +42,12 @@ const AppRoutes = () => {
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
           <Route path="/chat" element={<Messages />} />
-
           <Route path="/contactUs" element={<ContactUs/>}/>
-
           <Route
             path="/globalfeed"
             element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
           />
+          <Route path='/users/:userId' element={<SingleUser/>}/>
         </Routes>
       ) : (
         <Routes>
@@ -66,6 +66,7 @@ const AppRoutes = () => {
           <Route path='/*' element={<LandingPage/>}/>
           <Route path='/users' element={<AllUsers/>}/>
           <Route path='/users/:userId' element={<SingleUser/>}/>
+          <Route path='/users/:userId/friends' element={<Friends/>}/>
         </Routes>
         
 
