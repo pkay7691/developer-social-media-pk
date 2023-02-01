@@ -7,6 +7,7 @@ import singleUserSlice from '../features/single_user/singleUserSlice';
 import globalFeedReducer from '../features/globalfeed/globalfeedslice';
 import commentsReducer from '../features/globalfeed/commentslice'
 import postLikesReducer from '../features/globalfeed/postlikesslice';
+import commentlikesReducer from '../features/globalfeed/commentlikeslice';
 
 const store = configureStore({
   reducer: { 
@@ -16,6 +17,7 @@ const store = configureStore({
     postlikes: postLikesReducer,
     users: allUsersSlice,
     user: singleUserSlice,
+    commentlikes: commentlikesReducer,
    },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

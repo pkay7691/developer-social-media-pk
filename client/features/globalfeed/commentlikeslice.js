@@ -6,10 +6,10 @@ import axios from "axios";
 
 
 // this fetches all products from the database
-export const asyncFetchComments = createAsyncThunk("fetchComments", async () => {
+export const asyncFetchCommentLikes = createAsyncThunk("fetchCommentLikes", async () => {
   try {
 
-    const { data } = await axios.get('/api/comment');
+    const { data } = await axios.get('/api/commentlike');
     data.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt))
     return data
 
@@ -20,10 +20,10 @@ export const asyncFetchComments = createAsyncThunk("fetchComments", async () => 
 });
 
 
-export const asyncCreateComment = createAsyncThunk("createComment", async (newComment) => {
+export const asyncCreateCommentLike = createAsyncThunk("createCommentLike", async (newCommentLike) => {
   try {
 
-    const { data } = await axios.post('/api/comment', newComment);
+    const { data } = await axios.post('/api/commentlike', newCommentLike);
     return data
 
 
@@ -32,7 +32,7 @@ export const asyncCreateComment = createAsyncThunk("createComment", async (newCo
   }
 });
 
-export const asyncDeleteComment = createAsyncThunk("deleteComment", async (id) => {
+export const asyncDeleteCommentLike = createAsyncThunk("deleteComment", async (id) => {
   try {
     const {data} = await axios.delete(`/api/comment/${id}`)
     return data
@@ -46,18 +46,18 @@ export const asyncDeleteComment = createAsyncThunk("deleteComment", async (id) =
 
 
 
-const commentsSlice = createSlice({
+const commentLikesSlice = createSlice({
   name: "comments",
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(asyncFetchComments.fulfilled, (state, action) => {
+    builder.addCase(asyncFetchCommentLikes.fulfilled, (state, action) => {
       return action.payload
     });
-    builder.addCase(asyncCreateComment.fulfilled, (state, action) => {
+    builder.addCase(asyncCreateCommentLike.fulfilled, (state, action) => {
       console.log(action.payload)
     })
-    builder.addCase(asyncDeleteComment.fulfilled, (state, action) => {
+    builder.addCase(asyncDeleteCommentLike.fulfilled, (state, action) => {
       console.log(action.payload)
     })
   
@@ -66,10 +66,10 @@ const commentsSlice = createSlice({
 });
 
 export const selectComments = (state) => {
-  return state.comments;
+  return state.commentlikes;
 };
 
 
 
 
-export default commentsSlice.reducer;
+export default commentLikesSlice.reducer;

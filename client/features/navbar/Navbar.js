@@ -1,4 +1,4 @@
-import { AppBar, Stack } from "@mui/material";
+import { AppBar, Stack, Avatar } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -30,11 +30,14 @@ const Navbar = () => {
           </>
         ) : isLoggedIn ? (
           <div>
+            <AppBar position="static">
+              <Container maxWidth="xl">
+                <Stack  spacing={2} direction='row'>
             <Link to="/home">Home</Link>
             <Link to="/chat">Chat</Link>
             <Link to="/contactUs">Contact Us</Link>
             <Link to="/updateProfile">
-              <img
+              <Avatar
                 src={profilePic}
                 alt="profile pic"
                 style={{ width: "50px", height: "50px" }}
@@ -43,6 +46,9 @@ const Navbar = () => {
             <button type="button" onClick={logoutAndRedirectHome}>
               Logout
             </button>
+            </Stack>
+            </Container>
+            </AppBar>
           </div>
         ) : (
           <div>

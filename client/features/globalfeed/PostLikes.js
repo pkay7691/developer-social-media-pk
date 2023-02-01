@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField } from '@mui/material';
@@ -20,26 +20,25 @@ const PostLikes = ({feedItem}) => {
   const dispatch = useDispatch()
 
   const allPostLikes = useSelector(selectPostLikes);
-  const postLikes = allPostLikes && allPostLikes.length ? allPostLikes.filter(postLike => feedItem.id === postLike.postId ) : null
+  const allPostComments = useSelector(selectComments)
 
-
-useEffect(() => {
-
-  dispatch(asyncFetchPostLikes())
-
-
-},[allPostLikes.length])
-  
+  // filters to see if post like exists in database to determine Like or Unlike button status
+  const postLikes = allPostLikes && allPostLikes.length ? allPostLikes.filter(postLike => feedItem.id === postLike.postId) : null
 
 
 
   
+  useEffect(() => {
+    dispatch(asyncFetchPostLikes())
+  
+  },[allPostLikes.length])
+
 
 
   
   return (
     <div>
-
+      
       {postLikes && postLikes.length == 1 && postLikes[0].user ? 
       <div> Liked by {postLikes[0].user.first_name} {postLikes[0].user.last_name}</div> 
       : postLikes && postLikes.length == 2 && postLikes[0].user && postLikes[1].user ?
@@ -48,6 +47,7 @@ useEffect(() => {
       <div> Liked by {postLikes[0].user.first_name} and {postLikes.length  -1} others</div> 
 :
        null}
+     
     
    
     </div>
