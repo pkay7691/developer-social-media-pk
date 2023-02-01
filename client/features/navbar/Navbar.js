@@ -18,6 +18,8 @@ const Navbar = () => {
 
   return (
     <div>
+
+    
       <nav>
         {isBanned ? (
           <>
