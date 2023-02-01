@@ -3,7 +3,7 @@ import { fetchAllUsers, selectUsers } from "./allUsersSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
-import { Table, TableBody, TableCell, TableHead, TableRow, Button, Switch,  } from "@mui/material";
+import { Table, TableBody, TableCell, TableHead, TableRow, Button, Switch } from "@mui/material";
 
 
   
@@ -11,7 +11,6 @@ import { Table, TableBody, TableCell, TableHead, TableRow, Button, Switch,  } fr
 const AllUsers = () => {
     const dispatch = useDispatch();
     const users = useSelector(selectUsers);
-
     const [checked, setChecked] = useState(false)
 
     const handleChange = (evt) => {
@@ -42,7 +41,7 @@ const AllUsers = () => {
                     {users.map((user) => (
                         <TableRow key={user.id}>
                             <TableCell>
-                                <Link to={`/users/${user.id}`}>View</Link>
+                                <Link to={`/users/${user.id}`}><Button variant="contained">View</Button></Link>
                             </TableCell>
                             <TableCell>{user.username}</TableCell>
                             <TableCell>{user.first_name}</TableCell>
