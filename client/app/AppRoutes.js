@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
@@ -5,6 +6,9 @@ import GlobalFeed from '../features/globalfeed/GlobalFeed';
 import Home from '../features/home/Home';
 import LandingPage from '../features/landing_page/landing_page';
 import { me } from './store';
+
+
+
 import Login from '../features/auth/Login';
 import SignUp from '../features/auth/SignUp';
 
@@ -14,6 +18,7 @@ import SingleUser from '../features/single_user/singleUser';
 import Messages from '../features/messages/Messages';
 import Banned from '../features/banned/Banned';
 import ContactUs from '../features/contactUs/ContactUs';
+
 
 
 /**
@@ -60,12 +65,17 @@ const AppRoutes = () => {
             element={<SignUp name="signup" displayName="Sign Up" />}
           />
           <Route
+            path="/google"
+            element={<Google name="login" displayName="Google+" />}
+          />
+          <Route
             path="/globalfeed"
             element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
           />
           <Route path='/*' element={<LandingPage/>}/>
           <Route path='/users' element={<AllUsers/>}/>
           <Route path='/users/:userId' element={<SingleUser/>}/>
+
         </Routes>
         
 
