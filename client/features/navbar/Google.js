@@ -36,7 +36,7 @@ const Google = () => {
         <div>
         <h1> Google Login </h1>
         Click here to authenticate with Google
-        <div class="card-action">
+        <div className="card-action">
             <a href="/auth/google/callback">
                 Google+
             </a>

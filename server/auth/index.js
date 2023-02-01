@@ -37,21 +37,20 @@ router.get('/me', async (req, res, next) => {
 // passport will control this route
 router.get('/google',
   passport.authenticate('google', { scope:
-  	[ 'profile' ] }
+  	['email', 'profile' ] }
 ));
  
 router.get('/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/google/success',
+        successRedirect: '/api/home',
         //success will show the logout and home page
         failureRedirect: '/google/failure',
         // failure will show login or signup
         //routes will be determined later
-        successFlash: "Successfully logged in!"
 }));
 //going to add a function for isAuthenticated
 // Success 
-router.get('/google/success' , (req , res) => {
+router.get('/' , (req , res) => {
   if(!req.user)
       res.redirect('/google/failure');
   res.send("Welcome " + req.user.name);
@@ -59,12 +58,12 @@ router.get('/google/success' , (req , res) => {
 
 // failure
 router.get('/google/failure' , (req , res) => {
-  res.send("Error");
+  res.send("Error")
 })
 //make a logout button
 router.get('/logout', (req, res)=>{
   req.logout()
-  res.redirect('/google/success')
+  res.redirect('/login')
 })
 
 module.exports = router
