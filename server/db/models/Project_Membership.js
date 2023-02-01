@@ -2,15 +2,15 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Project_Membership = db.define('project_membership', {
-    project_admin:{
-        type: Sequelize.ENUM,
+    is_project_admin:{
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        values:['isAdmin', 'notAdmin']
+        defaultValue: false,
     },
-    membership_status:{
-        type: Sequelize.ENUM,
+    is_member:{
+        type: Sequelize.BOOLEAN,
         allowNull: false,
-        values:['isMember', 'notMember']
+        defaultValue: false, 
     },
     request_msg:{
         type: Sequelize.TEXT   

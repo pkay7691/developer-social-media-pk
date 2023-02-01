@@ -7,10 +7,6 @@ const Report = db.define('report', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    reportee: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
     message: {
         type: Sequelize.TEXT,
         allowNull: false

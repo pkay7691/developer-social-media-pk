@@ -6,6 +6,10 @@ const Project = db.define('project', {
         type: Sequelize.STRING,
         allowNull: false 
     },
+    modelType: {
+        type: Sequelize.STRING,
+        defaultValue: 'project'
+    },
     technologies: {
         type: Sequelize.STRING,
         allowNull: false
@@ -15,8 +19,17 @@ const Project = db.define('project', {
         allowNull: false
     },
     status: {
-        type: Sequelize.ENUM('Open', 'In Progress', 'Completed'),
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+            customValidator: (value) => {
+              const enums = ['Open', 'In Progress', 'Completed']
+              if (!enums.includes(value)) {
+                throw new Error('not a valid option')
+              }
+            }
+          }       
+        
     },
     details:{
         type: Sequelize.TEXT,

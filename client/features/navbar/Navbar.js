@@ -1,27 +1,51 @@
-import React, { Profiler } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../../app/store';
-import { GoogleLogin} from '@react-oauth/google';
+
+import React from 'react';
 import jwt_decode from 'jwt-decode'
+
+
+import { AppBar, Stack } from "@mui/material";
+import { Container } from "@mui/system";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../app/store";
 
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const isBanned = useSelector((state) => state.auth.me.is_banned);
+  const profilePic = useSelector((state) => state.auth.me.img_url);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate("/login");
   };
   return (
     <div>
-      <h1>FS-App-Template</h1>
+
+    
       <nav>
-        {isLoggedIn ? (
+        {isBanned ? (
+          <>
+            <div>
+              <Link to="/contactUs">Contact Us</Link>
+            </div>
+            <button type="button" onClick={logoutAndRedirectHome}>
+              Logout
+            </button>
+          </>
+        ) : isLoggedIn ? (
           <div>
-            {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
+            <Link to="/chat">Chat</Link>
+            <Link to="/contactUs">Contact Us</Link>
+            <Link to="/updateProfile">
+              <img
+                src={profilePic}
+                alt="profile pic"
+                style={{ width: "50px", height: "50px" }}
+              />
+            </Link>
             <button type="button" onClick={logoutAndRedirectHome}>
               Logout
             </button>
@@ -31,16 +55,17 @@ const Navbar = () => {
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-            <Link to='/google'>Google+</Link>
-            {/* <GoogleLogin
-              clientId= '635857443662-m660ubej5a3g0046gi44j2j8afhkpau6.apps.googleusercontent.com'
-              // adding google login function 
-              onSuccess={getOrCreateUser}
-              onError={() => {
-                console.log('Login Failed')
-              }}
-              cookiePolicy={'single_host_origin'}
-            /> */}
+
+            <AppBar position="static">
+              <Container maxWidth="xl">
+                <Stack spacing={2} direction='row'>
+                <Link to="/login">Login</Link>
+                <Link to="/signup">Sign Up</Link>
+                <Link to='/users'>Users</Link>
+                </Stack>
+              </Container>
+            </AppBar>
+
           </div>
         )}
       </nav>
