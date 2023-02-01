@@ -1,7 +1,12 @@
+
 import { AppBar, Stack, Avatar, Button, Tooltip, IconButton, Menu, MenuItem, Divider, ListItemIcon, Grid, Box } from "@mui/material";
 import { Settings, Logout } from '@mui/icons-material'
+
+
+import React from 'react';
+import jwt_decode from 'jwt-decode'
+
 import { Container } from "@mui/system";
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { logout } from "../../app/store";
@@ -33,8 +38,12 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
+
+
   return (
     <div>
+
+    
       <nav>
         {isBanned ? (
           <>
@@ -138,6 +147,9 @@ const Navbar = () => {
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+
             <AppBar position="static">
               <Container maxWidth="xl">
                 <Grid item xs={12} container>
@@ -150,6 +162,7 @@ const Navbar = () => {
                 </Grid>
               </Container>
             </AppBar>
+
           </div>
         )}
       </nav>
