@@ -55,11 +55,10 @@ const commentLikeButton = (comment) => {
   if (commentLikes && commentLikes.length) {
      const userCommentLike = commentLikes.filter((like) => like.userId === user.id);
      if (!!userCommentLike) {
-      console.log("delet like")
       return  <ThumbUpAltIcon onClick={(e) => handleDeleteCommentLike(userCommentLike[0].id)} /> 
      }
   }
-  console.log("create like")
+
   return <ThumbUpOffAltOutlinedIcon onClick={(e) => handleCreateCommentLike(comment.id)} />
 
 

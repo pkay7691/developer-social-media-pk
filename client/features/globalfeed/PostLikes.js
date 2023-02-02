@@ -26,12 +26,13 @@ const PostLikes = ({feedItem}) => {
   const postLikes = allPostLikes && allPostLikes.length ? allPostLikes.filter(postLike => feedItem.id === postLike.postId) : null
 
 
-
-  
   useEffect(() => {
     dispatch(asyncFetchPostLikes())
   
   },[allPostLikes.length])
+
+  
+
 
 
 

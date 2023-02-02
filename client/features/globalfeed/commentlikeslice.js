@@ -65,7 +65,7 @@ const commentLikesSlice = createSlice({
   },
 });
 
-export const selectComments = (state) => {
+export const selectCommentLikes = (state) => {
   return state.commentlikes;
 };
 

@@ -6,7 +6,7 @@ import { asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
 import { Box, Container, Stack, Avatar } from '@mui/material';
 import FeedPost from './FeedPost';
 import FeedProject from './FeedProject';
-import { asyncFetchCommentLikes } from './commentlikeslice';
+import { asyncFetchCommentLikes, selectCommentLikes } from './commentlikeslice';
 
 
 /**
@@ -17,17 +17,12 @@ const GlobalFeed = (props) => {
   const dispatch = useDispatch()
   const allPostLikes = useSelector(selectPostLikes)
   const globalFeed  = useSelector(selectGlobalFeed)
-  const comments = useSelector(selectComments)
-
-  useEffect(() => {
-    dispatch(fetchGlobalFeed())
-    dispatch(asyncFetchComments())
-    dispatch(asyncFetchPostLikes())
-    dispatch(asyncFetchCommentLikes())
-  },[dispatch])
 
 
 
+ 
+
+ 
   
   return (
     <div>
