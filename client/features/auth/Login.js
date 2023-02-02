@@ -102,6 +102,11 @@ const Login = () => {
         >
           Sign Up
         </Button>
+        <a href="/auth/google/callback"><Button
+          theme={theme}
+          color='primary'
+          variant="contained"
+        >Google</Button></a>
       </ButtonGroup>
     </Stack>
   );
