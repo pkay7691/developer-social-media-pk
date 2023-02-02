@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import GlobalFeed from '../features/globalfeed/GlobalFeed';
-import Home from '../features/home/Home';
-import LandingPage from '../features/landing_page/landing_page';
-import { me } from './store';
-import Login from '../features/auth/Login';
-import SignUp from '../features/auth/SignUp';
-
-import AllUsers from '../features/all_users/allUsers';
-import SingleUser from '../features/single_user/singleUser';
-
-import Messages from '../features/messages/Messages';
-import Banned from '../features/banned/Banned';
-import ContactUs from '../features/contactUs/ContactUs';
-
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import GlobalFeed from "../features/globalfeed/GlobalFeed";
+import Home from "../features/home/Home";
+import LandingPage from "../features/landing_page/landing_page";
+import { me } from "./store";
+import Login from "../features/auth/Login";
+import SignUp from "../features/auth/SignUp";
+import AllReportInbox from "../features/all_report_inbox/reportInbox";
+import AllUsers from "../features/all_users/allUsers";
+import SingleUser from "../features/single_user/singleUser";
+import ReportUser from "../features/reportUser/reportUser";
+import Messages from "../features/messages/Messages";
+import Banned from "../features/banned/Banned";
+import ContactUs from "../features/contactUs/ContactUs";
+import SingleReport from "../features/single_report_inbox/singleReportInbox";
 
 /**
  * COMPONENT
@@ -32,22 +32,25 @@ const AppRoutes = () => {
   return (
     <div>
       {isBanned ? (
-      <Routes>
-        <Route path='/*' element={<Banned/>}/>
-        <Route path='/contactUs' element={<ContactUs/>}/>
-      </Routes>
-    ) : isLoggedIn ? (
+        <Routes>
+          <Route path="/*" element={<Banned />} />
+          <Route path="/contactUs" element={<ContactUs />} />
+        </Routes>
+      ) : isLoggedIn ? (
         <Routes>
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
           <Route path="/chat" element={<Messages />} />
 
-          <Route path="/contactUs" element={<ContactUs/>}/>
+          <Route path="/contactUs" element={<ContactUs />} />
 
           <Route
             path="/globalfeed"
             element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
           />
+          <Route path="/users/:userId/reportUser" element={<ReportUser />} />
+          <Route path="/users" element={<AllUsers />} />
+          <Route path="/users/:userId" element={<SingleUser />} />
         </Routes>
       ) : (
         <Routes>
@@ -63,12 +66,13 @@ const AppRoutes = () => {
             path="/globalfeed"
             element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
           />
-          <Route path='/*' element={<LandingPage/>}/>
-          <Route path='/users' element={<AllUsers/>}/>
-          <Route path='/users/:userId' element={<SingleUser/>}/>
+          <Route path="/users/:userId/reportUser" element={<ReportUser />} />
+          <Route path="/*" element={<LandingPage />} />
+          <Route path="/users" element={<AllUsers />} />
+          <Route path="/users/:userId" element={<SingleUser />} />
+          <Route path="/report" element={<AllReportInbox />} />
+          <Route path="/report/:reportId" element={<SingleReport />} />
         </Routes>
-        
-
       )}
     </div>
   );
