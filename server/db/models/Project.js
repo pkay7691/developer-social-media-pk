@@ -6,6 +6,10 @@ const Project = db.define('project', {
         type: Sequelize.STRING,
         allowNull: false 
     },
+    modelType: {
+        type: Sequelize.STRING,
+        defaultValue: 'project'
+    },
     technologies: {
         type: Sequelize.STRING,
         allowNull: false

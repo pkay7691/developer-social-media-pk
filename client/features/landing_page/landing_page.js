@@ -15,14 +15,13 @@ const LandingPage = () => {
                 <Collapse in={checked} {...(checked ? { timeout: 1000 } : {})} collapsedHeight={100} align='center'>
                     <Typography variant='h2' color='textPrimary'>Landing Page</Typography>
                 </Collapse>
-                {/* <div> */}
                 <Collapse in={checked} {...(checked ? { timeout: 1000 } : {})} collapsedHeight={100} align='center'>
-                    <Stack sx={{ pt: '56.25' }} direction='row' spacing={10} justifyContent='center' marginTop={10}>
+                    <Stack sx={{ pt: '1' }} width={{ base: '90%', md: '600px' }} direction='row' spacing={10} justifyContent='center' marginTop={10}>
                         <Card sx={{ maxWidth: 600 }}>
                             <CardActionArea>
                                 <CardMedia
                                     component="img"
-                                    height="100"
+                                    height="100vh"
                                     image=""
                                     alt=""
                                 />
@@ -40,7 +39,7 @@ const LandingPage = () => {
                             <CardActionArea>
                                 <CardMedia
                                     component="img"
-                                    height="100"
+                                    height="100vh"
                                     image=""
                                     alt=""
                                 />

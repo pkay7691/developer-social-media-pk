@@ -15,21 +15,23 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Users
- 
-    const nic = await User.create({ 
+
+    const nic = await User.create({
       username: 'TheRealNicCage',
       password: 'password',
       is_admin: true,
       location: 'Chicago IL',
       skill_level: 'Master',
-      img_url: 'https://static01.nyt.com/images/2019/08/11/magazine/11mag-talk/11mag-talk-jumbo.jpg',
+      img_url: 'https://variety.com/wp-content/uploads/2022/04/Nicolas-Cage.jpg',
       email: 'admin@gmail.com',
       first_name: 'Nicholas',
       last_name: 'Cage',
       about_me: 'Oscar Winner/Software Developer',
+      ban_status: 'good_standing',
+      is_banned: false,
      })
 
-     const johnny = await User.create({ 
+     const johnny = await User.create({
       username: 'regularguy66',
       password: 'password',
       is_admin: false,
@@ -39,6 +41,22 @@ async function seed() {
       first_name: 'Johnny',
       last_name: 'Tsunami',
       about_me: 'Just a guy',
+      ban_status: 'good_standing',
+      is_banned: false,
+     })
+
+     const aaron = await User.create({ 
+      username: 'jerkface420',
+      password: 'password',
+      is_admin: false,
+      location: 'Los Angeles, CA',
+      skill_level: 'Master',
+      email: 'jerk@gmail.com',
+      first_name: 'Aaron',
+      last_name: 'Kramer',
+      about_me: 'I am a jerk',
+      ban_status: 'banned',
+      is_banned: true,
      })
   // User adding another user as a friend
      await nic.addFriend(johnny)
@@ -51,7 +69,7 @@ async function seed() {
       reporter: 1,
       message: "He was being mean"
      })
-    
+
     //  Reporting User
     await johnny.addReport(report1)
 
@@ -82,7 +100,6 @@ async function seed() {
       url: 'www.github.com'
     })
 
-
     // user Posting a Project Post
     await projectPost.setProject(graceshopper);
     await nic.addPost(projectPost)
@@ -91,6 +108,14 @@ async function seed() {
       text_field: "Holy smokes this is a cool post!",
     })
 
+
+    //User being mean to another user in a post
+    const meanPost = await Post.create({
+      title: "I hate this guy",
+      description: "I think Nic Cage is dumb",
+    })
+
+    await aaron.addPost(meanPost)
     // User adding comment to post
     await projectPostComment.setUser(johnny)
     await projectPost.addComment(projectPostComment)
@@ -111,16 +136,16 @@ async function seed() {
 
 
 
-    
-
-    
 
 
 
 
+
+
+  console.log(`aaron is banned`)
   console.log(`seeded users`)
   console.log(`seeded successfully`)
-  
+
 }
 
 /*
