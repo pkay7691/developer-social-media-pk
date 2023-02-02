@@ -48,10 +48,6 @@ const AppRoutes = () => {
           <Route to="/home" element={<Home />} />
           <Route path="/chat" element={<Messages />} />
           <Route path="/contactUs" element={<ContactUs />} />
-          <Route
-            path="/globalfeed"
-            element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
-          />
           <Route path="/users/:userId/reportUser" element={<ReportUser />} />
           <Route path="/users" element={<AllUsers />} />
           <Route path='/users/:userId' element={<SingleUser/>}/>
@@ -65,10 +61,6 @@ const AppRoutes = () => {
           <Route
             path="/signup"
             element={<SignUp name="signup" displayName="Sign Up" />}
-          />
-          <Route
-            path="/globalfeed"
-            element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
           />
           <Route path="/users/:userId/reportUser" element={<ReportUser />} />
           <Route path="/*" element={<LandingPage />} />

@@ -45,6 +45,21 @@ async function seed() {
       is_banned: false,
      })
 
+     const pat = await User.create({ 
+      username: 'pkay7691',
+      password: 'password',
+      is_admin: false,
+      location: 'New York, NY',
+      skill_level: 'Beginner',
+      email: 'pat@gmail.com',
+      first_name: 'Pat',
+      last_name: 'Kenny',
+      about_me: 'its me',
+      ban_status: 'good_standing',
+      is_banned: false,
+     })
+
+
      const aaron = await User.create({ 
       username: 'jerkface420',
       password: 'password',

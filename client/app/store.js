@@ -10,6 +10,7 @@ import reportInboxSlice from '../features/all_report_inbox/reportInboxSlice';
 import globalFeedReducer from '../features/globalfeed/globalfeedslice';
 import commentsReducer from '../features/globalfeed/commentslice'
 import postLikesReducer from '../features/globalfeed/postlikesslice';
+import commentlikesReducer from '../features/globalfeed/commentlikeslice';
 
 const store = configureStore({
   reducer: { 
@@ -19,6 +20,7 @@ const store = configureStore({
     postlikes: postLikesReducer,
     users: allUsersSlice,
     user: singleUserSlice,
+    commentlikes: commentlikesReducer,
     reportUser: reportUserSlice,
     reportInbox: reportInboxSlice,
     singleReport: singleReportInboxSlice
