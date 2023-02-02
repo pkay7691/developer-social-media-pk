@@ -25,6 +25,21 @@ export const reportUserAsync = createAsyncThunk('reportUser', async ({report}, i
     }
 })
 
+//report a bug/feature request or survey
+export const requestBugFeatureSurveyAsync = createAsyncThunk('requestBugFeatureSurvey', async (request) => {
+    console.log('request in bug feature', request)
+    try {
+        const { username, type_of_request, description} = request;
+        const newRequest = {username, type_of_request, description};
+        const {data} = await axios.post(`/api/support`, newRequest);
+        console.log('data for bug feature', data)
+        return data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+})
+
 const userSlice = createSlice({
     name: 'user',
     initialState: {},
@@ -35,7 +50,10 @@ const userSlice = createSlice({
         }),
         builder.addCase(reportUserAsync.fulfilled, (state, action) => {
             return action.payload
-        })
+        }),
+        builder.addCase(requestBugFeatureSurveyAsync.fulfilled, (state, action) => {
+            return action.payload
+        });
     }
 })
 
