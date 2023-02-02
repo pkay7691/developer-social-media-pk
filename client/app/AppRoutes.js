@@ -16,7 +16,11 @@ import Banned from "../features/banned/Banned";
 import ContactUs from "../features/contactUs/ContactUs";
 import SingleReport from "../features/single_report_inbox/singleReportInbox";
 
+import EditUser from '../features/update_profile/EditUser';
 
+import RequestSupport from "../features/requestSupport/requestSupport";
+import AllSupport from "../features/all_support/AllSupport";
+import SingleSupport from "../features/single_support/singleSupport";
 
 
 
@@ -47,10 +51,17 @@ const AppRoutes = () => {
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
           <Route path="/chat" element={<Messages />} />
+
+          <Route path='/edituser' element={<EditUser/>}/>
+
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/users/:userId/reportUser" element={<ReportUser />} />
           <Route path="/users" element={<AllUsers />} />
+
           <Route path='/users/:userId' element={<SingleUser/>}/>
+          <Route path="/support" element={<RequestSupport />} />
+          <Route path="/supportTickets" element={<AllSupport />} />
+          <Route path="/support/:id" element={<SingleSupport />} />
         </Routes>
       ) : (
         <Routes>
@@ -62,13 +73,18 @@ const AppRoutes = () => {
             path="/signup"
             element={<SignUp name="signup" displayName="Sign Up" />}
           />
+
+          <Route path='/edituser' element={<EditUser/>}/>
           <Route path="/users/:userId/reportUser" element={<ReportUser />} />
           <Route path="/*" element={<LandingPage />} />
           <Route path="/users" element={<AllUsers />} />
           <Route path="/users/:userId" element={<SingleUser />} />
           <Route path="/report" element={<AllReportInbox />} />
           <Route path="/report/:reportId" element={<SingleReport />} />
+          <Route path="/users/:userId/requestSupport" element={<RequestSupport />} />
+          <Route path="/supportTickets" element={<AllSupport />} />
         </Routes>
+
       )}
     </div>
   );

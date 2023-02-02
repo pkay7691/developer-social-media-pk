@@ -5,11 +5,28 @@ export const fetchUserAsync = createAsyncThunk('user', async (id) => {
     try {
         const {data} = await axios.get(`/api/users/${id}`);
         return data;
-    } 
+    }
     catch (error) {
         console.log(error);
     }
-})
+});
+
+export const editUser = createAsyncThunk( 'editUser ', async (updateUser)=>{
+    try{
+        const id = updateUser.id
+        const {data} = await axios.put(`/api/users/${id}`,{
+            first_name: updateUser.first_name,
+            last_name: updateUser.last_name,
+            img_url:updateUser.img_url,
+            email: updateUser.email,
+            about_me: updateUser.about_me,
+            skill_level:updateUser.skill_level
+        })
+         return data
+    }catch(err){
+        console.log(err)
+    }
+  });
 
 //report a user
 export const reportUserAsync = createAsyncThunk('reportUser', async ({report}, id) => {
@@ -25,6 +42,21 @@ export const reportUserAsync = createAsyncThunk('reportUser', async ({report}, i
     }
 })
 
+//report a bug/feature request or survey
+export const requestBugFeatureSurveyAsync = createAsyncThunk('requestBugFeatureSurvey', async (request) => {
+    console.log('request in bug feature', request)
+    try {
+        const { username, type_of_request, description} = request;
+        const newRequest = {username, type_of_request, description};
+        const {data} = await axios.post(`/api/support`, newRequest);
+        console.log('data for bug feature', data)
+        return data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+})
+
 const userSlice = createSlice({
     name: 'user',
     initialState: {},
@@ -35,7 +67,10 @@ const userSlice = createSlice({
         }),
         builder.addCase(reportUserAsync.fulfilled, (state, action) => {
             return action.payload
-        })
+        }),
+        builder.addCase(requestBugFeatureSurveyAsync.fulfilled, (state, action) => {
+            return action.payload
+        });
     }
 })
 
