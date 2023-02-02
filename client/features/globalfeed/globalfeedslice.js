@@ -25,6 +25,27 @@ export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
   }
 });
 
+export const fetchUserFeedById = createAsyncThunk("fetchGlobalFeed", async (id) => {
+  try {
+    const globalFeed = []
+    const posts = await axios.get("/api/post");
+    const projects = await axios.get('/api/project');
+    const comments = await axios.get('/api/comment')
+    const project_memberships = await axios.get('/api/projectmembership')
+    userPosts = posts.data.filter((post) => userId === id)
+    posts.data.forEach(post => globalFeed.push(post))
+    projects.data.forEach(project => globalFeed.push(project))
+    globalFeed.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt))
+    return globalFeed
+
+
+
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 
 

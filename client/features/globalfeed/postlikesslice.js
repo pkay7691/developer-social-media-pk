@@ -9,7 +9,6 @@ export const asyncFetchPostLikes = createAsyncThunk("fetchPostLikes", async () =
   try {
 
     const { data } = await axios.get('/api/postlike');
-    console.log(data)
     return data
 
 
@@ -18,6 +17,21 @@ export const asyncFetchPostLikes = createAsyncThunk("fetchPostLikes", async () =
   }
 });
 
+export const asyncCreateLike = createAsyncThunk('createLike', async (like) => {
+  const {data } = await axios.post('/api/postlike', like);
+  return data
+
+})
+
+
+export const asyncDeleteLike = createAsyncThunk('deleteLike', async (id) => {
+
+  console.log(id, 'id in api call')
+  const {data} = await axios.delete(`/api/postlike/${id}`)
+  return data
+
+
+})
 
 
 
@@ -27,6 +41,12 @@ const postLikesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(asyncFetchPostLikes.fulfilled, (state, action) => {
+      return action.payload
+    });
+    builder.addCase(asyncCreateLike.fulfilled, (state, action) => {
+      state.push(action.payload)
+    });
+    builder.addCase(asyncDeleteLike.fulfilled, (state, action) => {
       return action.payload
     });
   },
