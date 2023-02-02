@@ -42,11 +42,10 @@ router.get('/google',
  
 router.get('/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/api/home',
+        successRedirect: '/globalfeed',
         //success will show the logout and home page
         failureRedirect: '/google/failure',
         // failure will show login or signup
-        //routes will be determined later
 }));
 //going to add a function for isAuthenticated
 // Success 
@@ -60,7 +59,7 @@ router.get('/' , (req , res) => {
 router.get('/google/failure' , (req , res) => {
   res.send("Error")
 })
-//make a logout button
+//make a logout route
 router.get('/logout', (req, res)=>{
   req.logout()
   res.redirect('/login')
