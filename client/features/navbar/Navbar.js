@@ -1,16 +1,13 @@
-
-import { AppBar, Stack, Avatar, Button, Tooltip, IconButton, Menu, MenuItem, Divider, ListItemIcon, Grid, Box } from "@mui/material";
+import { AppBar, Stack, Avatar, Button, Tooltip, IconButton, Menu, MenuItem, Divider, ListItemIcon, Grid, Box, TableBody, TableRow, TableCell } from "@mui/material";
 import { Settings, Logout } from '@mui/icons-material'
 
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import jwt_decode from 'jwt-decode'
 
 import { Container } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { logout } from "../../app/store";
-
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -19,10 +16,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-  const profile = () => {
-    dispatch()
-  }
+  const user = useSelector((state) => state.auth.me.id);
 
   const logoutAndRedirectHome = () => {
     dispatch(logout());
@@ -31,6 +25,7 @@ const Navbar = () => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl)
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -39,11 +34,8 @@ const Navbar = () => {
   };
 
 
-
   return (
     <div>
-
-    
       <nav>
         {isBanned ? (
           <>
@@ -59,13 +51,13 @@ const Navbar = () => {
             <AppBar position="static">
               <Container maxWidth="xl">
                 <Grid item xs={12} container>
-                  <Grid item xs={.5}/>
+                  <Grid item xs={.5} />
                   <Link to="/home">Home</Link>
-                  <Grid item xs={.5}/>
+                  <Grid item xs={.5} />
                   <Link to="/chat">Chat</Link>
-                  <Grid item xs={.5}/>
+                  <Grid item xs={.5} />
                   <Link to="/contactUs">Contact Us</Link>
-                  <Grid item xs={8.5}/>
+                  <Grid item xs={8.5} />
                   <Tooltip title='Account Settings'>
                     <IconButton
                       onClick={handleClick}
@@ -117,11 +109,13 @@ const Navbar = () => {
                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                   >
-                
-                        <MenuItem>
-                          <Avatar /> Profile
-                        </MenuItem>
-                    
+
+                    <Link to={`/users/${user}`}>
+                      <MenuItem>
+                        <Avatar /> Profile
+                      </MenuItem>
+                    </Link>
+
                     <MenuItem onClick={handleClose}>
                       <Avatar /> My account
                     </MenuItem>
@@ -147,22 +141,18 @@ const Navbar = () => {
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-
             <AppBar position="static">
               <Container maxWidth="xl">
                 <Grid item xs={12} container>
-                <Grid item xs={.5}/>
+                  <Grid item xs={.5} />
                   <Link to="/login">Login</Link>
-                  <Grid item xs={.5}/>
+                  <Grid item xs={.5} />
                   <Link to="/signup">Sign Up</Link>
-                  <Grid item xs={.5}/>
+                  <Grid item xs={.5} />
                   <Link to='/users'>Users</Link>
                 </Grid>
               </Container>
             </AppBar>
-
           </div>
         )}
       </nav>
