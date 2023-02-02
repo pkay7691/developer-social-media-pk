@@ -6,6 +6,7 @@ import { asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
 import { Box, Container, Stack, Avatar } from '@mui/material';
 import FeedPost from './FeedPost';
 import FeedProject from './FeedProject';
+import { asyncFetchCommentLikes } from './commentlikeslice';
 
 
 /**
@@ -22,6 +23,7 @@ const GlobalFeed = (props) => {
     dispatch(fetchGlobalFeed())
     dispatch(asyncFetchComments())
     dispatch(asyncFetchPostLikes())
+    dispatch(asyncFetchCommentLikes())
   },[dispatch])
 
 

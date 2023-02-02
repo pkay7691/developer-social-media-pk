@@ -32,9 +32,9 @@ export const asyncCreateCommentLike = createAsyncThunk("createCommentLike", asyn
   }
 });
 
-export const asyncDeleteCommentLike = createAsyncThunk("deleteComment", async (id) => {
+export const asyncDeleteCommentLike = createAsyncThunk("deleteCommentlike", async (id) => {
   try {
-    const {data} = await axios.delete(`/api/comment/${id}`)
+    const {data} = await axios.delete(`/api/commentlike/${id}`)
     return data
 
   }
@@ -47,7 +47,7 @@ export const asyncDeleteCommentLike = createAsyncThunk("deleteComment", async (i
 
 
 const commentLikesSlice = createSlice({
-  name: "comments",
+  name: "commentlikes",
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {

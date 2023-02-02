@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField, Badge } from '@mui/material';
 import { asyncDeleteComment, asyncFetchComments, selectComments } from './commentslice';
-import { asyncCreateCommentLike } from './commentlikeslice'
+import { asyncCreateCommentLike, asyncDeleteCommentLike } from './commentlikeslice'
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 
 /**
@@ -42,8 +43,34 @@ const Comments = ({ feedItem }) => {
     setCommentRender(!commentRender)
   }
 
+  const handleDeleteCommentLike = (id) => {
+    dispatch(asyncDeleteCommentLike(id))
+    setCommentRender(!commentRender)
+
+  }
+  
+  
+const commentLikeButton = (comment) => {
+  let commentLikes = comment.comment_likes
+  if (commentLikes && commentLikes.length) {
+     const userCommentLike = commentLikes.filter((like) => like.userId === user.id);
+     if (!!userCommentLike) {
+      console.log("delet like")
+      return  <ThumbUpAltIcon onClick={(e) => handleDeleteCommentLike(userCommentLike[0].id)} /> 
+     }
+  }
+  console.log("create like")
+  return <ThumbUpOffAltOutlinedIcon onClick={(e) => handleCreateCommentLike(comment.id)} />
+
+
+  
+}
+
+
   useEffect(() => {
+    console.log("fetching Comments")
     dispatch(asyncFetchComments())
+    
   }, [commentRender])
 
 
@@ -66,7 +93,7 @@ const Comments = ({ feedItem }) => {
             <div>{comment.text_field}</div>
            
             <Badge badgeContent={comment.comment_likes && comment.comment_likes.length ? comment.comment_likes.length : null }>
-            <ThumbUpOffAltOutlinedIcon onClick={(e) => handleCreateCommentLike(comment.id)} />
+            {commentLikeButton(comment)}
             </Badge>
             <DeleteOutlineOutlinedIcon onClick={(e) => handleDeleteComment(comment.id)} />
           </Box>
