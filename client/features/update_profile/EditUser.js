@@ -6,7 +6,7 @@ import {
   selectUser,
 } from "../single_user/singleUserSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button ,Grid} from "@mui/material";
 
 
 function EditUser() {
@@ -20,6 +20,7 @@ function EditUser() {
   const [img_url, setImgUrl] = useState("");
   const [about_me, setAboutMe] = useState("");
   const [skill_level, setSkillLevel] = useState("");
+  const [file,setFile]= useState();
 
   useEffect(() => {
     dispatch(fetchUserAsync(userId));
@@ -27,21 +28,32 @@ function EditUser() {
 
   const handleSubmit = (evt)=>{
     evt.preventDefault();
-    dispatch(editUser({ id: userId, first_name, last_name, email, about_me,skill_level, img_url}));
+    dispatch(editUser({ id: userId, first_name, last_name, email, about_me,skill_level}));
     Navigate('/')
   }
 
+  const handleChange=(evt)=>{
+    evt.preventDefault()
+    console.log(e.target.files);
+    const files = evt.targe.files
+    const formData = new FormData();
+    formData.append('myFile',files[0]);
+    }
+
+
   return (
     <form id="edit-user">
-      <div className="container" onSubmit={handleSubmit}>
-
         <label htmlFor="img-url"></label>
         <input
-        type="text"
-        name="imageUrl"
+        id="myFile"
+        type="file"
+         name="imageUrl"
         value={img_url}
-        onChange={(e)=>setImgUrl(e.target.value)}
-        />
+        onChange={handleChange}
+         />
+
+      <div className="container" onSubmit={handleSubmit}>
+
         <label htmlFor="first-name"></label>
         <input
           type="text"
@@ -73,6 +85,7 @@ function EditUser() {
         name="skill-level"
         value={skill_level}
         onChange={(e)=>setSkillLevel(e.target.value)} />
+
         <label htmlFor="about-me"></label>
         <input
         type="text"
@@ -89,4 +102,4 @@ function EditUser() {
 export default EditUser;
 
 
-// notifications
+
