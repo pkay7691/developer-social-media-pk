@@ -42,7 +42,7 @@ router.get('/google',
  
 router.get('/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/api/home',
+        successRedirect: '/globalfeed',
         //success will show the logout and home page
         failureRedirect: '/google/failure',
         // failure will show login or signup
