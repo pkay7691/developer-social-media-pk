@@ -26,7 +26,7 @@ router.get("/:id", async (req, res, next) => {
 //router for new postlike
 router.post("/", async (req, res, next) => {
   try {
-    const newPostLike = await Post_Like.create(req.body);
+    const newPostLike = await Post_like.create(req.body);
     res.send(newPostLike);
   } catch (error) {
     next(error);
@@ -36,7 +36,7 @@ router.post("/", async (req, res, next) => {
 //router to update a postlike
 router.put("/:id", async (req, res, next) => {
   try {
-    const updatePostLike = await Post_Like.findByPk(req.params.id);
+    const updatePostLike = await Post_like.findByPk(req.params.id);
     res.send(await updatePostLike.update(req.body));
   } catch (error) {
     next(error);

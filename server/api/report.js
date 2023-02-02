@@ -25,6 +25,28 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+// shows a single report
+router.get('/:id', async (req, res, next) => {
+    try {
+        const report = await Report.findByPk(req.params.id);
+        console.log('report', report)
+        res.json(report);
+    } catch (err) {
+        next(err)
+    }
+}
+);
 
+// updates a report
+router.put('/:id', async (req, res, next) => {
+    try {
+        const report = await Report.findByPk(req.params.id);
+        await report.update(req.body);
+        res.json(report);
+    } catch (err) {
+        next(err)
+    }
+}
+);
 
 

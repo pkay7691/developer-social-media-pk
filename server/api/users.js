@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { models: { User, Friendship, Project, Post, Comments, Comment_Like } } = require('../db')
+const { models: { User, Report, Friendship, Project, Post, Comments, Comment_Like } } = require('../db')
 
 module.exports = router
 
@@ -58,6 +58,16 @@ router.put('/:id', async (req, res, next) => {
   try {
     const updateUser = await User.findByPk(req.params.id)
     res.send(await updateUser.update(req.body))
+  } catch (err) {
+    next(err)
+  }
+})
+
+//router to report specific user
+router.post('/:id/reportUser', async (req, res, next) => {
+  try {
+    const report = await Report.create(req.body)
+    res.send(report)
   } catch (err) {
     next(err)
   }

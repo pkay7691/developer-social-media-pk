@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
-import { asyncFetchComments } from './commentslice';
-import { asyncFetchPostLikes } from './postlikesslice';
+import { asyncFetchComments, selectComments } from './commentslice';
+import { asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
 import { Box, Container, Stack, Avatar } from '@mui/material';
 import FeedPost from './FeedPost';
 import FeedProject from './FeedProject';
+import { asyncFetchCommentLikes, selectCommentLikes } from './commentlikeslice';
 
 
 /**
@@ -14,22 +15,19 @@ import FeedProject from './FeedProject';
 const GlobalFeed = (props) => {
   const username = useSelector((state) => state.auth.me.username);
   const dispatch = useDispatch()
-
+  const allPostLikes = useSelector(selectPostLikes)
   const globalFeed  = useSelector(selectGlobalFeed)
 
-  useEffect(() => {
-    dispatch(fetchGlobalFeed())
-    dispatch(asyncFetchComments())
-    dispatch(asyncFetchPostLikes())
-  },[dispatch])
-  
 
 
+ 
+
+ 
   
   return (
     <div>
       <Container maxWidth="sm">
-        <Stack spacing={1}>
+        <Stack spacing={3}>
       {globalFeed && globalFeed.length ? (
         globalFeed.map((feedItem) => (
           feedItem.modelType === 'post' ? 
