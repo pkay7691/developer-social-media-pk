@@ -6,7 +6,7 @@ import GlobalFeed from '../features/globalfeed/GlobalFeed';
 import Home from '../features/home/Home';
 import LandingPage from '../features/landing_page/landing_page';
 import { me } from './store';
-
+import EditUser from '../features/update_profile/EditUser';
 
 
 import Login from '../features/auth/Login';
@@ -48,6 +48,7 @@ const AppRoutes = () => {
           <Route to="/home" element={<Home />} />
           <Route path="/chat" element={<Messages />} />
           <Route path="/contactUs" element={<ContactUs/>}/>
+          <Route path='/edituser' element={<EditUser/>}/>
           <Route
             path="/globalfeed"
             element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
@@ -71,8 +72,9 @@ const AppRoutes = () => {
           <Route path='/*' element={<LandingPage/>}/>
           <Route path='/users' element={<AllUsers/>}/>
           <Route path='/users/:userId' element={<SingleUser/>}/>
+          <Route path='/edituser' element={<EditUser/>}/>
         </Routes>
-        
+
 
       )}
     </div>
