@@ -6,7 +6,7 @@ import {
   selectUser,
 } from "../single_user/singleUserSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button ,Grid} from "@mui/material";
 
 
 function EditUser() {
@@ -38,6 +38,7 @@ function EditUser() {
         <label htmlFor="img-url"></label>
         <input
         type="text"
+        placeholder="Your image goes here"
         name="imageUrl"
         value={img_url}
         onChange={(e)=>setImgUrl(e.target.value)}
@@ -73,6 +74,7 @@ function EditUser() {
         name="skill-level"
         value={skill_level}
         onChange={(e)=>setSkillLevel(e.target.value)} />
+
         <label htmlFor="about-me"></label>
         <input
         type="text"
@@ -89,4 +91,4 @@ function EditUser() {
 export default EditUser;
 
 
-// notifications
+
