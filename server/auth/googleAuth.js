@@ -2,12 +2,9 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const { models: { User } } = require('../db')
 const app = require('../app')
+require('dotenv').config()
 const session = require('express-session');
 const { CommandCompleteMessage } = require('pg-protocol/dist/messages');
-// const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
-//need .env file 
-
-
 
 app.use(session({
     secret: 'somthingSerious',
@@ -30,44 +27,36 @@ passport.deserializeUser((user, done) => {
 // reads the authenticated user object
 
 passport.use(new GoogleStrategy({
-    clientID: '635857443662-m660ubej5a3g0046gi44j2j8afhkpau6.apps.googleusercontent.com',
-    clientSecret:'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',
-    callbackURL: 'http://localhost:8080/auth/google/callback',
-    // passReqToCallback : true,
+    clientID: process.env.REACT_APP_DEVUPSOCIAL_GOOGLE_API_TOKEN,
+    clientSecret: process.env.REACT_APP_SECRET_KEY,
+    callbackURL: process.env.REACT_APP_CALLBACK,
     scope: ['email', 'profile']
     },
     async (accessToken, refreshToken, profile, done) =>{
-        // console.log("Before findOne fuction")
-        // // 
-        // console.log("givenName here", profile.displayName)
-        console.log("Email here", JSON.stringify(profile._json.email))
-        // console.log(JSON.stringify(profile[0].email))
-
-        console.log('FUNCTION RUNNING------------')
-        console.log('<<<<<<<<<<<<',profile)
+        //variable due to deep seated
+        const mail = profile.emails[0].value
                 try {
+                    //check for unique email, if email exist, return user, if not create and return user
                     let userExist = await User.findOne({
                         where:{
-                            username: profile.displayName
+                            email: mail,
                         }
                     })
-                    console.log('BEFORE BOOLEAN+++++++')
                     if(userExist){
-                        console.log('************userExist')
                         return done(null,userExist);
                     }
-                    // const mail = profile.emails[0].value
-                    // console.log("this is the profile",profile)
                     console.log('Creating new user......')
-                    const newUser = await User.create({ username: profile.displayName, 
-                        password: profile.sub
-                        // email: mail
+                    //data from google cloud profile
+                    const newUser = await User.create({ 
+                        username: profile.displayName, 
+                        password: profile.sub,
+                        email: mail,
+                        first_name: profile.given_name,
+                        last_name: profile.family_name
                      })
                     return done(null,newUser)
                 } catch (error) {
-                    console.log('+++++++++=',error)
                     return done(error, false)
                 }
-                //using express findoOrCreate to create user if not found in database
             }
         ))

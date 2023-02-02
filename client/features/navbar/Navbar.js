@@ -149,7 +149,11 @@ const Navbar = () => {
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-
+            <div className="card-action">
+              <a href="/auth/google/callback">
+                  Google+
+              </a>
+            </div>
             <AppBar position="static">
               <Container maxWidth="xl">
                 <Grid item xs={12} container>
