@@ -1,7 +1,5 @@
-
 import { AppBar, Stack, Avatar, Button, Tooltip, IconButton, Menu, MenuItem, Divider, ListItemIcon, Grid, Box } from "@mui/material";
 import { Settings, Logout } from '@mui/icons-material'
-
 
 import React from 'react';
 import jwt_decode from 'jwt-decode'
@@ -147,8 +145,6 @@ const Navbar = () => {
         ) : (
           <div>
             {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
 
             <AppBar position="static">
               <Container maxWidth="xl">
