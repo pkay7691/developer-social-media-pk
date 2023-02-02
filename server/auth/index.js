@@ -1,8 +1,10 @@
 const router = require('express').Router();
+const passport = require('passport');
+require('../auth/googleAuth')
 const {
   models: { User },
 } = require('../db');
-module.exports = router;
+// module.exports = router;
 
 router.post('/login', async (req, res, next) => {
   try {
@@ -32,3 +34,35 @@ router.get('/me', async (req, res, next) => {
     next(ex);
   }
 });
+// passport will control this route
+router.get('/google',
+  passport.authenticate('google', { scope:
+  	['email', 'profile' ] }
+));
+ 
+router.get('/google/callback',
+    passport.authenticate( 'google', {
+        successRedirect: '/globalfeed',
+        //success will show the logout and home page
+        failureRedirect: '/google/failure',
+        // failure will show login or signup
+}));
+//going to add a function for isAuthenticated
+// Success 
+router.get('/' , (req , res) => {
+  if(!req.user)
+      res.redirect('/google/failure');
+  res.send("Welcome " + req.user.name);
+});
+
+// failure
+router.get('/google/failure' , (req , res) => {
+  res.send("Error")
+})
+//make a logout route
+router.get('/logout', (req, res)=>{
+  req.logout()
+  res.redirect('/login')
+})
+
+module.exports = router
