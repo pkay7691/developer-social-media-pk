@@ -65,10 +65,6 @@ const AppRoutes = () => {
             element={<SignUp name="signup" displayName="Sign Up" />}
           />
           <Route
-            path="/google"
-            element={<Google name="login" displayName="Google+" />}
-          />
-          <Route
             path="/globalfeed"
             element={<GlobalFeed name="globalfeed" displayName="GlobalFeed" />}
           />
