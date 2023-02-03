@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
 import { Box, Grid, Typography, Table, AppBar, Toolbar, Button, Avatar } from "@mui/material";
@@ -27,6 +28,7 @@ const SingleUser = () => {
     const { userId } = useParams();
     const user = useSelector(selectUser)
     const friends = user.friends;
+    const projects = user.projects
 
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
@@ -61,7 +63,8 @@ const SingleUser = () => {
                         <Grid item xs={2}><Avatar
                             alt={user.username}
                             src="/static/images/avatar/1.jpg"
-                            sx={{ width: 140, height: 140 }}/>
+                            sx={{ width: 140, height: 140 }}
+                            variant= "dot"/>
                             </Grid>
                         <Grid item xs={3.5} />
                         {/* show the user's ban status only for admin view*/}
@@ -96,6 +99,19 @@ const SingleUser = () => {
                                     null}
                             </Typography>
                         </Grid>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} container direction='column'>
+                        <Grid item xs={8}/>
+                        <Typography>Projects</Typography>
+                        <Typography color='red'>
+                            {projects && projects.length ? projects.map((project) => 
+                           <Link to={`/project/${project.id}`}><div>{project.project_name}</div></Link> 
+                            )
+                        :
+                        null}
+                        </Typography>
                     </Grid>
                 </Grid>
             </Box>
