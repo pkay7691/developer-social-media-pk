@@ -11,6 +11,7 @@ const Post = require('./models/Post')
 const Comment_Like = require('./models/Comment_Like');
 const Message = require('./models/Message');
 const Chat = require('./models/Chat');
+const Support = require('./models/Support.js');
 
 
 User.belongsToMany(User, {
@@ -31,9 +32,11 @@ User.hasMany(Comments)
 User.hasMany(Comment_Like)
 User.hasMany(Post_like)
 User.belongsToMany(Message, {through: Chat})
+User.hasMany(Support)
 
 
 Report.belongsTo(User) 
+Support.belongsTo(User)
 
 Post.hasMany(Comments);
 Post.hasMany(Post_like)
@@ -88,7 +91,7 @@ module.exports = {
     Post_like,
     Comment_Like,
     Project_Membership,
-
+    Support,
     
     Message,
     Chat,    

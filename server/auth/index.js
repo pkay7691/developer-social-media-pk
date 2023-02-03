@@ -39,7 +39,7 @@ router.get('/google',
   passport.authenticate('google', { scope:
   	['email', 'profile' ] }
 ));
- 
+
 router.get('/google/callback',
     passport.authenticate( 'google', {
         successRedirect: '/globalfeed',
@@ -48,7 +48,7 @@ router.get('/google/callback',
         // failure will show login or signup
 }));
 //going to add a function for isAuthenticated
-// Success 
+// Success
 router.get('/' , (req , res) => {
   if(!req.user)
       res.redirect('/google/failure');

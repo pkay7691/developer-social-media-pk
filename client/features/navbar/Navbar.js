@@ -1,5 +1,5 @@
 import { AppBar, Stack, Avatar, Button, Tooltip, IconButton, Menu, MenuItem, Divider, ListItemIcon, Grid, Box, TableBody, TableRow, TableCell } from "@mui/material";
-import { Settings, Logout } from '@mui/icons-material'
+import { Flag, Settings, Logout } from '@mui/icons-material'
 
 import React, { useEffect } from 'react';
 import jwt_decode from 'jwt-decode'
@@ -126,6 +126,14 @@ const Navbar = () => {
                       </ListItemIcon>
                       Settings
                     </MenuItem>
+                    <Link to='/support'>
+                      <MenuItem>
+                        <ListItemIcon>
+                          <Flag fontSize="small" />
+                        </ListItemIcon>
+                        Support
+                      </MenuItem>
+                    </Link>
                     <MenuItem onClick={logoutAndRedirectHome}>
                       <ListItemIcon>
                         <Logout fontSize="small" />
