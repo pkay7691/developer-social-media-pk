@@ -1,13 +1,13 @@
 import { AppBar, Stack, Avatar, Button, Tooltip, IconButton, Menu, MenuItem, Divider, ListItemIcon, Grid, Box, TableBody, TableRow, TableCell } from "@mui/material";
 import { Flag, Settings, Logout } from '@mui/icons-material'
-
-import React, { useEffect } from 'react';
-import jwt_decode from 'jwt-decode'
-
+import { IoMdSearch } from 'react-icons/io';
+import React from 'react';
 import { Container } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { logout } from "../../app/store";
+import SearchBar from '../search/searchBar'
+
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -17,7 +17,8 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.me.id);
-
+  
+  
   const logoutAndRedirectHome = () => {
     dispatch(logout());
     navigate("/login");
@@ -33,7 +34,7 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-
+  
   return (
     <div>
       <nav>
@@ -58,6 +59,7 @@ const Navbar = () => {
                   <Grid item xs={.5} />
                   <Link to="/contactUs">Contact Us</Link>
                   <Grid item xs={8.5} />
+                  
                   <Tooltip title='Account Settings'>
                     <IconButton
                       onClick={handleClick}
@@ -158,6 +160,7 @@ const Navbar = () => {
                   <Link to="/signup">Sign Up</Link>
                   <Grid item xs={.5} />
                   <Link to='/users'>Users</Link>
+                  <SearchBar/>
                 </Grid>
               </Container>
             </AppBar>
