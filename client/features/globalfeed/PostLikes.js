@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
+import {Link} from 'react-router-dom'
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField } from '@mui/material';
 import { sizing } from '@mui/system';
 import { asyncFetchComments, selectComments } from './commentslice';
@@ -41,11 +42,11 @@ const PostLikes = ({feedItem}) => {
     <div>
       
       {postLikes && postLikes.length == 1 && postLikes[0].user ? 
-      <div> Liked by {postLikes[0].user.first_name} {postLikes[0].user.last_name}</div> 
+      <div> Liked by <Link to={`/users/${postLikes[0].user.id}`}>{postLikes[0].user.first_name} {postLikes[0].user.last_name}</Link></div> 
       : postLikes && postLikes.length == 2 && postLikes[0].user && postLikes[1].user ?
-      <div> Liked by {postLikes[0].user.first_name} {postLikes[0].user.last_name} and {postLikes[1].user.first_name} {postLikes[1].user.last_name}</div> 
+      <div> Liked by <Link to={`/users/${postLikes[0].user.id}`}>{postLikes[0].user.first_name} {postLikes[0].user.last_name}</Link> and <Link to={`/users/${postLikes[1].user.id}`}>{postLikes[1].user.first_name} {postLikes[1].user.last_name}</Link></div> 
       : postLikes && postLikes.length > 2 ?
-      <div> Liked by {postLikes[0].user.first_name} and {postLikes.length  -1} others</div> 
+      <div> Liked by <Link to={`/users/${postLikes[0].user.id}`}>{postLikes[0].user.first_name} {postLikes[0].user.last_name}</Link> and {postLikes.length  -1} others</div> 
 :
        null}
      

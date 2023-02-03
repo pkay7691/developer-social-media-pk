@@ -11,6 +11,8 @@ import globalFeedReducer from '../features/globalfeed/globalfeedslice';
 import commentsReducer from '../features/globalfeed/commentslice'
 import postLikesReducer from '../features/globalfeed/postlikesslice';
 import commentlikesReducer from '../features/globalfeed/commentlikeslice';
+import postsReducer from '../features/globalfeed/postslice';
+
 
 const store = configureStore({
   reducer: { 
@@ -23,7 +25,8 @@ const store = configureStore({
     commentlikes: commentlikesReducer,
     reportUser: reportUserSlice,
     reportInbox: reportInboxSlice,
-    singleReport: singleReportInboxSlice
+    singleReport: singleReportInboxSlice,
+    posts: postsReducer,
    },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

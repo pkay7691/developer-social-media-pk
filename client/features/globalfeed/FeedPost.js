@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {Link} from 'react-router-dom'
 import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField, FormControl } from '@mui/material';
 import { sizing } from '@mui/system';
@@ -64,6 +65,7 @@ const [commentRender, setCommentRender] = useState(false)
   }
 
 
+
   // creates new comment and alters commentrender state to render component
   const handleCreateComment = (e) => {
     e.preventDefault();
@@ -85,8 +87,12 @@ const [commentRender, setCommentRender] = useState(false)
     <div>
             <Box className='border'>
               <div className='flex flex-row'> 
-                <Avatar src={feedItem.user.img_url} />
-                {feedItem.project && feedItem.project.project_name ? <div>{feedItem.user.first_name} {feedItem.user.last_name} {feedItem.project.project_name}</div> : <div>{feedItem.user.first_name} {feedItem.user.last_name} </div> }
+               <Link to={`/users/${feedItem.userId}`}> <Avatar src={feedItem.user.img_url} /> </Link>
+                {feedItem.project && feedItem.project.project_name ?
+                <div>
+                 <Link to={`/users/${feedItem.userId}`}><div>{feedItem.user.first_name} {feedItem.user.last_name} </div> </Link>
+                 <Link to={`/projects/${feedItem.projectId}`}><div>{feedItem.project.project_name}</div></Link>
+                 </div> : <Link to={`/users/${feedItem.userId}`}><div>{feedItem.user.first_name} {feedItem.user.last_name} </div></Link> }
                 
                 
               </div>

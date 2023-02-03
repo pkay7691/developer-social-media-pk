@@ -5,7 +5,8 @@ import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
 import { Box, Grid, Typography, Table, AppBar, Toolbar, Button, Avatar } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-
+import { fetchUserFeedById } from "../globalfeed/globalfeedslice";
+import GlobalFeed from "../globalfeed/GlobalFeed";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,6 +25,7 @@ const SingleUser = () => {
 
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
+        dispatch(fetchUserFeedById(userId))
     }, [dispatch])
 
     return (
@@ -67,6 +69,7 @@ const SingleUser = () => {
                     </Grid>
                 </Grid>
             </Box>
+            <GlobalFeed />
         </div>
     )
 }

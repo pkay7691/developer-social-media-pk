@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField, Badge } from '@mui/material';
+import {Link} from 'react-router-dom'
 import { asyncDeleteComment, asyncFetchComments, selectComments } from './commentslice';
 import { asyncCreateCommentLike, asyncDeleteCommentLike } from './commentlikeslice'
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
@@ -72,6 +73,7 @@ const commentLikeButton = (comment) => {
     
   }, [commentRender])
 
+  
 
 
 
@@ -85,8 +87,11 @@ const commentLikeButton = (comment) => {
         postComments.map((comment) => (
           <Box key={`post-comment-${comment.id}`} className='border'>
             <div className='flex flex-row'>
+              <Link to={`/users/${comment.user.id}`}>
               <Avatar src={comment.user.img_url} />
+              
               <div>{comment.user.first_name} {comment.user.last_name}</div>
+              </Link>
             </div>
 
             <div>{comment.text_field}</div>

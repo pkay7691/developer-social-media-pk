@@ -37,7 +37,7 @@ const GlobalFeed = (props) => {
 
            : 
            
-           <div key='notloaded'>hello</div>
+           <div key='notloaded'>Loading</div>
 
         ))
       ) : null}
