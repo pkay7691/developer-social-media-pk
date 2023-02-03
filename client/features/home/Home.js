@@ -24,6 +24,7 @@ const Home = (props) => {
   
 const options = userProjects && userProjects.length ? userProjects : nullProject
 
+  const [shouldRender, setShouldRender] = useState(false);
   const [value, setValue] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [url, setUrl] = useState('')
@@ -46,6 +47,7 @@ const options = userProjects && userProjects.length ? userProjects : nullProject
       newPost.url = url
     }
     dispatch(asyncCreatePost(newPost))
+    setShouldRender(!shouldRender)
     setDescription('')
     setInputValue('')
     setValue('')
@@ -55,12 +57,19 @@ const options = userProjects && userProjects.length ? userProjects : nullProject
 
 
   useEffect(() => {
+    console.log("intial fetch on dispatch")
     dispatch(fetchUserAsync(userId))
     dispatch(fetchGlobalFeed())
     dispatch(asyncFetchComments())
     dispatch(asyncFetchPostLikes())
     dispatch(asyncFetchCommentLikes())
   },[dispatch])
+
+  useEffect(() => {
+    console.log("fetch global feed on render state")
+    dispatch(fetchGlobalFeed())
+
+  },[shouldRender])
 
 
   return (

@@ -15,7 +15,6 @@ import { asyncFetchCommentLikes, selectCommentLikes } from './commentlikeslice';
 const GlobalFeed = (props) => {
   const username = useSelector((state) => state.auth.me.username);
   const dispatch = useDispatch()
-  const allPostLikes = useSelector(selectPostLikes)
   const globalFeed  = useSelector(selectGlobalFeed)
 
 

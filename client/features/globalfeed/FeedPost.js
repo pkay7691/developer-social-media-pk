@@ -44,7 +44,9 @@ const [commentRender, setCommentRender] = useState(false)
 
 
     useEffect(() => {
+      console.log('fetch in feedpost')
       dispatch(asyncFetchComments())
+      dispatch(asyncFetchPostLikes())
       },[commentRender])
 
   // if Post like Check returns a post like.. it will dispatch asyncDeleteLike.  If it doesn't return a post like, it will create a like
@@ -54,6 +56,7 @@ const [commentRender, setCommentRender] = useState(false)
       let id = postLikeCheck[0].id;
       dispatch(asyncDeleteLike(id));
       setLikeButton('Like')
+      setCommentRender(!commentRender)
     } else {
       const like = {
         userId: userId,
@@ -61,6 +64,7 @@ const [commentRender, setCommentRender] = useState(false)
       }
       dispatch(asyncCreateLike(like))
       setLikeButton('Unlike')
+      setCommentRender(!commentRender)
     }
   }
 
