@@ -36,7 +36,7 @@ export const reportUserAsync = createAsyncThunk('reportUser', async ({report}, i
         const {data} = await axios.post(`/api/users/${id}/reportUser`, reportedUser);
         console.log('data', data)
         return data;
-    } 
+    }
     catch (error) {
         console.log(error);
     }
