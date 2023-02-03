@@ -36,7 +36,8 @@ const SingleUser = () => {
                         <Grid item xs={2}><Avatar
                             alt={user.username}
                             src="/static/images/avatar/1.jpg"
-                            sx={{ width: 140, height: 140 }}/>
+                            sx={{ width: 140, height: 140 }}
+                            variant= "dot"/>
                             </Grid>
                         <Grid item xs={3.5} />
                         <Grid item xs={1}><Button variant='contained'>Report</Button></Grid>
