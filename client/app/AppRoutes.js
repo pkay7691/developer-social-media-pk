@@ -21,6 +21,7 @@ import EditUser from '../features/update_profile/EditUser';
 import RequestSupport from "../features/requestSupport/requestSupport";
 import AllSupport from "../features/all_support/AllSupport";
 import SingleSupport from "../features/single_support/singleSupport";
+import Project from "../features/project_page/project";
 
 
 
@@ -83,6 +84,7 @@ const AppRoutes = () => {
           <Route path="/report/:reportId" element={<SingleReport />} />
           <Route path="/users/:userId/requestSupport" element={<RequestSupport />} />
           <Route path="/supportTickets" element={<AllSupport />} />
+          <Route path="/project/:projectId" element={<Project/>}/>
         </Routes>
 
       )}
