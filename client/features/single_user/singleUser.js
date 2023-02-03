@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
 import { Box, Grid, Typography, Table, AppBar, Toolbar, Button, Avatar } from "@mui/material";
 import { styled } from '@mui/material/styles';
@@ -21,6 +21,7 @@ const SingleUser = () => {
     const { userId } = useParams();
     const user = useSelector(selectUser)
     const friends = user.friends;
+    const projects = user.projects
 
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
@@ -65,6 +66,19 @@ const SingleUser = () => {
                                     null}
                             </Typography>
                         </Grid>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} container direction='column'>
+                        <Grid item xs={8}/>
+                        <Typography>Projects</Typography>
+                        <Typography color='red'>
+                            {projects && projects.length ? projects.map((project) => 
+                           <Link to={`/project/${project.id}`}><div>{project.project_name}</div></Link> 
+                            )
+                        :
+                        null}
+                        </Typography>
                     </Grid>
                 </Grid>
             </Box>
