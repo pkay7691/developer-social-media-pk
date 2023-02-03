@@ -9,18 +9,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button ,Grid} from "@mui/material";
 
 
-function EditUser() {
+const EditUser =()=> {
   const dispatch = useDispatch();
-
   const userId = useSelector((state) => state.auth.me.id);
   const Navigate = useNavigate();
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [img_url, setImgUrl] = useState("");
   const [about_me, setAboutMe] = useState("");
   const [skill_level, setSkillLevel] = useState("");
-  const [file,setFile]= useState();
+
 
   useEffect(() => {
     dispatch(fetchUserAsync(userId));
@@ -28,17 +26,9 @@ function EditUser() {
 
   const handleSubmit = (evt)=>{
     evt.preventDefault();
-    dispatch(editUser({ id: userId, first_name, last_name, email, about_me,skill_level}));
+    dispatch(editUser({ id: userId, first_name: name, last_name, email, about_me,skill_level}));
     Navigate('/')
   }
-
-  const handleChange=(evt)=>{
-    evt.preventDefault()
-    console.log(e.target.files);
-    const files = evt.targe.files
-    const formData = new FormData();
-    formData.append('myFile',files[0]);
-    }
 
 
   return (
@@ -46,15 +36,7 @@ function EditUser() {
 
       <div className="container" onSubmit={handleSubmit}>
 
-        <label htmlFor="img-url"></label>
-        <input
-        id="myFile"
-        type="file"
-         name="imageUrl"
-        value={img_url}
-        onChange={handleChange}
-         />
-        <label htmlFor="first-name"></label>
+        <label htmlFor="first-name">First Name</label>
         <input
           type="text"
           placeholder="First Name"
@@ -62,7 +44,7 @@ function EditUser() {
           value={first_name}
           onChange={(e) => setFirstName(e.target.value)}
         />
-        <label htmlFor="last-name"></label>{" "}
+        <label htmlFor="last-name">Last Name</label>{" "}
         <input
           type="text"
           placeholder="Last Name"
@@ -70,7 +52,7 @@ function EditUser() {
           value={last_name}
           onChange={(e) => setLastName(e.target.value)}
         />
-        <label htmlFor="user-email"></label>
+        <label htmlFor="user-email">Email</label>
         <input
           type="text"
           placeholder="Email"
@@ -78,7 +60,7 @@ function EditUser() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <label htmlFor="skill-level"></label>
+        <label htmlFor="skill-level">Skill level</label>
         <input
         type="text"
         placeholder="Skill Level"
@@ -86,8 +68,8 @@ function EditUser() {
         value={skill_level}
         onChange={(e)=>setSkillLevel(e.target.value)} />
 
-        <label htmlFor="about-me"></label>
-        <input
+        <label htmlFor="about-me">About Me</label>
+        <textarea
         type="text"
         placeholder="Tell us a little about yourself....."
         value={about_me}
