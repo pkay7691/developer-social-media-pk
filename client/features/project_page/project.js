@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
 import { useParams, Link } from "react-router-dom";
 import { fetchProjectAsync, selectProject } from "./projectSlice";
+import {format} from 'date-fns'
+
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -38,8 +40,8 @@ const Project = () => {
                         <Typography textAlign='left'>Projected Time Frame: </Typography>
                         <Typography textAlign='left'>Difficulty:</Typography>
                         <Typography textAlign='left'>Gihub Url: {project.github_url}</Typography>
-                        <Typography textAlign='left'>Date Created: {project.createdAt}</Typography>
-                        <Typography textAlign='left'>Last Edited: {project.updatedAt}</Typography>
+                        <Typography textAlign='left'>Date Created: {project.createdAt}</Typography> {/* bug with dates will fix later */}
+                        <Typography textAlign='left'>Last Edited: {project.updatedAt}</Typography> {/* bug with dates will fix later */}
                     </Item>
                 </Grid>
             </Grid>

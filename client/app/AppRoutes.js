@@ -63,6 +63,7 @@ const AppRoutes = () => {
           <Route path="/support" element={<RequestSupport />} />
           <Route path="/supportTickets" element={<AllSupport />} />
           <Route path="/support/:id" element={<SingleSupport />} />
+          <Route path="/project/:projectId" element={<Project/>}/>
         </Routes>
       ) : (
         <Routes>

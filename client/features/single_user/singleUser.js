@@ -71,13 +71,13 @@ const SingleUser = () => {
                     <Grid item xs={12} container direction='column'>
                         <Grid item xs={8}/>
                         <Typography>Projects</Typography>
-                        <Link to={`/project/:projectId`}><Typography>
+                        <Typography color='red'>
                             {projects && projects.length ? projects.map((project) => 
-                            <>{project.project_name}</>
+                           <Link to={`/project/${project.id}`}><div>{project.project_name}</div></Link> 
                             )
                         :
                         null}
-                        </Typography></Link>
+                        </Typography>
                     </Grid>
                 </Grid>
             </Box>
