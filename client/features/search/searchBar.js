@@ -8,11 +8,13 @@ const SearchBar = () => {
 
     if(isLoading) return <h1>Loading.....</h1>
     // if(isError) return <p>{error}</p>
+    
   return (
     <div>
         <input
             type='text'
             onChange={(e)=>setSearchBar(e.target.value)}
+            value={searchBar}
         />
         <div>
             <h1>Results</h1>

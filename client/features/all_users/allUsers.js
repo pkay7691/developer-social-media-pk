@@ -4,27 +4,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import { Table, TableBody, TableCell, TableHead, TableRow, Button, Switch } from "@mui/material";
-
-
-  
+import SearchInput from '../search/searchInput.js'
 
 const AllUsers = () => {
     const dispatch = useDispatch();
     const users = useSelector(selectUsers);
     const [checked, setChecked] = useState(false)
-
+    const [name, setName] = useState(null)
+    const [ans, setAns] = useState(users)
     const handleChange = (evt) => {
         setChecked(evt.target.checked);
     }
-
     useEffect(() => {
         dispatch(fetchAllUsers());
+        setAns(users)
     }, [dispatch]);
-
-    //this will return a table of all users
+    useEffect(() => {
+        setAns(users)
+    }, [users]);
+    useEffect(() => {
+        if(name && name!==null && name!=="")
+        {   
+            //TESTER
+            let updatedUsers = users.filter((res) => res.username.toLowerCase().includes(name.toLowerCase())===true || 
+                                                    (res.first_name+" "+res.last_name).toLowerCase().includes(name.toLowerCase())===true)
+            setAns(updatedUsers)
+        }
+        else {
+            setAns(users)
+        }
+    }, [name])
     return (
         <div>
             <Typography component='h2' variant="h6" align="center" fontWeight='bold' gutterBottom>All Users</Typography>
+            <SearchInput name={name} setName={setName}/>
             <Table size="medium">
                 <TableHead>
                     <TableRow>
@@ -38,7 +51,20 @@ const AllUsers = () => {
                 </TableHead>
                 {/*This will return a list of users.  We can also view a single user. */}
                 <TableBody>
-                    {users.map((user) => (
+                    {ans ? ans.map((user) => (
+                        <TableRow key={user.id}>
+                            <TableCell>
+                                <Link to={`/users/${user.id}`}><Button variant="contained">View</Button></Link>
+                            </TableCell>
+                            <TableCell>{user.username}</TableCell>
+                            <TableCell>{user.first_name}</TableCell>
+                            <TableCell>{user.last_name}</TableCell>
+                            <TableCell>{user.email}</TableCell>
+                            <TableCell>
+                                <Switch color="warning" onChange={handleChange}>Ban</Switch>
+                            </TableCell>
+                        </TableRow>
+                    )):users.map((user) => (
                         <TableRow key={user.id}>
                             <TableCell>
                                 <Link to={`/users/${user.id}`}><Button variant="contained">View</Button></Link>
