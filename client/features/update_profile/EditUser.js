@@ -43,6 +43,9 @@ function EditUser() {
 
   return (
     <form id="edit-user">
+
+      <div className="container" onSubmit={handleSubmit}>
+
         <label htmlFor="img-url"></label>
         <input
         id="myFile"
@@ -51,9 +54,6 @@ function EditUser() {
         value={img_url}
         onChange={handleChange}
          />
-
-      <div className="container" onSubmit={handleSubmit}>
-
         <label htmlFor="first-name"></label>
         <input
           type="text"
