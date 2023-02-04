@@ -6,7 +6,6 @@ import { Container } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { logout } from "../../app/store";
-import SearchBar from '../search/searchBar'
 
 
 const Navbar = () => {
@@ -160,7 +159,6 @@ const Navbar = () => {
                   <Link to="/signup">Sign Up</Link>
                   <Grid item xs={.5} />
                   <Link to='/users'>Users</Link>
-                  <SearchBar/>
                 </Grid>
               </Container>
             </AppBar>

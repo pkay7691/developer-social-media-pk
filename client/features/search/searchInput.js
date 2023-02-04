@@ -1,5 +1,5 @@
 import React from 'react'
-
+//creating a search bar so that it can be used again 
 const searchInput = ({name, setName}) => {
   return (
     <input

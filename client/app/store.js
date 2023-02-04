@@ -12,7 +12,7 @@ import postLikesReducer from '../features/globalfeed/postlikesslice';
 import commentlikesReducer from '../features/globalfeed/commentlikeslice';
 import allSupportSlice from '../features/all_support/allSupportSlice';
 import singleSupportSlice from '../features/single_support/singleSupportSlice';
-import { searchApiSlice } from '../features/search/search'
+
 
 const store = configureStore({
   reducer: { 
@@ -27,12 +27,10 @@ const store = configureStore({
     reportInbox: reportInboxSlice,
     singleReport: singleReportInboxSlice,
     allSupport: allSupportSlice,
-    singleSupport: singleSupportSlice,
-    [searchApiSlice.reducerPath]: searchApiSlice.reducer,
+    singleSupport: singleSupportSlice
    },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(searchApiSlice.middleware)
 });
 
 export default store;
