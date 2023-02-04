@@ -15,6 +15,7 @@ const AllUsers = () => {
     const handleChange = (evt) => {
         setChecked(evt.target.checked);
     }
+    //gets all users, then gets the users ans(answer), third user effect check if the names match
     useEffect(() => {
         dispatch(fetchAllUsers());
         setAns(users)
@@ -25,10 +26,10 @@ const AllUsers = () => {
     useEffect(() => {
         if(name && name!==null && name!=="")
         {   
-            //TESTER
-            let updatedUsers = users.filter((res) => res.username.toLowerCase().includes(name.toLowerCase())===true || 
-                                                    (res.first_name+" "+res.last_name).toLowerCase().includes(name.toLowerCase())===true)
-            setAns(updatedUsers)
+        //checking for matches and coverting to lowercase
+        let updatedUsers = users.filter((res) => res.username.toLowerCase().includes(name.toLowerCase())===true || 
+                                                (res.first_name+" "+res.last_name).toLowerCase().includes(name.toLowerCase())===true)
+        setAns(updatedUsers)
         }
         else {
             setAns(users)
@@ -49,7 +50,7 @@ const AllUsers = () => {
                         <TableCell>Ban Status</TableCell>
                     </TableRow>
                 </TableHead>
-                {/*This will return a list of users.  We can also view a single user. */}
+                {/*This will return a list of users and single out a user that matches.  We can also view a single user. */}
                 <TableBody>
                     {ans ? ans.map((user) => (
                         <TableRow key={user.id}>
