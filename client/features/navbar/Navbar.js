@@ -1,8 +1,26 @@
-import { AppBar, Stack, Avatar, Button, Tooltip, IconButton, Menu, MenuItem, Divider, ListItemIcon, Grid, Box, TableBody, TableRow, TableCell } from "@mui/material";
-import { Flag, Settings, Logout } from '@mui/icons-material'
-
-import React, { useEffect } from 'react';
-import jwt_decode from 'jwt-decode'
+import {
+  AppBar,
+  Stack,
+  Avatar,
+  Button,
+  Tooltip,
+  IconButton,
+  Menu,
+  MenuItem,
+  Divider,
+  ListItemIcon,
+  Grid,
+  Box,
+  TableBody,
+  TableRow,
+  TableCell,
+  Badge,
+} from "@mui/material";
+import { Flag, Settings, Logout } from "@mui/icons-material";
+import MarkunreadIcon from "@mui/icons-material/Markunread";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import React, { useEffect } from "react";
+import jwt_decode from "jwt-decode";
 
 import { Container } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,7 +42,7 @@ const Navbar = () => {
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl)
+  const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -32,7 +50,6 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
 
   return (
     <div>
@@ -51,21 +68,21 @@ const Navbar = () => {
             <AppBar position="static">
               <Container maxWidth="xl">
                 <Grid item xs={12} container>
-                  <Grid item xs={.5} />
+                  <Grid item xs={0.5} />
                   <Link to="/home">Home</Link>
-                  <Grid item xs={.5} />
+                  <Grid item xs={0.5} />
                   <Link to="/chat">Chat</Link>
-                  <Grid item xs={.5} />
+                  <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
                   <Grid item xs={8.5} />
-                  <Tooltip title='Account Settings'>
+                  <Tooltip title="Account Settings">
                     <IconButton
                       onClick={handleClick}
-                      size='small'
+                      size="small"
                       sx={{ ml: 2 }}
-                      aria-controls={open ? 'account-menu' : undefined}
-                      aria-haspopup='true'
-                      aria-expanded={open ? 'true' : undefined}
+                      aria-controls={open ? "account-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
                     >
                       <Avatar
                         src={profilePic}
@@ -83,33 +100,32 @@ const Navbar = () => {
                     PaperProps={{
                       elevation: 0,
                       sx: {
-                        overflow: 'visible',
-                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                        overflow: "visible",
+                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
                         mt: 1.5,
-                        '& .MuiAvatar-root': {
+                        "& .MuiAvatar-root": {
                           width: 32,
                           height: 32,
                           ml: -0.5,
                           mr: 1,
                         },
-                        '&:before': {
+                        "&:before": {
                           content: '""',
-                          display: 'block',
-                          position: 'absolute',
+                          display: "block",
+                          position: "absolute",
                           top: 0,
                           right: 14,
                           width: 10,
                           height: 10,
-                          bgcolor: 'background.paper',
-                          transform: 'translateY(-50%) rotate(45deg)',
+                          bgcolor: "background.paper",
+                          transform: "translateY(-50%) rotate(45deg)",
                           zIndex: 0,
                         },
                       },
                     }}
-                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    transformOrigin={{ horizontal: "right", vertical: "top" }}
+                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                   >
-
                     <Link to={`/users/${user}`}>
                       <MenuItem>
                         <Avatar /> Profile
@@ -126,7 +142,7 @@ const Navbar = () => {
                       </ListItemIcon>
                       Settings
                     </MenuItem>
-                    <Link to='/support'>
+                    <Link to="/support">
                       <MenuItem>
                         <ListItemIcon>
                           <Flag fontSize="small" />
@@ -141,7 +157,6 @@ const Navbar = () => {
                       Logout
                     </MenuItem>
                   </Menu>
-
                 </Grid>
               </Container>
             </AppBar>
@@ -152,12 +167,12 @@ const Navbar = () => {
             <AppBar position="static">
               <Container maxWidth="xl">
                 <Grid item xs={12} container>
-                  <Grid item xs={.5} />
+                  <Grid item xs={0.5} />
                   <Link to="/login">Login</Link>
-                  <Grid item xs={.5} />
+                  <Grid item xs={0.5} />
                   <Link to="/signup">Sign Up</Link>
-                  <Grid item xs={.5} />
-                  <Link to='/users'>Users</Link>
+                  <Grid item xs={0.5} />
+                  <Link to="/users">Users</Link>
                 </Grid>
               </Container>
             </AppBar>
