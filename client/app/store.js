@@ -13,6 +13,7 @@ import postLikesReducer from '../features/globalfeed/postlikesslice';
 import commentlikesReducer from '../features/globalfeed/commentlikeslice';
 import allSupportSlice from '../features/all_support/allSupportSlice';
 import singleSupportSlice from '../features/single_support/singleSupportSlice';
+import projectSlice from '../features/project_page/projectSlice';
 
 const store = configureStore({
   reducer: { 
@@ -27,7 +28,8 @@ const store = configureStore({
     reportInbox: reportInboxSlice,
     singleReport: singleReportInboxSlice,
     allSupport: allSupportSlice,
-    singleSupport: singleSupportSlice
+    singleSupport: singleSupportSlice,
+    project: projectSlice,
    },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
