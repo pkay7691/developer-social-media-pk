@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom'
-import { fetchGlobalFeed, selectGlobalFeed } from './globalfeedslice';
+import { fetchGlobalFeed, fetchUserFeedById, selectGlobalFeed } from './globalfeedslice';
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField, FormControl } from '@mui/material';
 import { sizing } from '@mui/system';
 import Comments from './Comments';
@@ -13,11 +13,10 @@ import { asyncCreateComment, asyncFetchComments } from './commentslice';
 /**
  * COMPONENT
  */
-const FeedPost = ({feedItem}) => {
+const FeedPost = ({feedItem, renderPostLikes, setRenderPostLikes, renderComments, setRenderComments, profileId}) => {
 
 const [likeButton, setLikeButton] = useState('')
 const [text_field, setText_field] = useState('')
-const [commentRender, setCommentRender] = useState(false)
  
   
   const username = useSelector((state) => state.auth.me.username);
@@ -42,13 +41,6 @@ const [commentRender, setCommentRender] = useState(false)
     }
     },[dispatch])
 
-
-    useEffect(() => {
-      console.log('fetch in feedpost')
-      dispatch(asyncFetchComments())
-      dispatch(asyncFetchPostLikes())
-      },[commentRender])
-
   // if Post like Check returns a post like.. it will dispatch asyncDeleteLike.  If it doesn't return a post like, it will create a like
   // dispatch the Createlike with user and post Id
   const handlePostLike = (userId, postId) => {
@@ -56,7 +48,12 @@ const [commentRender, setCommentRender] = useState(false)
       let id = postLikeCheck[0].id;
       dispatch(asyncDeleteLike(id));
       setLikeButton('Like')
-      setCommentRender(!commentRender)
+      if(!!profileId) {
+        dispatch(fetchUserFeedById(profileId))
+      } else dispatch(fetchGlobalFeed());
+      
+      dispatch(asyncFetchPostLikes())
+
     } else {
       const like = {
         userId: userId,
@@ -64,7 +61,10 @@ const [commentRender, setCommentRender] = useState(false)
       }
       dispatch(asyncCreateLike(like))
       setLikeButton('Unlike')
-      setCommentRender(!commentRender)
+      if(!!profileId) {
+        dispatch(fetchUserFeedById(profileId))
+      } else dispatch(fetchGlobalFeed());
+      dispatch(asyncFetchPostLikes())
     }
   }
 
@@ -79,9 +79,11 @@ const [commentRender, setCommentRender] = useState(false)
       text_field: text_field,
     }
     dispatch(asyncCreateComment(newComment))
-    console.log(newComment)
+    if(!!profileId) {
+      dispatch(fetchUserFeedById(profileId))
+    } else dispatch(fetchGlobalFeed());
     setText_field('')
-    setCommentRender(!commentRender)
+    dispatch(asyncFetchComments())
   }
 
   
@@ -104,7 +106,7 @@ const [commentRender, setCommentRender] = useState(false)
               <div>{feedItem.title}</div>
               <div>{feedItem.url}</div>
               <div>{feedItem.description}</div>
-              <PostLikes feedItem={feedItem} />
+              <PostLikes feedItem={feedItem}  />
               <ButtonGroup variant='outlined' aria-label='outlined button group' sx={{ width: 1 }}>
               
                   <Button onClick={(e) => handlePostLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>{likeButton}</Button>
@@ -112,7 +114,7 @@ const [commentRender, setCommentRender] = useState(false)
                   <Button  sx={{ width: 1/3 }}>Share</Button>
                 </ButtonGroup>
             </Box>
-            <Comments feedItem={feedItem}/> 
+            <Comments feedItem={feedItem} renderComments={renderComments} setRenderComments={setRenderComments}/> 
             <FormControl onSubmit={handleCreateComment} sx={{ width: 1 }}>
             <TextField
             

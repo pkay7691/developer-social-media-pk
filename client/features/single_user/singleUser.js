@@ -7,6 +7,8 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { fetchUserFeedById } from "../globalfeed/globalfeedslice";
 import GlobalFeed from "../globalfeed/GlobalFeed";
+import { asyncFetchComments } from "../globalfeed/commentslice";
+import { asyncFetchPostLikes } from "../globalfeed/postlikesslice";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -26,7 +28,9 @@ const SingleUser = () => {
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
         dispatch(fetchUserFeedById(userId))
-    }, [dispatch])
+        dispatch(asyncFetchComments())
+        dispatch(asyncFetchPostLikes())
+    }, [dispatch, userId])
 
     return (
         <div>
@@ -36,7 +40,6 @@ const SingleUser = () => {
                         <Grid item xs={2} />
                         <Grid item xs={2}><Avatar
                             alt={user.username}
-                            src="/static/images/avatar/1.jpg"
                             sx={{ width: 140, height: 140 }}/>
                             </Grid>
                         <Grid item xs={3.5} />
@@ -58,18 +61,16 @@ const SingleUser = () => {
                         </Grid>
                         <Grid item xs={4} />
                         <Grid item xs={2}><Typography variant='h2'>Friends</Typography>
-                            <Typography>
                                 {friends && friends.length ? friends.map((friend) =>
-                                    <div>{friend.first_name} {friend.last_name}</div>
+                                    <Typography key={`friend-${friend.id}`}>{friend.first_name} {friend.last_name}</Typography>
                                 )
                                     :
-                                    null}
-                            </Typography>
+                                    null}                    
                         </Grid>
                     </Grid>
                 </Grid>
             </Box>
-            <GlobalFeed />
+            <GlobalFeed profileId={userId} />
         </div>
     )
 }

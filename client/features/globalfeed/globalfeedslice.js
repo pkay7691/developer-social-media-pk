@@ -11,8 +11,6 @@ export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
     const globalFeed = []
     const posts = await axios.get("/api/post");
     const projects = await axios.get('/api/project');
-    const comments = await axios.get('/api/comment')
-    const project_memberships = await axios.get('/api/projectmembership')
     posts.data.forEach(post => globalFeed.push(post))
     projects.data.forEach(project => globalFeed.push(project))
     globalFeed.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -31,14 +29,10 @@ export const fetchUserFeedById = createAsyncThunk("fetchUserFeed", async (id) =>
     const userFeed = []
     const posts = await axios.get("/api/post");
     const user = await axios.get(`/api/users/${id}`)
-    console.log('posts in fetchuserfeed', posts)
-    console.log('this is user in fetchuserfeed', user)
     const userPosts = posts.data.filter(post => post.userId == id)
-    console.log('userposts in fetchuserfeed', userPosts)
     userPosts.forEach(post => userFeed.push(post))
     user.data.projects.forEach(project => userFeed.push(project) )
-    userFeed.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt))
-    console.log('user feed', userFeed)
+    userFeed.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
     return userFeed
 
 

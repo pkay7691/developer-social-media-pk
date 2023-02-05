@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import GlobalFeed from '../globalfeed/GlobalFeed';
 import { fetchGlobalFeed } from '../globalfeed/globalfeedslice';
@@ -19,12 +19,12 @@ const Home = (props) => {
   const userId = useSelector((state) => state.auth.me.id);
   const userProjects = useSelector((state) => state.user.projects)
   const feed = useSelector((state) => state.globalfeed)
-  const nullProject = [{project_name: 'You have no projects'}]
+  const nullProject = [{ project_name: 'You have no projects' }]
   const dispatch = useDispatch()
-  
-const options = userProjects && userProjects.length ? userProjects : nullProject
 
-  const [shouldRender, setShouldRender] = useState(false);
+  const options = userProjects && userProjects.length ? userProjects : nullProject
+
+
   const [value, setValue] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [url, setUrl] = useState('')
@@ -47,7 +47,7 @@ const options = userProjects && userProjects.length ? userProjects : nullProject
       newPost.url = url
     }
     dispatch(asyncCreatePost(newPost))
-    setShouldRender(!shouldRender)
+    dispatch(fetchGlobalFeed())
     setDescription('')
     setInputValue('')
     setValue('')
@@ -56,75 +56,71 @@ const options = userProjects && userProjects.length ? userProjects : nullProject
   }
 
 
-  useEffect(() => {
-    console.log("intial fetch on dispatch")
-    dispatch(fetchUserAsync(userId))
-    dispatch(fetchGlobalFeed())
-    dispatch(asyncFetchComments())
-    dispatch(asyncFetchPostLikes())
-    dispatch(asyncFetchCommentLikes())
-  },[dispatch])
+useEffect(() => {
+  dispatch(fetchUserAsync(userId))
+  dispatch(fetchGlobalFeed())
+  dispatch(asyncFetchPostLikes())
+  dispatch(asyncFetchComments())
 
-  useEffect(() => {
-    console.log("fetch global feed on render state")
-    dispatch(fetchGlobalFeed())
+},[])
 
-  },[shouldRender])
+
+
 
 
   return (
     <div>
       <FormControl onSubmit={handleCreatePost} sx={{ width: 1 }}>
-            <Autocomplete
-            id='project-select'
-            disablePortal 
-            value={value ||null}
-            onChange={(e, newValue) => {
-              setValue(newValue);
-            }}
-            inputValue={inputValue}
-            onInputChange={(event, newInputValue) => {
-              setInputValue(newInputValue);
-            }}
-            options={options}
-            getOptionLabel={(option) => option.project_name}
-            
-            renderInput={(params) =>(
-              <TextField
+        <Autocomplete
+          id='project-select'
+          disablePortal
+          value={value || null}
+          onChange={(e, newValue) => {
+            setValue(newValue);
+          }}
+          inputValue={inputValue}
+          onInputChange={(event, newInputValue) => {
+            setInputValue(newInputValue);
+          }}
+          options={options}
+          getOptionLabel={(option) => option.project_name}
+
+          renderInput={(params) => (
+            <TextField
               {...params}
               label='Choose a Project'
-              />
-              
-            )}
-              />
+            />
 
-            <TextField
-            id='main-feed-post-title'
-            placeholder='Title'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)} 
-            rows={1}
-            />
-            <TextField
-            id='main-feed-post-url'
-            placeholder='Url'
-            value={url}
-            onChange={(e) => setUrl(e.target.value)} 
-            rows={1}
-            />
-            
-            <TextField
-            
+          )}
+        />
+
+        <TextField
+          id='main-feed-post-title'
+          placeholder='Title'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          rows={1}
+        />
+        <TextField
+          id='main-feed-post-url'
+          placeholder='Url'
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          rows={1}
+        />
+
+        <TextField
+
           id={`main-feed-post-text`}
           placeholder='Comment'
           multiline
           rows={2}
           value={description}
-          onChange={(e) => setDescription(e.target.value)} 
-          
+          onChange={(e) => setDescription(e.target.value)}
+
         />
         <Button onClick={handleCreatePost} type='submit'>Reply</Button>
-        </FormControl>
+      </FormControl>
       <GlobalFeed />
     </div>
   );
