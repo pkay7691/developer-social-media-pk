@@ -12,15 +12,12 @@ import { asyncFetchCommentLikes, selectCommentLikes } from './commentlikeslice';
 /**
  * COMPONENT
  */
-const GlobalFeed = (props) => {
+const GlobalFeed = ({profileId}) => {
   const username = useSelector((state) => state.auth.me.username);
   const dispatch = useDispatch()
   const allPostLikes = useSelector(selectPostLikes)
   const globalFeed  = useSelector(selectGlobalFeed)
 
-
-
- 
 
  
   
@@ -31,7 +28,11 @@ const GlobalFeed = (props) => {
       {globalFeed && globalFeed.length ? (
         globalFeed.map((feedItem) => (
           feedItem.modelType === 'post' ? 
-          <FeedPost key={`global-feed-post-${feedItem.id}`}feedItem={feedItem}/>
+          <FeedPost 
+          key={`global-feed-post-${feedItem.id}`} 
+          feedItem={feedItem} 
+          profileId={profileId}
+          />
           :  feedItem.modelType === 'project' ? 
          <FeedProject key={`global-feed-project-${feedItem.id}`} feedItem={feedItem} />
 

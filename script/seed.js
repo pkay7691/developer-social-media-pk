@@ -22,7 +22,6 @@ async function seed() {
       is_admin: true,
       location: 'Chicago IL',
       skill_level: 'Master',
-      img_url: 'https://variety.com/wp-content/uploads/2022/04/Nicolas-Cage.jpg',
       email: 'admin@gmail.com',
       first_name: 'Nicholas',
       last_name: 'Cage',
@@ -73,6 +72,9 @@ async function seed() {
       ban_status: 'banned',
       is_banned: true,
      })
+
+
+     
   // User adding another user as a friend
      await nic.addFriend(johnny)
      await johnny.addFriend(nic)

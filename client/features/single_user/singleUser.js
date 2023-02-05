@@ -7,7 +7,10 @@ import { Box, Grid, Typography, Table, AppBar, Toolbar, Button, Avatar } from "@
 import { styled } from '@mui/material/styles';
 import { banUserAsync } from "../single_user/singleUserSlice";
 import Paper from '@mui/material/Paper';
-
+import { fetchUserFeedById } from "../globalfeed/globalfeedslice";
+import GlobalFeed from "../globalfeed/GlobalFeed";
+import { asyncFetchComments } from "../globalfeed/commentslice";
+import { asyncFetchPostLikes } from "../globalfeed/postlikesslice";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -32,7 +35,10 @@ const SingleUser = () => {
 
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
-    }, [dispatch])
+        dispatch(fetchUserFeedById(userId))
+        dispatch(asyncFetchComments())
+        dispatch(asyncFetchPostLikes())
+    }, [dispatch, userId])
 
 
     //!TODO: this button is working but it is not updating the user's ban status on first click.
@@ -91,13 +97,11 @@ const SingleUser = () => {
                         </Grid>
                         <Grid item xs={4} />
                         <Grid item xs={2}><Typography variant='h2'>Friends</Typography>
-                            <Typography>
                                 {friends && friends.length ? friends.map((friend) =>
-                                    <div>{friend.first_name} {friend.last_name}</div>
+                                    <Typography key={`friend-${friend.id}`}>{friend.first_name} {friend.last_name}</Typography>
                                 )
                                     :
-                                    null}
-                            </Typography>
+                                    null}                    
                         </Grid>
                     </Grid>
                 </Grid>
@@ -115,6 +119,7 @@ const SingleUser = () => {
                     </Grid>
                 </Grid>
             </Box>
+            <GlobalFeed profileId={userId} />
         </div>
     )
 }
