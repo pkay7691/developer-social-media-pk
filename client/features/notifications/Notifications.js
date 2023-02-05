@@ -1,20 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import {
-  createTheme,
-  CssBaseline,
-  ThemeProvider,
-  Typography,
-  Container,
-  Collapse,
-  IconButton,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActionArea,
-  Stack,
-} from "@mui/material";
+
 
 function Notifications() {
   // this is just dummy data for the notifications page
@@ -129,4 +115,4 @@ function handleNotificationClick(id){
     </div>;
 }
 
-export default notifications;
+export default Notifications;

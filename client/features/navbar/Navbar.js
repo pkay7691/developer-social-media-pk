@@ -17,11 +17,10 @@ import {
   Badge,
 } from "@mui/material";
 import { Flag, Settings, Logout } from "@mui/icons-material";
-import MarkunreadIcon from "@mui/icons-material/Markunread";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import React, { useEffect } from "react";
 import jwt_decode from "jwt-decode";
-
+import MailIcon from "@mui/icons-material/Mail";
 import { Container } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
@@ -73,9 +72,9 @@ const Navbar = () => {
                   <Grid item xs={0.5} />
                   <Link to="/chat">Chat</Link>
                   <Grid item xs={0.5} />
-                  <Grid item xs={.5} />
+                  <Grid item xs={0.5} />
                   <Link to="/EditUser">Edit Profile</Link>
-                  <Grid item xs={.5} />
+                  <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
                   <Grid item xs={8.5} />
                   <Tooltip title="Account Settings">

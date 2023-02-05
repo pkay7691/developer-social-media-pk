@@ -15,7 +15,7 @@ import Messages from "../features/messages/Messages";
 import Banned from "../features/banned/Banned";
 import ContactUs from "../features/contactUs/ContactUs";
 import SingleReport from "../features/single_report_inbox/singleReportInbox";
-
+import Notifications from "../features/notifications/Notifications";
 import EditUser from '../features/update_profile/EditUser';
 
 import RequestSupport from "../features/requestSupport/requestSupport";
@@ -86,6 +86,7 @@ const AppRoutes = () => {
           <Route path="/users/:userId/requestSupport" element={<RequestSupport />} />
           <Route path="/supportTickets" element={<AllSupport />} />
           <Route path="/project/:projectId" element={<Project/>}/>
+          <Route path="/notifications" element={<Notifications/>} />
         </Routes>
 
       )}

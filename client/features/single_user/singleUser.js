@@ -27,6 +27,10 @@ const SingleUser = () => {
         dispatch(fetchUserAsync(userId))
     }, [dispatch])
 
+
+
+
+
     return (
         <div>
             <Box sx={{ flexGrow: 1 }} marginTop='50px'>
@@ -73,8 +77,8 @@ const SingleUser = () => {
                         <Grid item xs={8}/>
                         <Typography>Projects</Typography>
                         <Typography color='red'>
-                            {projects && projects.length ? projects.map((project) => 
-                           <Link to={`/project/${project.id}`}><div>{project.project_name}</div></Link> 
+                            {projects && projects.length ? projects.map((project) =>
+                           <Link to={`/project/${project.id}`}><div>{project.project_name}</div></Link>
                             )
                         :
                         null}
