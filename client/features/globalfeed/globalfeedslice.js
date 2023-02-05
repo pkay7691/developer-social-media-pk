@@ -4,17 +4,16 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
 // this fetches all products from the database
 export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
   try {
     const globalFeed = []
     const posts = await axios.get("/api/post");
     const projects = await axios.get('/api/project');
-    const comments = await axios.get('/api/comment')
-    const project_memberships = await axios.get('/api/projectmembership')
     posts.data.forEach(post => globalFeed.push(post))
     projects.data.forEach(project => globalFeed.push(project))
-    globalFeed.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt))
+    globalFeed.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
     return globalFeed
 
 
@@ -25,19 +24,16 @@ export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
   }
 });
 
-export const fetchUserFeedById = createAsyncThunk("fetchGlobalFeed", async (id) => {
+export const fetchUserFeedById = createAsyncThunk("fetchUserFeed", async (id) => {
   try {
-    const globalFeed = []
+    const userFeed = []
     const posts = await axios.get("/api/post");
-    const projects = await axios.get('/api/project');
-    const comments = await axios.get('/api/comment')
-    const project_memberships = await axios.get('/api/projectmembership')
-    userPosts = posts.data.filter((post) => userId === id)
-    posts.data.forEach(post => globalFeed.push(post))
-    projects.data.forEach(project => globalFeed.push(project))
-    globalFeed.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt))
-    return globalFeed
-
+    const user = await axios.get(`/api/users/${id}`)
+    const userPosts = posts.data.filter(post => post.userId == id)
+    userPosts.forEach(post => userFeed.push(post))
+    user.data.projects.forEach(project => userFeed.push(project) )
+    userFeed.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+    return userFeed
 
 
 
@@ -55,6 +51,9 @@ const globalFeedSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchGlobalFeed.fulfilled, (state, action) => {
+      return action.payload
+    });
+    builder.addCase(fetchUserFeedById.fulfilled, (state, action) => {
       return action.payload
     });
   },
