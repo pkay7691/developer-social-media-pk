@@ -1,30 +1,12 @@
-import {
-  AppBar,
-  Stack,
-  Avatar,
-  Button,
-  Tooltip,
-  IconButton,
-  Menu,
-  MenuItem,
-  Divider,
-  ListItemIcon,
-  Grid,
-  Box,
-  TableBody,
-  TableRow,
-  TableCell,
-  Badge,
-} from "@mui/material";
-import { Flag, Settings, Logout } from "@mui/icons-material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import React, { useEffect } from "react";
-import jwt_decode from "jwt-decode";
-import MailIcon from "@mui/icons-material/Mail";
+import { AppBar, Stack, Avatar, Button, Tooltip, IconButton, Menu, MenuItem, Divider, ListItemIcon, Grid, Box, TableBody, TableRow, TableCell } from "@mui/material";
+import { Flag, Settings, Logout } from '@mui/icons-material'
+import { IoMdSearch } from 'react-icons/io';
+import React from 'react';
 import { Container } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { logout } from "../../app/store";
+
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -34,6 +16,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.me.id);
+
 
   const logoutAndRedirectHome = () => {
     dispatch(logout());
@@ -49,6 +32,7 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
 
   return (
     <div>
@@ -77,7 +61,7 @@ const Navbar = () => {
                   <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
                   <Grid item xs={8.5} />
-                  <Tooltip title="Account Settings">
+                  <Tooltip title='Account Settings'>
                     <IconButton
                       onClick={handleClick}
                       size="small"
