@@ -36,7 +36,22 @@ export const reportUserAsync = createAsyncThunk('reportUser', async ({report}, i
         const {data} = await axios.post(`/api/users/${id}/reportUser`, reportedUser);
         console.log('data', data)
         return data;
-    } 
+    }
+    catch (error) {
+        console.log(error);
+    }
+})
+
+//bans a user
+export const banUserAsync = createAsyncThunk('banUser', async (banUpdate) => {
+    console.log('banUpdate in banUserAsync', banUpdate)
+    try {
+        const { id, is_banned, ban_status } = banUpdate;
+        const updatedUser = {is_banned, ban_status};
+        const {data} = await axios.put(`/api/users/${id}/ban`, updatedUser);
+        console.log('data', data)
+        return data;
+    }
     catch (error) {
         console.log(error);
     }
@@ -70,6 +85,12 @@ const userSlice = createSlice({
         }),
         builder.addCase(requestBugFeatureSurveyAsync.fulfilled, (state, action) => {
             return action.payload
+        }),
+        builder.addCase(banUserAsync.fulfilled, (state, action) => {
+            state.is_banned = action.payload.is_banned
+            state.ban_status = action.payload.ban_status
+            console.log('state in banUserAsync', state)
+            return state
         });
     }
 })
