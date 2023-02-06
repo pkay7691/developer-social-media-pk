@@ -16,6 +16,7 @@ import postsReducer from '../features/globalfeed/postslice';
 import allSupportSlice from '../features/all_support/allSupportSlice';
 import singleSupportSlice from '../features/single_support/singleSupportSlice';
 import projectSlice from '../features/project_page/projectSlice';
+import friendshipReducer from '../features/friends/friendshipSlice';
 
 const store = configureStore({
   reducer: { 
@@ -33,6 +34,8 @@ const store = configureStore({
     allSupport: allSupportSlice,
     singleSupport: singleSupportSlice,
     project: projectSlice,
+    friendship: friendshipReducer
+
    },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

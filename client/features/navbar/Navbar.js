@@ -71,7 +71,6 @@ const Navbar = () => {
                     >
                       <Avatar
                         src={profilePic}
-                        alt="profile pic"
                         style={{ width: "30px", height: "30px" }}
                       />
                     </IconButton>
@@ -114,12 +113,12 @@ const Navbar = () => {
 
                     <Link to={`/users/${user}`}>
                       <MenuItem>
-                        <Avatar /> Profile
+                        <Avatar src={profilePic} /> Profile
                       </MenuItem>
                     </Link>
 
                     <MenuItem onClick={handleClose}>
-                      <Avatar /> My account
+                      <Avatar src={profilePic} /> My account
                     </MenuItem>
                     <Divider />
                     <MenuItem onClick={handleClose}>

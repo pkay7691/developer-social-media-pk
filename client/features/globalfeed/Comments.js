@@ -40,7 +40,8 @@ const Comments = ({ feedItem}) => {
   const handleCreateCommentLike = (commentId) => {
     const newCommentLike = {
       commentId: commentId,
-      userId: user.id
+      userId: user.id,
+      compositeId: `${user.id}&${commentId}`
     }
     dispatch(asyncFetchCommentLikes())
     dispatch(asyncCreateCommentLike(newCommentLike))

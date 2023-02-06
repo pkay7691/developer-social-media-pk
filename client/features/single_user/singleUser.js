@@ -9,6 +9,7 @@ import { fetchUserFeedById } from "../globalfeed/globalfeedslice";
 import GlobalFeed from "../globalfeed/GlobalFeed";
 import { asyncFetchComments } from "../globalfeed/commentslice";
 import { asyncFetchPostLikes } from "../globalfeed/postlikesslice";
+import { sendFriendRequest } from "../friends/friendshipSlice";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,11 +21,22 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const SingleUser = () => {
+    const loggedInUserId = useSelector((state) => state.auth.me.id);
     const dispatch = useDispatch();
     const { userId } = useParams();
     const user = useSelector(selectUser)
     const friends = user.friends;
     const projects = user.projects
+
+
+    const handleCreateFriendRequest = (e) => {
+        console.log('friend request creation')
+        const friendship = {
+            userId: loggedInUserId,
+            friendId: userId
+        }
+        dispatch(sendFriendRequest(friendship))
+    }
 
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
@@ -40,15 +52,14 @@ const SingleUser = () => {
                     <Grid item xs={12} container>
                         <Grid item xs={2} />
                         <Grid item xs={2}><Avatar
-                            alt={user.username}
-                            src="/static/images/avatar/1.jpg"
+                            srcSet={user.img_url}
                             sx={{ width: 140, height: 140 }}
                             variant= "dot"/>
                             </Grid>
                         <Grid item xs={3.5} />
                         <Grid item xs={1}><Button variant='contained'>Report</Button></Grid>
                         <Grid item xs={1}><Button variant='contained'>Block</Button></Grid>
-                        <Grid item xs={1}><Button variant='contained'>Add Friend</Button></Grid>
+                        <Grid item xs={1}><Button onClick={handleCreateFriendRequest} variant='contained'>Add Friend</Button></Grid>
                     </Grid>
                     <Grid item xs={12} container />
                     <Grid item xs={12} container />
@@ -76,13 +87,13 @@ const SingleUser = () => {
                     <Grid item xs={12} container direction='column'>
                         <Grid item xs={8}/>
                         <Typography>Projects</Typography>
-                        <Typography color='red'>
+                        
                             {projects && projects.length ? projects.map((project) => 
-                           <Link to={`/project/${project.id}`}><div>{project.project_name}</div></Link> 
+                           <Link key={`project-link-${project.id}`} to={`/project/${project.id}`}><Typography>{project.project_name}</Typography></Link> 
                             )
                         :
                         null}
-                        </Typography>
+                       
                     </Grid>
                 </Grid>
             </Box>
