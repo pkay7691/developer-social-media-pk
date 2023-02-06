@@ -5,6 +5,10 @@ const Post_like = db.define('post_like',{
   does_like: {
     type: Sequelize.BOOLEAN,
     defaultValue: true,
+  },
+  compositeId: {
+    type: Sequelize.STRING,
+    unique: true,
   }
 })
 

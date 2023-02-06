@@ -17,6 +17,10 @@ const Friendship = db.define('friendship',{
     },
     request_msg:{
         type: Sequelize.TEXT   
+    },
+    friendName: {
+      type: Sequelize.STRING,
+
     }
     //went with Enum because either can be true or validate
 })

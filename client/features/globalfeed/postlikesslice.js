@@ -18,6 +18,7 @@ export const asyncFetchPostLikes = createAsyncThunk("fetchPostLikes", async () =
 });
 
 export const asyncCreateLike = createAsyncThunk('createLike', async (like) => {
+  console.log(like)
   const {data } = await axios.post('/api/postlike', like);
   return data
 
