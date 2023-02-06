@@ -54,7 +54,7 @@ const SingleUser = () => {
     }, [dispatch, userId])
 
 
-    //!TODO: this button is working but it is not updating the user's ban status on first click.
+    //!FIXME: this button is working but it is not updating the user's ban status on first click.
     const handleBan = (e) => {
         e.preventDefault();
         const banUpdate = {

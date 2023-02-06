@@ -9,7 +9,7 @@ const SearchInput = ({name, setName}) => {
         onChange={(e)=>setName(e.target.value)}
         name="search"
         id="search"
-        placeholder="Search Student by Name"
+        placeholder="Search by Name"
     />
   )
 }

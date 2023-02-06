@@ -1,8 +1,9 @@
+
 import { Table, TableCell, TableHead, Typography, TableRow, TableBody } from "@mui/material";
 import React, {useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProjectAsync, selectProjects } from "./allProjectSlice";
-import SearchProject from '../search/searchProject'
+import SearchProject from '../search/searchProject
 const AllProjects = () => {
     const dispatch = useDispatch();
     const projects = useSelector(selectProjects);
@@ -36,11 +37,13 @@ const AllProjects = () => {
             <Table size="medium">
                 <TableHead>
                     <TableRow>
+                        <TableCell>More Details</TableCell>
                         <TableCell>Project Name</TableCell>
                         <TableCell>Technologies</TableCell>
                         <TableCell>Status</TableCell>
                         <TableCell>Date Created</TableCell>
                     </TableRow>
+
             </TableHead>
             <TableBody>
             {/* this will return a list of projects and technologies that match */}
