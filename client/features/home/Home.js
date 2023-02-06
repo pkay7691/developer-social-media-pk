@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {useLocation} from 'react-router-dom'
 import GlobalFeed from '../globalfeed/GlobalFeed';
 import { fetchGlobalFeed } from '../globalfeed/globalfeedslice';
 import { asyncFetchComments } from '../globalfeed/commentslice';
@@ -16,6 +17,7 @@ import { asyncCreatePost } from '../globalfeed/postslice';
  */
 
 const Home = (props) => {
+  const router = useLocation();
   const userId = useSelector((state) => state.auth.me.id);
   const userProjects = useSelector((state) => state.user.projects)
   const feed = useSelector((state) => state.globalfeed)
@@ -57,6 +59,11 @@ const Home = (props) => {
 
 
 useEffect(() => {
+  if(router.search.token){
+    const TOKEN = 'token'
+    window.localStorage.setItem(TOKEN, router.search.token)
+    dispatch(me())
+  }
   dispatch(fetchUserAsync(userId))
   dispatch(fetchGlobalFeed())
   dispatch(asyncFetchPostLikes())
