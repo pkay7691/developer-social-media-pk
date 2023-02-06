@@ -19,12 +19,8 @@ const FriendRequests = () => {
     //this will return a table of all users
     return (
         <div>
-          {friendRequests && friendRequests.length ? friendRequests.map((request) => 
-          <div>
-            <div></div>
-          </div> )
-          :  
-          <div></div>}
+  
+   
 
         </div>
     );

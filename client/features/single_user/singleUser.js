@@ -33,7 +33,8 @@ const SingleUser = () => {
         console.log('friend request creation')
         const friendship = {
             userId: loggedInUserId,
-            friendId: userId
+            friendId: userId,
+            friendName: `${user.first_name} ${user.last_name}`
         }
         dispatch(sendFriendRequest(friendship))
     }
