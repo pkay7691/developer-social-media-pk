@@ -8,10 +8,10 @@ import { CheckBox } from "@mui/icons-material";
 function Notifications() {
  const [show,setShow]=useState(true)
 
- const handleChange = (evt)=>{
-      evt.PreventDefault();
-      setShow(!show);
- }
+//  const handleChange = (evt)=>{
+//       evt.PreventDefault();
+//       setShow(!show);
+//  }
 
 
   return (

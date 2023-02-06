@@ -1,4 +1,5 @@
 import { AppBar, Stack, Avatar, Button, Tooltip, IconButton, Menu, MenuItem, Divider, ListItemIcon, Grid, Box, TableBody, TableRow, TableCell } from "@mui/material";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Flag, Settings, Logout } from '@mui/icons-material'
 import { IoMdSearch } from 'react-icons/io';
 import React from 'react';
@@ -134,6 +135,14 @@ const Navbar = () => {
                           <Flag fontSize="small" />
                         </ListItemIcon>
                         Support
+                      </MenuItem>
+                    </Link>
+                    <Link to="/notifications">
+                      <MenuItem>
+                        <ListItemIcon>
+                          <NotificationsIcon fontSize="small" />
+                        </ListItemIcon>
+                        Notifications
                       </MenuItem>
                     </Link>
                     <MenuItem onClick={logoutAndRedirectHome}>
