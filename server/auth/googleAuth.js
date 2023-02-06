@@ -17,6 +17,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //if the callback is succesful, the user will be stored in a cookie**only id**
+
 passport.serializeUser((user, done) => {
    done(null, user)
 })
@@ -56,6 +57,7 @@ passport.use(new GoogleStrategy({
                      })
                     return done(null,newUser)
                 } catch (error) {
+                    console.log('After creating', error)
                     return done(error, false)
                 }
             }

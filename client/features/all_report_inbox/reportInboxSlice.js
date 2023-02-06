@@ -5,7 +5,6 @@ import axios from 'axios';
 export const fetchReportsAsync = createAsyncThunk('reports', async () => {
     try {
         const {data} = await axios.get('/api/report');
-        console.log(data, "data");
         return data;
     } 
     catch (error) {

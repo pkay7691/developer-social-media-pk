@@ -83,4 +83,14 @@ router.post('/:id/support', async (req, res, next) => {
   }
 })
 
+//router switch between ban and unban user/ and update ban_status
+router.put('/:id/ban', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    res.send(await user.update(req.body))
+  } catch (err) {
+    next(err)
+  }
+})
+
 module.exports = router;

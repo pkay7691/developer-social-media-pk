@@ -16,6 +16,10 @@ import Banned from "../features/banned/Banned";
 import ContactUs from "../features/contactUs/ContactUs";
 import SingleReport from "../features/single_report_inbox/singleReportInbox";
 
+import Notifications from "../features/notifications/Notifications";
+
+import {useLocation} from 'react-router-dom'
+
 import EditUser from '../features/update_profile/EditUser';
 
 import RequestSupport from "../features/requestSupport/requestSupport";
@@ -32,11 +36,21 @@ import FriendRequests from "../features/friend_requests/friend_requests";
  */
 
 const AppRoutes = () => {
+  const router = useLocation()
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const isBanned = useSelector((state) => state.auth.me.is_banned);
   const dispatch = useDispatch();
+  console.log('is logged in ', isLoggedIn)
+  console.log('is banned ', isBanned)
 
   useEffect(() => {
+    if(router.search.includes('token')){
+      
+      const TOKEN = 'token'
+      window.localStorage.setItem(TOKEN, router.search.slice(7))
+    //getting search property from use location hook from react router dom and slicing the part to get token
+    // npm package call query string where you get and value. 
+  }
     dispatch(me());
   }, []);
 
@@ -65,6 +79,7 @@ const AppRoutes = () => {
           <Route path="/support/:id" element={<SingleSupport />} />
           <Route path="/project/:projectId" element={<Project/>}/>
           <Route path='/friendrequests' element={<FriendRequests />} />
+          <Route path="/notifications" element={<Notifications/>} />
         </Routes>
       ) : (
         <Routes>
@@ -87,6 +102,7 @@ const AppRoutes = () => {
           <Route path="/users/:userId/requestSupport" element={<RequestSupport />} />
           <Route path="/supportTickets" element={<AllSupport />} />
           <Route path="/project/:projectId" element={<Project/>}/>
+          <Route path="/notifications" element={<Notifications/>} />
         </Routes>
 
       )}
