@@ -19,7 +19,6 @@ router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body);
     const userToken = await user.generateToken()
-    console.log('This is user token ', userToken)
     res.send({ token: userToken});
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
@@ -33,10 +32,8 @@ router.post('/signup', async (req, res, next) => {
 router.get('/me', async (req, res, next) => {
   try {
     const user = await User.findByToken(req.headers.authorization)
-    console.log('its in /me',user)
     res.send(user);
   } catch (ex) {
-    console.log('its in /me',ex)
     next(ex);
   }
 });
@@ -54,9 +51,7 @@ router.get('/google/callback',
         // failure will show login or signup
 }),
 async function (req, res){
-  console.log(req.user)
   const userToken = await req.user.generateToken()
-  console.log('This is user token ', userToken)
   res.redirect('/home?token=' + userToken)
 });
 

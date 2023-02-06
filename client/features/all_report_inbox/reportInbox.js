@@ -11,7 +11,6 @@ import { Table, TableBody, TableCell, TableHead, TableRow, Button } from "@mui/m
 const AllReportInbox = () => {
     const dispatch = useDispatch();
     const users = useSelector(selectReports);
-    console.log("users", users);
 
     useEffect(() => {
         dispatch(fetchReportsAsync());

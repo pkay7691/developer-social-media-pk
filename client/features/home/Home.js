@@ -59,7 +59,6 @@ const Home = (props) => {
 
 
 useEffect(() => {
-  console.log('logging Router', router)
   if(router.search.token){
     const TOKEN = 'token'
     window.localStorage.setItem(TOKEN, router.search.token)

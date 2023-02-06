@@ -40,8 +40,6 @@ const AppRoutes = () => {
   console.log('is banned ', isBanned)
 
   useEffect(() => {
-
-    console.log('logging Router', router)
     if(router.search.includes('token')){
       
       const TOKEN = 'token'

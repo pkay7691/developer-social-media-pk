@@ -19,12 +19,10 @@ app.use(passport.session());
 //if the callback is succesful, the user will be stored in a cookie**only id**
 
 passport.serializeUser((user, done) => {
-    console.log('serial user', user)
    done(null, user)
 })
 //brings in the authenticated the user
 passport.deserializeUser((user, done) => {
-    console.log('deserial user', user)
     done (null, user)
   })
 // reads the authenticated user object
@@ -57,9 +55,6 @@ passport.use(new GoogleStrategy({
                         first_name: profile.given_name,
                         last_name: profile.family_name
                      })
-                     const userToken = await User.generateToken();
-                     //generating a token for google user
-                     console.log('this is user token', userToken)
                     return done(null,newUser)
                 } catch (error) {
                     console.log('After creating', error)
