@@ -27,6 +27,7 @@ import AllSupport from "../features/all_support/AllSupport";
 import SingleSupport from "../features/single_support/singleSupport";
 import Project from "../features/project_page/project";
 import FriendRequests from "../features/friend_requests/friend_requests";
+import AllProjects from "../features/all_project/allproject";
 
 
 
@@ -103,6 +104,7 @@ const AppRoutes = () => {
           <Route path="/supportTickets" element={<AllSupport />} />
           <Route path="/project/:projectId" element={<Project/>}/>
           <Route path="/notifications" element={<Notifications/>} />
+          <Route path="/project" element={<AllProjects/>}/>
         </Routes>
 
       )}
