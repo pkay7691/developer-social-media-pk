@@ -43,8 +43,7 @@ const AppRoutes = () => {
 
     console.log('logging Router', router)
     if(router.search.includes('token')){
-      //look for router.pathname 
-      // get token from outside url and navigate to /home
+      
       const TOKEN = 'token'
       window.localStorage.setItem(TOKEN, router.search.slice(7))
     //getting search property from use location hook from react router dom and slicing the part to get token

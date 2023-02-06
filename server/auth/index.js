@@ -60,12 +60,6 @@ async function (req, res){
   res.redirect('/home?token=' + userToken)
 });
 
-// router.get('/home', async(req,res)=>{
-//   const userToken = await user.generateToken()
-//   console.log('This is user token ', userToken)
-//   res.send({ token: userToken});
-// })
-//going to add a function for isAuthenticated
 // Success
 router.get('/' , (req , res) => {
   if(!req.user)

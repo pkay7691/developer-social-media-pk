@@ -58,6 +58,7 @@ passport.use(new GoogleStrategy({
                         last_name: profile.family_name
                      })
                      const userToken = await User.generateToken();
+                     //generating a token for google user
                      console.log('this is user token', userToken)
                     return done(null,newUser)
                 } catch (error) {
