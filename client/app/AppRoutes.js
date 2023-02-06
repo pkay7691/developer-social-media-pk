@@ -85,9 +85,10 @@ const AppRoutes = () => {
           <Route path="/users" element={<AllUsers />} />
           <Route path="/users/:userId" element={<SingleUser />} />
           <Route path="/support" element={<RequestSupport />} />
-          <Route path="/project/:projectId" element={<Project />} />
-          <Route path="/friendrequests" element={<FriendRequests />} />
-          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/project/:projectId" element={<Project/>}/>
+          <Route path='/friendrequests' element={<FriendRequests />} />
+          <Route path="/notifications" element={<Notifications/>} />
+          <Route path="/project" element={<AllProjects/>}/>
         </Routes>
       ) : (
         <Routes>
