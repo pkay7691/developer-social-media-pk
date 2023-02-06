@@ -92,7 +92,7 @@ module.exports = {
     Comment_Like,
     Project_Membership,
     Support,
-    
+    Friendship,
     Message,
     Chat,    
   },

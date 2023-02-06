@@ -8,6 +8,7 @@ import Comments from './Comments';
 import PostLikes from './PostLikes';
 import { asyncCreateLike, asyncDeleteLike, asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
 import { asyncCreateComment, asyncFetchComments } from './commentslice';
+import { asyncFetchCommentLikes } from './commentlikeslice';
 
 
 /**
@@ -58,6 +59,7 @@ const [text_field, setText_field] = useState('')
       const like = {
         userId: userId,
         postId: postId,
+        compositeId: `${userId}&${postId}`
       }
       dispatch(asyncCreateLike(like))
       setLikeButton('Unlike')
