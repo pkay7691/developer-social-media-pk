@@ -99,12 +99,14 @@ const SingleUser = () => {
                         {isAdmin ? <Grid item xs={1}><Typography variant='h6'>Account Standing</Typography>
                             <Typography>{user.ban_status}</Typography>
                         </Grid> : null}
-                        {/*created a ban button that only admins can see*/}
-                        {isAdmin ? <Grid item xs={1}><Button variant='contained' onClick={handleBan}>Ban</Button></Grid> : null}
-                        <Grid item xs={1}><Link to={`/users/${userId}/reportUser`}><Button variant='contained'>Report</Button></Link></Grid>
-                        <Grid item xs={1}><Button variant='contained'>Block</Button></Grid>
-                        {loggedInUserId == userId ? null : <Grid item xs={1}><Button onClick={handleCreateFriendRequest} variant='contained'>Add Friend</Button></Grid>}
-                        
+                        {/*created a ban button that only admins can see. Admins will not have a ban button on their profile.*/}
+                        {isAdmin && user.id !== loggedInUserId ? <Grid item xs={1}><Button onClick={handleBan} variant='contained'>Ban</Button></Grid> : null}
+                        {/* only show the report button if the user is not the logged in user */}
+                        {user.id !== loggedInUserId ? <Grid item xs={1}><Link to={`/users/${userId}/reportUser`}><Button variant='contained'>Report</Button></Link></Grid> : null}
+                        {/* only show the block button if the user is not the logged in user */}
+                        {user.id !== loggedInUserId ? <Grid item xs={1}><Link to={`/users/${userId}/blockUser`}><Button variant='contained'>Block</Button></Link></Grid> : null}
+                        {/* only show the add friend button if the user is not the logged in user.   */}
+                        {user.id !== loggedInUserId ? <Grid item xs={1}><Button onClick={handleCreateFriendRequest} variant='contained'>Add Friend</Button></Grid> : null}
                     </Grid>
                     <Grid item xs={12} container />
                     <Grid item xs={12} container />
