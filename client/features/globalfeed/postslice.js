@@ -33,6 +33,15 @@ export const asyncDeletePost = createAsyncThunk('deletePost', async (id) => {
 
 })
 
+export const asyncUpdatePost = createAsyncThunk('updatePost', async (post) => {
+  try{
+    const {data} = await axios.put(`/api/post/${post.id}`, post)
+    return data
+  }catch(error){
+    console.log(error)
+  }
+})
+
 
 
 const postsSlice = createSlice({
@@ -47,7 +56,11 @@ const postsSlice = createSlice({
       state.push(action.payload)
     });
     builder.addCase(asyncDeletePost.fulfilled, (state, action) => {
-      return action.payload
+      return state.filter((post) => post.id !== action.payload.id)
+    });
+    builder.addCase(asyncUpdatePost.fulfilled, (state, action) => {
+      const index = state.findIndex((post) => post.id === action.payload.id)
+      state[index] = action.payload
     });
   },
 });
