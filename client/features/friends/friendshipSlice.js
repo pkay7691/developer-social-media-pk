@@ -12,8 +12,22 @@ export const fetchFriendshipsById = createAsyncThunk('friendship', async (id) =>
     }
 })
 
-export const sendFriendRequest = createAsyncThunk('sendFriendRequest',  async (friendship) => {
+export const fetchFriendshipById = createAsyncThunk('getfriendship', async (userId, profileId) =>{
   try {
+    console.log(userId, profileId, 'inside asyncthun' )
+      const {data} = await axios.get(`/api/friendship`);
+      let userFriendship = data.filter(friendship => friendship.userId == userId && friendship.friendId == profileId )
+      console.log('userFriendship', userFriendship)
+      return userFriendship
+  }
+  catch (error) {
+      console.log(error);
+  }
+})
+
+export const createFriendship = createAsyncThunk('createFriendship',  async (friendship) => {
+  try {
+    console.log("friendship in slice", friendship)
     const { data } = await axios.post('/api/friendship', friendship)
     return data
 
@@ -24,6 +38,33 @@ export const sendFriendRequest = createAsyncThunk('sendFriendRequest',  async (f
   }
 })
 
+export const updateFriendship = createAsyncThunk('updateFriendship',  async (updatedFriendship) => {
+  try {
+    const { data } = await axios.put(`/api/friendship/${updatedFriendship.id}`, updatedFriendship)
+    return data
+
+
+  }
+  catch (error) {
+
+  }
+})
+
+export const deleteFriendship = createAsyncThunk('deleteFriendship',  async (id) => {
+  try {
+    const { data } = await axios.delete(`/api/friendship/${id}`);
+
+    return data
+
+
+  }
+  catch (error) {
+
+  }
+})
+
+
+
 const friendshipSlice = createSlice({
     name: 'friendship',
     initialState: {},
@@ -32,9 +73,22 @@ const friendshipSlice = createSlice({
         builder.addCase(fetchFriendshipsById.fulfilled, (state, action) => {
             return action.payload
         });
-        builder.addCase(sendFriendRequest.fulfilled, (state, action) => {
+        builder.addCase(createFriendship.fulfilled, (state, action) => {
           return action.payload
       });
+      builder.addCase(createFriendship.rejected, (state, action) => {
+        alert("Friend has already been requested")
+        return action.payload
+    });
+      builder.addCase(updateFriendship.fulfilled, (state, action) => {
+        return action.payload
+    });
+    builder.addCase(deleteFriendship.fulfilled, (state, action) => {
+      return action.payload
+  });
+  builder.addCase(fetchFriendshipById.fulfilled, (state, action) => {
+    return action.payload
+});
     }
 })
 

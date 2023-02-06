@@ -2,6 +2,15 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Friendship = db.define('friendship',{
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  compositeId: {
+    type: Sequelize.STRING,
+    unique: true,
+  },
     status:{
         type: Sequelize.STRING,
         allowNull: false,
@@ -21,7 +30,11 @@ const Friendship = db.define('friendship',{
     friendName: {
       type: Sequelize.STRING,
 
-    }
+    },
+    userName: {
+      type: Sequelize.STRING,
+
+    },
     //went with Enum because either can be true or validate
 })
 

@@ -62,6 +62,8 @@ const Navbar = () => {
                   <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
                   <Grid item xs={8.5} />
+                  <Link to="/friendrequests">Friend Requests</Link>
+                  <Grid item xs={8.5} />
                   <Tooltip title='Account Settings'>
                     <IconButton
                       onClick={handleClick}

@@ -11,7 +11,7 @@ import { fetchUserFeedById } from "../globalfeed/globalfeedslice";
 import GlobalFeed from "../globalfeed/GlobalFeed";
 import { asyncFetchComments } from "../globalfeed/commentslice";
 import { asyncFetchPostLikes } from "../globalfeed/postlikesslice";
-import { sendFriendRequest } from "../friends/friendshipSlice";
+import { createFriendship, fetchFriendshipById} from "../friends/friendshipSlice";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,6 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const SingleUser = () => {
     const loggedInUserId = useSelector((state) => state.auth.me.id);
+    const loggedInUser = useSelector((state) => state.auth.me)
     const navigate = useNavigate();
     const isAdmin = useSelector((state) => state.auth.me.is_admin)
     const banStatus = ['good_standing', 'banned']
@@ -37,14 +38,18 @@ const SingleUser = () => {
 
 
     const handleCreateFriendRequest = (e) => {
-        console.log('friend request creation')
         const friendship = {
             userId: loggedInUserId,
             friendId: userId,
-            friendName: `${user.first_name} ${user.last_name}`
+            friendName: `${user.first_name} ${user.last_name}`,
+            userName: `${loggedInUser.first_name} ${loggedInUser.last_name}`,
+            compositeId: `${loggedInUserId}&${userId}`
+
         }
-        dispatch(sendFriendRequest(friendship))
+
+        dispatch(createFriendship(friendship))
     }
+
 
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
@@ -72,6 +77,7 @@ const SingleUser = () => {
         navigate(`/users/${userId}`)
     }
 
+    console.log(userId, loggedInUserId, "userId and loggedinuserId")
 
 
 
@@ -97,7 +103,8 @@ const SingleUser = () => {
                         {isAdmin ? <Grid item xs={1}><Button variant='contained' onClick={handleBan}>Ban</Button></Grid> : null}
                         <Grid item xs={1}><Link to={`/users/${userId}/reportUser`}><Button variant='contained'>Report</Button></Link></Grid>
                         <Grid item xs={1}><Button variant='contained'>Block</Button></Grid>
-                        <Grid item xs={1}><Button onClick={handleCreateFriendRequest} variant='contained'>Add Friend</Button></Grid>
+                        {loggedInUserId == userId ? null : <Grid item xs={1}><Button onClick={handleCreateFriendRequest} variant='contained'>Add Friend</Button></Grid>}
+                        
                     </Grid>
                     <Grid item xs={12} container />
                     <Grid item xs={12} container />
