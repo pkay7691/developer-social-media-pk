@@ -13,7 +13,7 @@ export const fetchAllProjectAsync = createAsyncThunk('project', async () => {
 
 const projectsSlice = createSlice({
     name: 'projects',
-    initialState: {},
+    initialState: [],
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchAllProjectAsync.fulfilled, (state, action) => {

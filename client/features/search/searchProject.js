@@ -1,17 +1,16 @@
 import React from 'react'
 //creating a search bar so that it can be used again 
-const SearchInput = ({name, setName}) => {
+const SearchProject = ({projectName, setProjectName}) => {
   return (
     <input
         type="text"
         className="mx-1 py-2 outline-none w-auto col-span-4 text-base"
-        value={name || ""}
-        onChange={(e)=>setName(e.target.value)}
+        value={projectName || ""}
+        onChange={(e)=>setProjectName(e.target.value)}
         name="search"
         id="search"
-        placeholder="Search Student by Name"
+        placeholder="Search For Projects"
     />
   )
 }
-
-export default SearchInput
+export default SearchProject
