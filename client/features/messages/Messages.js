@@ -1,8 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Grid, Box, Typography, Tabs } from "@mui/material";
 import SideBar from "../sidebar/SideBar";
+import { useDispatch } from "react-redux";
+import { fetchChat } from "./messagesslice";
 
 const Messages = () => {
+
+
+    const dispatch = useDispatch()
+    const chatter  = {
+        userId: 1,
+        otherId: 2
+    }
+
+
+    useEffect(() => {
+        dispatch(fetchChat(chatter))
+    },[])
+
+
+
+    
     return (
         <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h4">Messages</Typography>
