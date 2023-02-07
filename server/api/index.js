@@ -13,6 +13,7 @@ router.use('/postlike', require('./post_like'))
 router.use('/support', require('./support'))
 router.use('/friendship', require('./friendship'))
 router.use('/message', require('./message'))
+router.use('/favorites', require('./favorites'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

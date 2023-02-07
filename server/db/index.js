@@ -12,6 +12,7 @@ const Comment_Like = require('./models/Comment_Like');
 const Message = require('./models/Message');
 const Chat = require('./models/Chat');
 const Support = require('./models/Support.js');
+const Favorite = require("./models/Favorite");
 
 
 User.belongsToMany(User, {
@@ -33,6 +34,7 @@ User.hasMany(Post)
 User.hasMany(Comments)
 User.hasMany(Comment_Like)
 User.hasMany(Post_like)
+User.hasMany(Favorite)
 User.belongsToMany(User, {
   as: 'sender',
   foreignKey: 'senderId', 
@@ -65,6 +67,9 @@ Comments.belongsTo(User)
 
 Comment_Like.belongsTo(Comments);
 Comment_Like.belongsTo(User);
+
+Favorite.belongsTo(Project)
+Favorite.belongsTo(User)
 
 
 
@@ -105,7 +110,8 @@ module.exports = {
     Support,
     Friendship,
     Message,
-    Chat,    
+    Chat,
+    Favorites
   },
 }
 
