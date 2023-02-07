@@ -25,13 +25,24 @@ User.belongsToMany(User, {
   through: Friendship,
 }) 
 
+
+
 User.belongsToMany(Project, {through: Project_Membership})
 User.hasMany(Report)
 User.hasMany(Post)
 User.hasMany(Comments)
 User.hasMany(Comment_Like)
 User.hasMany(Post_like)
-User.belongsToMany(Message, {through: Chat})
+User.belongsToMany(User, {
+  as: 'sender',
+  foreignKey: 'senderId', 
+  through: Message
+})
+User.belongsToMany(User, {
+  as: 'receiver',
+  foreignKey: 'receiverId',
+  through: Message
+})
 User.hasMany(Support)
 
 
@@ -55,7 +66,7 @@ Comments.belongsTo(User)
 Comment_Like.belongsTo(Comments);
 Comment_Like.belongsTo(User);
 
-Message.belongsToMany(User, {through: Chat})
+
 
 
 Project.belongsToMany(User, {

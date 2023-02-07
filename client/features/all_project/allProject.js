@@ -3,7 +3,7 @@ import { Table, TableCell, TableHead, Typography, TableRow, TableBody } from "@m
 import React, {useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProjectAsync, selectProjects } from "./allProjectSlice";
-import SearchProject from '../search/searchProject
+import SearchProject from '../search/searchProject'
 const AllProjects = () => {
     const dispatch = useDispatch();
     const projects = useSelector(selectProjects);

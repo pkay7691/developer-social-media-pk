@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {User, Post, Project, Comments, Post_like, Comment_Like} } = require('../server/db')
+const {db, models: {User, Post, Project, Comments, Post_like, Comment_Like, Message} } = require('../server/db')
 const { faker } = require('@faker-js/faker')
 const Report = require('../server/db/models/Report')
 
@@ -148,6 +148,30 @@ async function seed() {
     await commentLike.setUser(nic)
     await projectPostComment.addComment_like(commentLike)
 
+    // user sending a message
+
+    const message1 = await Message.create({
+      content: 'Whats your name?',
+      senderId: 1,
+      receiverId: 2,
+    })
+
+    const message2 = await Message.create({
+      content: 'My name is Johnny',
+      senderId: 2,
+      receiverId: 1,
+    })
+
+    const message3 = await Message.create({
+      content: 'Hello friend',
+      senderId: 3,
+      receiverId: 1,
+    })
+    const message4 = await Message.create({
+      content: 'Hello friend',
+      senderId: 2,
+      receiverId: 3,
+    })
 
 
 
