@@ -20,7 +20,8 @@ import {
   AllSupport,
   SingleSupport,
   Project,
-  FriendRequests
+  FriendRequests,
+  AllProjects
 } from "../features";
 import { me } from "./store";
 import { useLocation } from "react-router-dom";
