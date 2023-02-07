@@ -120,17 +120,16 @@ const Navbar = () => {
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                     >
+
                       <Stack direction ='row' spacing={2}>
                       <StyledBadge overlap='circular' anchorOrigin={{vertical:'bottom',
                         horizontal: 'right'}} variant ='dot'>
-
                       <Avatar
                         src={profilePic}
                         style={{ width: "30px", height: "30px" }}
                       />
                       </StyledBadge>
-                      </Stack>
-
+                     </Stack>
                     </IconButton>
                   </Tooltip>
                   <Menu

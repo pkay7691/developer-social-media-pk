@@ -17,6 +17,8 @@ import singleSupportSlice from '../features/single_support/singleSupportSlice';
 import projectSlice from '../features/project_page/projectSlice';
 import friendshipReducer from '../features/friends/friendshipSlice';
 import allProjectSlice from '../features/all_project/allProjectSlice';
+import messagesslice from '../features/messages/messagesslice';
+
 
 
 const store = configureStore({
@@ -36,7 +38,10 @@ const store = configureStore({
     singleSupport: singleSupportSlice,
     project: projectSlice,
     friendship: friendshipReducer,
-    projects: allProjectSlice
+
+    projects: allProjectSlice,
+    message: messagesslice,
+
 
    },
 

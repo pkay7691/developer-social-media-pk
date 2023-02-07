@@ -3,7 +3,9 @@ import { Table, TableCell, TableHead, Typography, TableRow, TableBody } from "@m
 import React, {useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProjectAsync, selectProjects } from "./allProjectSlice";
+
 import SearchProject from '../search/searchProject';
+
 const AllProjects = () => {
     const dispatch = useDispatch();
     const projects = useSelector(selectProjects);
@@ -18,9 +20,11 @@ const AllProjects = () => {
     }, [projects]);
     useEffect(() => {
         if(projectName && projectName!==null && projectName!=="")
+
         {
         //checking for matches and coverting to lowercase
         let updateProject = projects.filter((res) => res.project_name.toLowerCase().includes(projectName.toLowerCase())===true ||
+
                                                 (res.technologies).toLowerCase().includes(projectName.toLowerCase())===true)
         setAns(updateProject)
         }
@@ -29,8 +33,10 @@ const AllProjects = () => {
         }
     }, [projectName])
 
+    
     return (
         <div>
+            
 
             <Typography component='h2' variant="h6" align="center" fontWeight='bold' gutterBottom>All Projects</Typography>
             <SearchProject projectName={projectName} setProjectName ={setProjectName}/>
