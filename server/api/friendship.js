@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
 //find single friendship by id
 router.get("/:id", async (req, res, next) => {
   try {
-    const friendship = await Friendship.findByPk(req.params.id, {include: [User]});
+    const friendship = await Friendship.findByPk(req.params.id);
     res.send(friendship);
   } catch (error) {
     next(error);

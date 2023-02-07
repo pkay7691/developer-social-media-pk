@@ -9,6 +9,8 @@ import PostLikes from './PostLikes';
 import { asyncCreateLike, asyncDeleteLike, asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
 import { asyncCreateComment, asyncFetchComments } from './commentslice';
 import { asyncFetchCommentLikes } from './commentlikeslice';
+import { asyncDeletePost, asyncUpdatePost } from './postslice';
+import { HighlightOff } from '@mui/icons-material';
 
 
 /**
@@ -18,8 +20,8 @@ const FeedPost = ({feedItem, renderPostLikes, setRenderPostLikes, renderComments
 
 const [likeButton, setLikeButton] = useState('')
 const [text_field, setText_field] = useState('')
+const [edit, setEdit] = useState(false)
  
-  
   const username = useSelector((state) => state.auth.me.username);
   const user = useSelector((state) => state.auth.me);
   const dispatch = useDispatch()
@@ -88,13 +90,55 @@ const [text_field, setText_field] = useState('')
     dispatch(asyncFetchComments())
   }
 
-  
+  //!FIXME: handleDeletePost deletes the post but does not rerender the feed.
+  const handleDeletePost = (e) => { 
+    e.preventDefault();
+    dispatch(asyncDeletePost(feedItem.id))
+    if(!!profileId) {
+      dispatch(fetchUserFeedById(profileId))
+    } else dispatch(fetchGlobalFeed());
+    dispatch(asyncFetchComments())
+  }
 
+  //!FIXME: handleEditPost does not rerender the feed.
+  const handleEditPost = (e) => {
+    e.preventDefault();
+    setEdit(true)
+  }
   
   return (
     <div>
             <Box className='border'>
+              {feedItem.userId === user.id ? <HighlightOff onClick={handleDeletePost} /> : null}
               <div className='flex flex-row'> 
+              {/*users can update their own posts*/}
+              {feedItem.userId === user.id ? <Button onClick={handleEditPost}>Edit</Button> : null}
+              {edit ? <FormControl>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Edit Post"
+                  multiline
+                  rows={4}
+                  defaultValue={feedItem.description}
+                  onChange={(e) => setText_field(e.target.value)}
+                />
+                <Button onClick={() => {
+                  const updatedPost = {
+                    id: feedItem.id,
+                    title: feedItem.title,
+                    url: feedItem.url,
+                    description: text_field,
+                    userId: feedItem.userId,
+                    projectId: feedItem.projectId
+                  }
+                  console.log(updatedPost, 'this is updated post in handleEditPost')
+                  dispatch(asyncUpdatePost(updatedPost))
+                  if(!!profileId) {
+                    dispatch(fetchUserFeedById(profileId))
+                  } else dispatch(fetchGlobalFeed());
+                  setEdit(false)
+                }}>Submit</Button>
+              </FormControl> : null}
                <Link to={`/users/${feedItem.userId}`}> <Avatar src={feedItem.user.img_url} /> </Link>
                 {feedItem.project && feedItem.project.project_name ?
                 <div>
