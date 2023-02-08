@@ -5,6 +5,7 @@ const { models: { User, Project, Favorite } } = require('../db');
 router.get('/', async(req, res, next)=>{
     try{
         const favorites = await Favorite.findAll({include:[User, Project ]});
+        console.log('THIS IS BACKEND BEFORE SINGLE FAVORITE___________________', favorites)
         res.send(favorites);
     }catch(error){
         next(error)
@@ -15,6 +16,7 @@ router.get('/', async(req, res, next)=>{
 .get(async(req, res, next)=>{
     try{
         const favorite = await Favorite.findByPk(req.params.id,{include:[User, Project ]});
+        console.log('THIS IS BACKEND SINGLE FAVORITE___________________', favorite)
         res.send(favorite);
     }catch(error){
         next(error)
@@ -30,14 +32,14 @@ router.get('/', async(req, res, next)=>{
     }
   })
   //update a single favorite project
-  .put(async(req, res, next) => {
-    try {
-      const updateFavorite = await Favorite.findByPk(req.params.id);
-      res.send(await updateFavorite.update(req.body));
-    } catch (error) {
-      next(error);
-    }
-  })
+.put(async(req, res, next) => {
+  try {
+    const updateFavorite = await Favorite.findByPk(req.params.id);
+    res.send(await updateFavorite.update(req.body));
+  } catch (error) {
+    next(error);
+  }
+})
   //remove a single favorite project
 .delete(async(req,res,next)=>{
     try{

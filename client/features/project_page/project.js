@@ -5,7 +5,7 @@ import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
 import { useParams, Link } from "react-router-dom";
 import { fetchProjectAsync, selectProject } from "./projectSlice";
 import {format} from 'date-fns'
-
+import Favorites from "../favorites/Favorites";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const Project = () => {
+const Project = ({collectedFavs}) => {
     const dispatch = useDispatch();
     const {projectId} = useParams();
     const project = useSelector(selectProject);
@@ -42,6 +42,7 @@ const Project = () => {
                         <Typography textAlign='left'>Gihub Url: {project.github_url}</Typography>
                         <Typography textAlign='left'>Date Created: {project.createdAt}</Typography> {/* bug with dates will fix later */}
                         <Typography textAlign='left'>Last Edited: {project.updatedAt}</Typography> {/* bug with dates will fix later */}
+                        <Favorites/>
                     </Item>
                 </Grid>
             </Grid>

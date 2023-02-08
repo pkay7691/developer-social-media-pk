@@ -9,7 +9,8 @@ import {
     try {
         const { data } = await axios.get('/api/favorites');
         data.sort((a,b)=> new Date(a.createdAt) - new Date(b.createdAt))
-        return data;
+        console.log('favorite Axio Call', data)
+        // return data;
     } catch (error) {
         console.log(error)
     }
@@ -17,7 +18,7 @@ import {
   export const asyncCreateFavorite = createAsyncThunk("createFavorite", async (myFavorite) => {
     try {
   
-      const { data } = await axios.post('/api/Favorite', myFavorite);
+      const { data } = await axios.post('/api/favorites', myFavorite);
       return data;
     } catch (error) {
       console.log(error);
@@ -25,7 +26,7 @@ import {
   });
   export const asyncRmvFavorite = createAsyncThunk("removeFavorite", async (id) => {
     try {
-      const {data} = await axios.delete(`/api/Favorite/${id}`)
+      const {data} = await axios.delete(`/api/favorites/${id}`)
       return data;
     }
     catch {
@@ -40,24 +41,24 @@ const favoriteSlice = createSlice({
     },
     reducers:{
         addToFavorites:(state, action)=>{
-            state.items.push(action.payload);
+            state.collectedFavs.push(action.payload);
         },
-        addToFavorites:(state, action)=>{
+        rmvFavorites:(state, action)=>{
             state.collectedFavs = state.collectedFavs.filter(fav => fav !== action.payload)
         }
     },
-    extraReducers:()=>{
+    extraReducers:(builder)=>{
         builder.addCase(asyncFetchFavorite.fulfilled, (state, action) => {
             return action.payload
-        });
+        })
         builder.addCase(asyncCreateFavorite.fulfilled, (state, action) => {
             console.log(action.payload)
-        });
+        })
         builder.addCase(asyncRmvFavorite.fulfilled, (state, action) => {
             console.log(action.payload)
-        });
+        })
     }
 });
 
-export const pickingFavorites = (state) => state.favorites;
+export const {rmvFavorites, addToFavorites } = favoriteSlice.reducer;
 export default favoriteSlice.reducer;

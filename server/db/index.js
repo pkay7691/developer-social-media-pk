@@ -80,6 +80,7 @@ Project.belongsToMany(User, {
   foreignKey: 'userId',
 })
 Project.hasMany(Post)
+Project.hasMany(Favorite)
 
 
 
