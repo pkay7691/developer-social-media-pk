@@ -1,29 +1,26 @@
 import React from 'react'
-import { rmvFavorites, addToFavorites } from './favoriteSlice'
+import { rmvFavorites, addToFavorites, favoriteSlice} from './favoriteSlice'
+
 import { useSelector, useDispatch } from 'react-redux'
 import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
-const Favorites = ({fav}) => {
+const Favorites = ({id}) => {
   const dispatch = useDispatch();
   //getting the state, thestates name and the array
-  const collections = useSelector(state => state.favorites.collectedFavs)
+  const collectedFavs = useSelector((state)=>state.favorite.collectedFavs)
   console.log('After collected Fave', collectedFavs)
-  const partOfFavs = collections.includes(fav)
+  //should be empty
+  const partOfFavs = collectedFavs.includes(id)
+  console.log("AFTER AFTER COLLECTED FAV", partOfFavs)
 
   //this happens when the button is clicked
   const addingfavorite = () =>{
-    if(partOfFavs.length === 0 || partOfFavs === '' || partOfFavs === null){
-      return(
-        <div>
-          'There are No Favorites'
-        </div>
-      )
-    }else if(partOfFavs){
-      dispatch(addToFavorites(fav))
-      dispatch(rmvFavorites(fav))
+    if(partOfFavs){
+      dispatch(rmvFavorites(id))
+    }else{
+      dispatch(addToFavorites(id))
     }
   }
   return (
-    
     <>
       <BookmarkAddOutlinedIcon
       onClick={addingfavorite}

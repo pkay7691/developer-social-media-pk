@@ -7,7 +7,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
     try {
         const projects = await Project.findAll({
-            include: ['member', Post]
+            include: ['member', Post, Favorite]
         });
         res.json(projects);
     } catch (err) {

@@ -4,18 +4,17 @@ import {
   } from "@reduxjs/toolkit";
   import axios from "axios";
 
-  //fetches all favorite projects from database 
+  //fetches all favorite projects 
   export const asyncFetchFavorite = createAsyncThunk('fetchFavorites', async()=>{
     try {
         const { data } = await axios.get('/api/favorites');
-        data.sort((a,b)=> new Date(a.createdAt) - new Date(b.createdAt))
         console.log('favorite Axio Call', data)
-        // return data;
+        return data;
     } catch (error) {
         console.log(error)
     }
   });
-  export const asyncCreateFavorite = createAsyncThunk("createFavorite", async (myFavorite) => {
+  export const asyncAddFavorite = createAsyncThunk("addFavorite", async (myFavorite) => {
     try {
   
       const { data } = await axios.post('/api/favorites', myFavorite);
@@ -51,7 +50,7 @@ const favoriteSlice = createSlice({
         builder.addCase(asyncFetchFavorite.fulfilled, (state, action) => {
             return action.payload
         })
-        builder.addCase(asyncCreateFavorite.fulfilled, (state, action) => {
+        builder.addCase(asyncAddFavorite.fulfilled, (state, action) => {
             console.log(action.payload)
         })
         builder.addCase(asyncRmvFavorite.fulfilled, (state, action) => {
@@ -60,5 +59,5 @@ const favoriteSlice = createSlice({
     }
 });
 
-export const {rmvFavorites, addToFavorites } = favoriteSlice.reducer;
+export const {rmvFavorites, addToFavorites } = favoriteSlice.actions;
 export default favoriteSlice.reducer;
