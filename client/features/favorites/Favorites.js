@@ -1,5 +1,5 @@
 import React from 'react'
-import { rmvFavorites, addToFavorites, favoriteSlice} from './favoriteSlice'
+import { rmvFavorites, addToFavorites, seeFavorites} from './favoriteSlice'
 
 import { useSelector, useDispatch } from 'react-redux'
 import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
@@ -16,8 +16,12 @@ const Favorites = ({id}) => {
   const addingfavorite = () =>{
     if(partOfFavs){
       dispatch(rmvFavorites(id))
+      dispatch(seeFavorites())
+      
+      
     }else{
       dispatch(addToFavorites(id))
+
     }
   }
   return (

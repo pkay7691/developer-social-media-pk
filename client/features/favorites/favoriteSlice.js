@@ -36,9 +36,16 @@ import {
 const favoriteSlice = createSlice({
     name: 'favorites',
     initialState: {
-        collectedFavs: []
+        collectedFavs: [],
+        loading: false,
+        error: null
     },
     reducers:{
+      //add a new reducer
+        seeFavorites:(state, action) => {
+          state.loading = false
+          state.collectedFavs = action.payload
+        },
         addToFavorites:(state, action)=>{
             state.collectedFavs.push(action.payload);
         },
@@ -59,5 +66,5 @@ const favoriteSlice = createSlice({
     }
 });
 
-export const {rmvFavorites, addToFavorites } = favoriteSlice.actions;
+export const {rmvFavorites, addToFavorites,seeFavorites } = favoriteSlice.actions;
 export default favoriteSlice.reducer;
