@@ -5,8 +5,9 @@ import { TabList, TabContext } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
 import { fetchChat } from "../messages/messagesslice";
+import Chatbox from "../messages/Chatbox";
 
-const SideBar = () => {
+const SideBar = ({receiverId, setReceiverId}) => {
   const [view, setView] = useState("1");
 
   const loggedInUserId = useSelector((state) => state.auth.me.id);
@@ -16,11 +17,12 @@ const SideBar = () => {
   const dispatch = useDispatch()
 
   const handleGetChat = (friendId) => {
+
     const chatters = {
       userId: loggedInUserId,
       otherId: friendId
-
     }
+    setReceiverId(friendId)
     dispatch(fetchChat(chatters))
 
   }
@@ -28,6 +30,14 @@ const SideBar = () => {
   useState(() => {
     dispatch(fetchUserAsync(loggedInUserId))
   }, [dispatch])
+
+  const chatform = () => {
+    return (
+      <div>
+        <Chatbox />
+      </div>
+    )
+  }
 
 
   return (
@@ -59,13 +69,13 @@ const SideBar = () => {
             friends.map((friend) =>
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Typography variant="h6">{friend.first_name} {friend.last_name}</Typography>
-                <Button onClick={(e) => handleGetChat
-                  (friend.id)} variant="contained" color="primary" size="small">
+                <Button variant="contained" color="primary" size="small" onClick={() => handleGetChat(friend.id)}>
+                  {/*if chatButton is clicked, we will change the view to the chatbox */}
                   <ChatBubble />
+                  
                 </Button>
               </Stack>
             )
-
             :
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography variant="h6">No Friends Available</Typography>

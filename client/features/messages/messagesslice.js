@@ -22,6 +22,18 @@ export const fetchChat = createAsyncThunk('fetchChat', async ({userId, otherId})
   }
 })
 
+//send a message
+export const sendMessage = createAsyncThunk('sendMessage', async ({senderId, receiverId, content}) => {
+  console.log(senderId, receiverId, content, 'senderId, receiverId, content')
+  try{
+    const { data } = await axios.post('/api/message', {senderId, receiverId, content})
+    return data
+  }
+  catch(error) {
+    console.log(error)
+  }
+})
+
 const messageSlice = createSlice({
     name: 'message',
     initialState: [],
@@ -30,6 +42,9 @@ const messageSlice = createSlice({
         builder.addCase(fetchChat.fulfilled, (state, action) => {
             return action.payload
         });
+        builder.addCase(sendMessage.fulfilled, (state, action) => {
+            state.push(action.payload)
+        } );
     }
 })
 
