@@ -36,12 +36,20 @@ User.hasMany(Post_like)
 User.belongsToMany(User, {
   as: 'sender',
   foreignKey: 'senderId', 
-  through: Message
+  through: {
+    model: Message,
+    unique: false
+  },
+  constraints: false
 })
 User.belongsToMany(User, {
   as: 'receiver',
   foreignKey: 'receiverId',
-  through: Message
+  through: {
+    model: Message,
+    unique: false
+  },
+  constraints: false
 })
 User.hasMany(Support)
 

@@ -21,7 +21,7 @@ import {
   SingleSupport,
   Project,
   FriendRequests,
-  AllProjects
+  AllProjects,
 } from "../features";
 import { me } from "./store";
 import { useLocation } from "react-router-dom";
