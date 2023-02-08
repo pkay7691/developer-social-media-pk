@@ -51,6 +51,7 @@ const favoriteSlice = createSlice({
         },
         rmvFavorites:(state, action)=>{
             state.collectedFavs = state.collectedFavs.filter(fav => fav !== action.payload)
+            state.collectedFavs.shift(action.payload)
         }
     },
     extraReducers:(builder)=>{

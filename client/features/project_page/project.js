@@ -42,7 +42,7 @@ const Project = ({collectedFavs}) => {
                         <Typography textAlign='left'>Gihub Url: {project.github_url}</Typography>
                         <Typography textAlign='left'>Date Created: {project.createdAt}</Typography> {/* bug with dates will fix later */}
                         <Typography textAlign='left'>Last Edited: {project.updatedAt}</Typography> {/* bug with dates will fix later */}
-                        <Favorites/>
+                        <Favorites project={project}/>
                     </Item>
                 </Grid>
             </Grid>
