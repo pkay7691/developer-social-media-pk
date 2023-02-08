@@ -74,6 +74,7 @@ const AppRoutes = () => {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/reportInbox" element={<AllReportInbox />} />
         <Route path="/reportInbox/:id" element={<SingleReport />} />
+        <Route path="/project" element={<AllProjects/>}/>
       </Routes>
       ) : isLoggedIn ? (
         <Routes>
