@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Box, Paper, Grid, styled, Stack, Typography, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { fetchProjectAsync, selectProject } from "./projectSlice";
 import {format} from 'date-fns'
 
@@ -17,6 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Project = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {projectId} = useParams();
     const project = useSelector(selectProject);
     const user = useSelector((state) => state.auth.me.id);
@@ -24,6 +25,11 @@ const Project = () => {
     useEffect(() => {
         dispatch(fetchProjectAsync(projectId))
     }, [dispatch])
+
+    const goBack = () => {
+        navigate(-1)
+    }
+
 
     return (
         <Box sx={{ flexGrow: 1, p: 4 }}>
@@ -45,8 +51,7 @@ const Project = () => {
                     </Item>
                 </Grid>
             </Grid>
-            <Link to={`/users/${user}`}>
-            <Button> Go Back </Button></Link>
+            <Button onClick={goBack}> Go Back </Button>
         </Box>
     )
 }
