@@ -111,7 +111,7 @@ module.exports = {
     Friendship,
     Message,
     Chat,
-    Favorites
+    Favorite
   },
 }
 

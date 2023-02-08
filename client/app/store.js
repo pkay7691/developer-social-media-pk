@@ -11,14 +11,13 @@ import commentsReducer from '../features/globalfeed/commentslice'
 import postLikesReducer from '../features/globalfeed/postlikesslice';
 import commentlikesReducer from '../features/globalfeed/commentlikeslice';
 import postsReducer from '../features/globalfeed/postslice';
-
 import allSupportSlice from '../features/all_support/allSupportSlice';
 import singleSupportSlice from '../features/single_support/singleSupportSlice';
 import projectSlice from '../features/project_page/projectSlice';
 import friendshipReducer from '../features/friends/friendshipSlice';
 import allProjectSlice from '../features/all_project/allProjectSlice';
 import messagesslice from '../features/messages/messagesslice';
-
+import favoriteReducer from '../features/favorites/favoriteSlice';
 
 const store = configureStore({
   reducer: { 
@@ -39,7 +38,7 @@ const store = configureStore({
     friendship: friendshipReducer,
     projects: allProjectSlice,
     message: messagesslice,
-
+    favorite: favoriteReducer,
    },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
