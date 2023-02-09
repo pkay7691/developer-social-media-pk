@@ -1,11 +1,12 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Grid, Box, Typography, Tabs } from "@mui/material";
 import SideBar from "../sidebar/SideBar";
 import { useDispatch } from "react-redux";
 import { fetchChat } from "./messagesslice";
+import Chatbox from "./Chatbox";
 
 const Messages = () => {
-
+    const [receiverId, setReceiverId ] = useState(null)
 
     const dispatch = useDispatch()
     const chatter  = {
@@ -29,13 +30,14 @@ const Messages = () => {
                 {/*the first column uses 30% of the screen */}
                 <Grid item xs={3}>
                     <Box sx={{ bgcolor: "grey.300", height: "100vh" }}>
-                        <SideBar />
+                        <SideBar receiverId={receiverId} setReceiverId={setReceiverId}/>
                         {/*the second column uses 70% of the screen */}
                     </Box>
                 </Grid>
                 <Grid item xs={7}>
+                    {/*the chatbox stays in the middle of the screen */}
                     <Box sx={{ bgcolor: "grey.300", height: "100vh" }}>
-                        {/*the second column uses 70% of the screen */}
+                        <Chatbox receiverId={receiverId}/>
                     </Box>
                 </Grid>
             </Grid>

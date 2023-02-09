@@ -20,6 +20,7 @@ import allProjectSlice from '../features/all_project/allProjectSlice';
 import messagesslice from '../features/messages/messagesslice';
 
 
+
 const store = configureStore({
   reducer: { 
     auth: authReducer,
@@ -37,8 +38,10 @@ const store = configureStore({
     singleSupport: singleSupportSlice,
     project: projectSlice,
     friendship: friendshipReducer,
+
     projects: allProjectSlice,
     message: messagesslice,
+
 
    },
 

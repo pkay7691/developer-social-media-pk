@@ -5,9 +5,10 @@ import { TabList, TabContext } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
 import { fetchChat } from "../messages/messagesslice";
+import Chatbox from "../messages/Chatbox";
 
-const SideBar = () => {
-    const [view, setView] = useState("1");
+const SideBar = ({receiverId, setReceiverId}) => {
+  const [view, setView] = useState("1");
 
     const loggedInUserId = useSelector((state) => state.auth.me.id);
     const user = useSelector(selectUser)
@@ -15,25 +16,30 @@ const SideBar = () => {
 
     const dispatch = useDispatch()
 
-    const handleGetChat = (friendId) => {
-      const chatters = {
-        userId: loggedInUserId,
-        otherId: friendId
+  const handleGetChat = (friendId) => {
 
-      }
-      dispatch(fetchChat(chatters))
+    const chatters = {
+      userId: loggedInUserId,
+      otherId: friendId
+    }
+    setReceiverId(friendId)
+    dispatch(fetchChat(chatters))
 
     }
 
 
-    const friendId = chat && chat.length && (userId === chat[0].senderId)
-     ? chat[0].receiverId 
-     : chat && chat.length && (userId === chat[0].receiverId) 
-     ? chat[0].senderId : null
-
+   
     useEffect(() => {
       dispatch(fetchUserAsync(loggedInUserId))
     },[dispatch])
+
+  const chatform = () => {
+    return (
+      <div>
+        <Chatbox />
+      </div>
+    )
+  }
 
 
   return (
@@ -61,20 +67,20 @@ const SideBar = () => {
         </TabContext> */}
         {/* we will use dummy data for friends only */}
         <Stack direction="column" padding="1rem">
-          {friends && friends.length ? 
-          friends.map((friend) => 
-            <Stack key={friend.id} direction="row" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6">{friend.first_name} {friend.last_name}</Typography>
-            <Button onClick={(e) => handleGetChat
-            (friend.id)} variant="contained" color="primary" size="small">
-                <ChatBubble />
-            </Button>
-            </Stack>
-          )
-         
-          : 
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6">No Friends Available</Typography>
+          {friends && friends.length ?
+            friends.map((friend) =>
+              <Stack direction="row" justifyContent="space-between" alignItems="center">
+                <Typography variant="h6">{friend.first_name} {friend.last_name}</Typography>
+                <Button variant="contained" color="primary" size="small" onClick={() => handleGetChat(friend.id)}>
+                  {/*if chatButton is clicked, we will change the view to the chatbox */}
+                  <ChatBubble />
+                  
+                </Button>
+              </Stack>
+            )
+            :
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Typography variant="h6">No Friends Available</Typography>
             </Stack>}
            
                 </Stack>
