@@ -110,7 +110,7 @@ const Navbar = () => {
                   <Grid item xs={0.5} />
                   <Link to="/EditUser">Edit Profile</Link>
                   <Grid item xs={0.5} />
-                  <Link to="/users">Users</Link>
+                   <Link to="/users">Users</Link>
                   <Grid item xs={0.5}/>
                   <Link to="/contactUs">Contact Us</Link>
                   <Grid item xs={8.5} />

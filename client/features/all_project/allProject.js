@@ -57,7 +57,7 @@ const AllProjects = () => {
             {/* this will return a list of projects and technologies that match */}
             {/** admin needs an all projects button */}
                 {ans && ans.length ? ans.map((project)=>(
-                    //!FIXME: stating that ans.map is not a function, will not navigate back
+
                     <TableRow key={project.id}>
                         <TableCell><Link to={`/project/${project.id}`}><Button variant="contained">View</Button></Link></TableCell>
                         <TableCell>{project.project_name}</TableCell>
