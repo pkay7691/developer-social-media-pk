@@ -124,6 +124,7 @@ async function seed() {
         "TypeScript",
       ]),
       is_admin: faker.datatype.boolean(),
+      createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2021-01-01T00:00:00.000Z'),
      status: faker.helpers.arrayElement([
       "Open",
       "In Progress",
@@ -157,6 +158,7 @@ async function seed() {
       modelType: 'post',
       description: faker.lorem.paragraphs(1),
       url: faker.internet.url(),
+      createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2021-01-01T00:00:00.000Z'),
       userId: faker.datatype.number({ 
         min: 1,
         max: 100,
@@ -178,6 +180,7 @@ async function seed() {
       modelType: 'post',
       description: faker.lorem.paragraphs(1),
       url: faker.internet.url(),
+      createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2021-01-01T00:00:00.000Z'),
       userId: faker.datatype.number({ 
         min: 1,
         max: 100,

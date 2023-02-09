@@ -43,7 +43,7 @@ const PostLikes = ({feedItem}) => {
       : postLikes && postLikes.length > 2 ?
       <div> Liked by <Link to={`/users/${postLikes[0].user.id}`}>{postLikes[0].user.first_name} {postLikes[0].user.last_name}</Link> and {postLikes.length  -1} others</div> 
 :
-       null}
+       <div></div>}
      
     
    

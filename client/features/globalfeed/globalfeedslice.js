@@ -6,15 +6,18 @@ import axios from "axios";
 
 
 // this fetches all products from the database
-export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
+export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async ({page, limit}) => {
   try {
+    console.log(page,limit, 'params log')
     const globalFeed = []
-    const posts = await axios.get("/api/post");
-    const projects = await axios.get('/api/project');
-    posts.data.forEach(post => globalFeed.push(post))
-    projects.data.forEach(project => globalFeed.push(project))
-    globalFeed.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
-    return globalFeed
+    const {data} = await axios.get("/api/feed", {params: {
+      page: page,
+      limit: limit,
+    } });
+    // posts.data.forEach(post => globalFeed.push(post))
+    // projects.data.forEach(project => globalFeed.push(project))
+    // globalFeed.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+    return data
 
 
 
@@ -51,7 +54,7 @@ const globalFeedSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchGlobalFeed.fulfilled, (state, action) => {
-      return action.payload
+      action.payload.results.forEach((item) => state.push(item))
     });
     builder.addCase(fetchUserFeedById.fulfilled, (state, action) => {
       return action.payload
