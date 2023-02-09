@@ -106,9 +106,12 @@ const Navbar = () => {
                   <Grid item xs={0.5} />
                   <Link to="/chat">Chat</Link>
                   <Grid item xs={0.5} />
+                  <Link to="/project">All Projects </Link>
                   <Grid item xs={0.5} />
                   <Link to="/EditUser">Edit Profile</Link>
                   <Grid item xs={0.5} />
+                  <Link to="/users">Users</Link>
+                  <Grid item xs={0.5}/>
                   <Link to="/contactUs">Contact Us</Link>
                   <Grid item xs={8.5} />
                   <Tooltip title='Account Settings'>
@@ -252,10 +255,15 @@ const Navbar = () => {
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                     >
+                       <Stack direction ='row' spacing={2}>
+                      <StyledBadge overlap='circular' anchorOrigin={{vertical:'bottom',
+                        horizontal: 'right'}} variant ='dot'>
                       <Avatar
                         src={profilePic}
                         style={{ width: "30px", height: "30px" }}
                       />
+                      </StyledBadge>
+                     </Stack>
                     </IconButton>
                   </Tooltip>
                   <Menu
@@ -347,7 +355,6 @@ const Navbar = () => {
                   <Grid item xs={0.5} />
                   <Link to="/signup">Sign Up</Link>
                   <Grid item xs={0.5} />
-                  <Link to="/users">Users</Link>
                 </Grid>
               </Container>
             </AppBar>
