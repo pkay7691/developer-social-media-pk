@@ -5,16 +5,39 @@ const { models: { User, Project, Favorite } } = require('../db');
 router.get('/', async(req, res, next)=>{
     try{
         const favorites = await Favorite.findAll({include:[User, Project ]});
-        console.log('THIS IS BACKEND BEFORE SINGLE FAVORITE___________________', favorites)
+        // console.log('THIS IS BACKEND BEFORE SINGLE FAVORITE___________________', favorites)
         res.send(favorites);
     }catch(error){
         next(error)
     }
 })
+router.post('/',async(req, res, next) => {
+  try {
+    const newFavorite = await Favorite.create(req.body);
+    console.log(req.body)
+    res.send(newFavorite);
+  } catch (error) {
+    next(error);
+  }
+})
+router.delete('/',async(req,res,next)=>{
+  console.log('at delete route')
+  try{
+    console.log(req.params.id)
+    const remvfavorite = await Favorite.findByPk(req.params.id);
+    console.log(remvfavorite)
+    console.log('THIS IS BACKEND BEFORE SINGLE FAVORITE___________________', remvfavorite)
+    await remvfavorite.destroy();
+    res.send(remvfavorite)
+  }catch (error){
+    next(error)
+  }
+})
 //get a single favorite project
 .route('/:id')
 .get(async(req, res, next)=>{
     try{
+        console.log('THIS IS BACKEND SINGLE FAVORITE1___________________', favorite)
         const favorite = await Favorite.findByPk(req.params.id,{include:[User, Project ]});
         console.log('THIS IS BACKEND SINGLE FAVORITE___________________', favorite)
         res.send(favorite);
@@ -22,15 +45,16 @@ router.get('/', async(req, res, next)=>{
         next(error)
     }
 })
-//post a single favorite project
 .post(async(req, res, next) => {
-    try {
-      const newFavorite = await Favorite.create(req.body);
-      res.send(newFavorite);
-    } catch (error) {
-      next(error);
-    }
-  })
+  try {
+    const newFavorite = await Favorite.create(req.params.id);
+    console.log(req.body)
+    res.send(newFavorite);
+  } catch (error) {
+    next(error);
+  }
+})
+
   //update a single favorite project
 .put(async(req, res, next) => {
   try {

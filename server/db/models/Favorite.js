@@ -4,7 +4,7 @@ const db = require('../db');
 const Favorite = db.define('favorite',{
     favor: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: true
       },
       compositeId: {
         type: Sequelize.STRING,

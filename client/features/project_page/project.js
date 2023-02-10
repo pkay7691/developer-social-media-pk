@@ -24,7 +24,9 @@ const Project = ({collectedFavs}) => {
     useEffect(() => {
         dispatch(fetchProjectAsync(projectId))
     }, [dispatch])
-
+    console.log("project page--------------------")
+    console.log(project);
+    console.log("------------------")
     return (
         <Box sx={{ flexGrow: 1, p: 4 }}>
             <Grid container spacing={2}>

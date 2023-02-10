@@ -16,17 +16,18 @@ import {
   });
   export const asyncAddFavorite = createAsyncThunk("addFavorite", async (myFavorite) => {
     try {
-  
+      console.log('Line 19', myFavorite);
       const { data } = await axios.post('/api/favorites', myFavorite);
-      return data;
+      return myFavorite;
     } catch (error) {
       console.log(error);
     }
   });
   export const asyncRmvFavorite = createAsyncThunk("removeFavorite", async (id) => {
     try {
-      const {data} = await axios.delete(`/api/favorites/${id}`)
-      return data;
+      const data = await axios.delete(`/api/favorites/${id}`)
+      console.log(data);
+      return data.data;
     }
     catch {
       console.log(error)
@@ -59,10 +60,10 @@ const favoriteSlice = createSlice({
             return action.payload
         })
         builder.addCase(asyncAddFavorite.fulfilled, (state, action) => {
-            console.log(action.payload)
+          state.collectedFavs.push(action.payload);
         })
         builder.addCase(asyncRmvFavorite.fulfilled, (state, action) => {
-            console.log(action.payload)
+          state.collectedFavs.shift(action.payload)
         })
     }
 });
