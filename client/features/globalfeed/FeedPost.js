@@ -19,8 +19,11 @@ import { fetchUserFeedById } from './userfeedslice';
 const FeedPost = ({feedItem, renderPostLikes, setRenderPostLikes, renderComments, setRenderComments, profileId}) => {
 
 const [likeButton, setLikeButton] = useState('')
-const [text_field, setText_field] = useState('')
 const [edit, setEdit] = useState(false)
+
+const [text_field, setText_field] = useState(feedItem.description)
+const [title, setTitle] = useState(feedItem.title)
+const [url, setURL] = useState(feedItem.url)
  
   const username = useSelector((state) => state.auth.me.username);
   const user = useSelector((state) => state.auth.me);
@@ -91,7 +94,6 @@ const [edit, setEdit] = useState(false)
     dispatch(asyncFetchComments())
   }
 
-  //!FIXME: handleDeletePost deletes the post but does not rerender the feed.
   const handleDeletePost = (e) => { 
     e.preventDefault();
     dispatch(asyncDeletePost(feedItem.id))
@@ -116,6 +118,20 @@ const [edit, setEdit] = useState(false)
               {feedItem.userId === user.id ? <Button onClick={handleEditPost}>Edit</Button> : null}
               {edit ? <FormControl>
                 <TextField
+                id="outlined-multiline-static"
+                label="Edit Title"
+                rows={4}
+                defaultValue={feedItem.title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <TextField
+                id="outlined-multiline-static"
+                label="Edit URL"
+                rows={4}
+                defaultValue={feedItem.url}
+                onChange={(e) => setURL(e.target.value)}
+              />
+                <TextField
                   id="outlined-multiline-static"
                   label="Edit Post"
                   multiline
@@ -126,8 +142,8 @@ const [edit, setEdit] = useState(false)
                 <Button onClick={() => {
                   const updatedPost = {
                     id: feedItem.id,
-                    title: feedItem.title,
-                    url: feedItem.url,
+                    title: title,
+                    url: url,
                     description: text_field,
                     userId: feedItem.userId,
                     projectId: feedItem.projectId
