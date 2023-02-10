@@ -45,9 +45,13 @@ router.put("/:id", async (req, res, next) => {
 // router to delete a post base on id
 router.delete('/:id', async(req,res,next)=>{
   try{
-    const post = await Post.findByPk(req.params.id);
-    await post.destroy();
-    res.send(post)
+    const id = req.params.id
+    await Post.destroy({
+      where: {
+        id: id
+      }
+    });
+    res.status(204).send(Post.findByPk(id))
   }catch (error){
     next(error)
   }
