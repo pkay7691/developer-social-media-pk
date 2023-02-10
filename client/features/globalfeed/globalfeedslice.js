@@ -6,15 +6,16 @@ import axios from "axios";
 
 
 // this fetches all products from the database
-export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
+export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async ({page, limit}) => {
   try {
     const globalFeed = []
-    const posts = await axios.get("/api/post");
-    const projects = await axios.get('/api/project');
-    posts.data.forEach(post => globalFeed.push(post))
-    projects.data.forEach(project => globalFeed.push(project))
-    globalFeed.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
-    return globalFeed
+    const {data} = await axios.get("/api/feed", {params: {
+      page: page,
+      limit: limit,
+    } });
+    
+
+    return data
 
 
 
@@ -24,23 +25,6 @@ export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async () => {
   }
 });
 
-export const fetchUserFeedById = createAsyncThunk("fetchUserFeed", async (id) => {
-  try {
-    const userFeed = []
-    const posts = await axios.get("/api/post");
-    const user = await axios.get(`/api/users/${id}`)
-    const userPosts = posts.data.filter(post => post.userId == id)
-    userPosts.forEach(post => userFeed.push(post))
-    user.data.projects.forEach(project => userFeed.push(project) )
-    userFeed.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
-    return userFeed
-
-
-
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 
 
@@ -48,20 +32,23 @@ export const fetchUserFeedById = createAsyncThunk("fetchUserFeed", async (id) =>
 const globalFeedSlice = createSlice({
   name: "globalFeed",
   initialState: [],
-  reducers: {},
+  reducers: {
+    resetGlobalFeed: (state) => state = []
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchGlobalFeed.fulfilled, (state, action) => {
-      return action.payload
+      action.payload.results.forEach((item) => state.push(item))
     });
-    builder.addCase(fetchUserFeedById.fulfilled, (state, action) => {
-      return action.payload
-    });
+  
   },
 });
+
+
 
 export const selectGlobalFeed = (state) => {
   return state.globalfeed;
 };
 
+export const { resetGlobalFeed } = globalFeedSlice.actions;
 
 export default globalFeedSlice.reducer;

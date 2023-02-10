@@ -49,6 +49,8 @@
     "react-infinite-scroll-component": "^6.1.0",
     "sequelize": "^6.25.3",
     "socket.io": "^4.5.4",
+    "uuid": "^9.0.0",
+    "uuidv4": "^6.2.13",
     "yup": "^0.32.11"
   },
   "devDependencies": {

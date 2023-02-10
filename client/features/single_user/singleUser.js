@@ -6,12 +6,12 @@ import { Box, Grid, Typography, Table, AppBar, Toolbar, Button } from "@mui/mate
 import { styled } from '@mui/material/styles';
 import { banUserAsync } from "../single_user/singleUserSlice";
 import Paper from '@mui/material/Paper';
-import { fetchUserFeedById } from "../globalfeed/globalfeedslice";
 import GlobalFeed from "../globalfeed/GlobalFeed";
 import { asyncFetchComments } from "../globalfeed/commentslice";
 import { asyncFetchPostLikes } from "../globalfeed/postlikesslice";
 import { createFriendship, fetchFriendshipById} from "../friends/friendshipSlice";
 import Avatar from '@mui/material/Avatar';
+import UserFeed from '../globalfeed/UserFeed'
 
 
 
@@ -58,7 +58,6 @@ const SingleUser = () => {
 
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
-        dispatch(fetchUserFeedById(userId))
         dispatch(asyncFetchComments())
         dispatch(asyncFetchPostLikes())
     }, [dispatch, userId])
@@ -150,7 +149,7 @@ const SingleUser = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <GlobalFeed profileId={userId} />
+            <UserFeed profileId={userId} />
         </div>
     )
 }
