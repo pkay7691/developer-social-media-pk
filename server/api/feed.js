@@ -9,6 +9,8 @@ router.get("/", async (req, res, next) => {
   try {
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit)
+    const user = req.query.user
+    console.log(req.params, 'req params dawg')
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
 
@@ -19,6 +21,9 @@ router.get("/", async (req, res, next) => {
     posts.forEach(post => feed.push(post))
     projects.forEach(project => feed.push(project))
     feed.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+    if (user) {
+      feed.filter(item => item.type === 'post' && item.userId === user )
+    }
     const results = {};
 
     if (endIndex < feed.length)
@@ -33,6 +38,7 @@ router.get("/", async (req, res, next) => {
         limit: limit
       }
     }
+    
    
     results.results = feed.slice(startIndex, endIndex)
     res.send(results)

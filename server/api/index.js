@@ -14,6 +14,7 @@ router.use('/support', require('./support'))
 router.use('/friendship', require('./friendship'))
 router.use('/message', require('./message'))
 router.use('/feed', require('./feed'))
+router.use('/userfeed', require('./userfeed'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

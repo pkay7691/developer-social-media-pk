@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+
+import React, { useState, useEffect } from "react";
 import { Stack, Typography, Button, Divider, Tab } from "@mui/material";
 import { ChatBubble } from "@mui/icons-material";
 import { TabList, TabContext } from "@mui/lab";
@@ -10,11 +11,11 @@ import Chatbox from "../messages/Chatbox";
 const SideBar = ({receiverId, setReceiverId}) => {
   const [view, setView] = useState("1");
 
-    const loggedInUserId = useSelector((state) => state.auth.me.id);
-    const user = useSelector(selectUser)
-    const friends  = user.friends
+  const loggedInUserId = useSelector((state) => state.auth.me.id);
+  const user = useSelector(selectUser)
+  const friends = user.friends
 
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const handleGetChat = (friendId) => {
 
@@ -25,13 +26,11 @@ const SideBar = ({receiverId, setReceiverId}) => {
     setReceiverId(friendId)
     dispatch(fetchChat(chatters))
 
-    }
+  }
 
-
-   
-    useEffect(() => {
-      dispatch(fetchUserAsync(loggedInUserId))
-    },[dispatch])
+  useEffect(() => {
+    dispatch(fetchUserAsync(loggedInUserId))
+  }, [dispatch])
 
   const chatform = () => {
     return (
@@ -53,18 +52,18 @@ const SideBar = ({receiverId, setReceiverId}) => {
         </Stack>
         <Divider />
         {/* We can use the TabContext to control the state of the tabs, and the Tablist to display the tabs, we need to put our tabs in a stack to control the width of the tabs */}
-        {/* <TabContext value={view}>
-            <TabList
-                onChange={(e, value) => setView(value)}
-                variant="scrollable"
-                scrollButtons
-                allowScrollButtonsMobile
-            >
-                <Tab label="Friends" value="1" />
-                <Tab label="Requests" value="2" />
-                <Tab label="Blocked" value="3" />
-            </TabList>
-        </TabContext> */}
+        <TabContext value={view}>
+          <TabList
+            onChange={(e, value) => setView(value)}
+            variant="scrollable"
+            scrollButtons
+            allowScrollButtonsMobile
+          >
+            <Tab label="Friends" value="1" />
+            <Tab label="Requests" value="2" />
+            <Tab label="Blocked" value="3" />
+          </TabList>
+        </TabContext>
         {/* we will use dummy data for friends only */}
         <Stack direction="column" padding="1rem">
           {friends && friends.length ?
@@ -82,11 +81,11 @@ const SideBar = ({receiverId, setReceiverId}) => {
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Typography variant="h6">No Friends Available</Typography>
             </Stack>}
-           
-                </Stack>
 
         </Stack>
-        
+
+      </Stack>
+
     </div>
   );
 };

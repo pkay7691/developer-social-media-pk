@@ -18,6 +18,7 @@ import projectSlice from '../features/project_page/projectSlice';
 import friendshipReducer from '../features/friends/friendshipSlice';
 import allProjectSlice from '../features/all_project/allProjectSlice';
 import messagesslice from '../features/messages/messagesslice';
+import userfeedslice from '../features/globalfeed/userfeedslice';
 
 
 
@@ -41,6 +42,7 @@ const store = configureStore({
 
     projects: allProjectSlice,
     message: messagesslice,
+    userfeed: userfeedslice,
 
 
    },

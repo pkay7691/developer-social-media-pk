@@ -81,7 +81,7 @@ async function seed() {
       for (let i = 0; i < 96; i++) {
         users.push({
       username: faker.internet.userName(),
-      img_url: faker.image.avatar(),
+      // img_url: faker.image.avatar(),
       password: 'password',
       is_admin: false,
       location: `${faker.address.cityName()}, ${faker.address.stateAbbr()} `,
@@ -140,7 +140,7 @@ async function seed() {
        "Photo Editer",
        "Sports App",
       ]),
-      github_url: faker.internet.url(),
+      // github_url: faker.internet.url(),
         });
       }
       return projects;
