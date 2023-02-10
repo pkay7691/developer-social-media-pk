@@ -48,7 +48,7 @@ router.post('/',async(req, res, next) => {
 .post(async(req, res, next) => {
   try {
     const newFavorite = await Favorite.create(req.body);
-    const  project = await Project.findByPk(req.body.projectId)
+    const  project = await Project.findByPk(req.body.id)
     await project.addFavorite(newFavorite)
     console.log("LINE 52``````````", project)
     console.log("LINE 53``````````",req.body)
@@ -72,6 +72,9 @@ router.post('/',async(req, res, next) => {
     try{
       console.log("DELETE ROUTE------------", req.params.id )
       const remvfavorite = await Favorite.findByPk(req.params.id);
+      const project = await Project.findByPk(req.params.id)
+      console.log("LINE 76-------", project)
+      await project.removeFavorite(remvfavorite);
       await remvfavorite.destroy();
       res.send(remvfavorite)
     }catch (error){

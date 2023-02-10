@@ -8,7 +8,6 @@ import {
   export const asyncFetchFavorite = createAsyncThunk('fetchFavorites', async()=>{
     try {
         const { data } = await axios.get('/api/favorites');
-        console.log('favorite Axio Call', data)
         return data;
     } catch (error) {
         console.log(error)
@@ -16,7 +15,6 @@ import {
   });
   export const asyncAddFavorite = createAsyncThunk("addFavorite", async (myFavorite) => {
     try {
-      console.log('Line 19', myFavorite);
       const { data } = await axios.post(`/api/favorites/${myFavorite.id}`, myFavorite);
       return myFavorite;
     } catch (error) {
