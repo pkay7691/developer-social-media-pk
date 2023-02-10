@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom'
-import { fetchGlobalFeed,  selectGlobalFeed } from './globalfeedslice';
+import { fetchGlobalFeed,  selectGlobalFeed, fetchGlobalFeedByPages } from './globalfeedslice';
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField, FormControl } from '@mui/material';
 import { sizing } from '@mui/system';
 import Comments from './Comments';
@@ -16,14 +16,8 @@ import { fetchUserFeedById } from './userfeedslice';
 /**
  * COMPONENT
  */
-const FeedPost = ({
-  feedItem,
-  renderPostLikes,
-  setRenderPostLikes,
-  renderComments,
-  setRenderComments,
-  profileId,
-}) => {
+
+const FeedPost = ({feedItem, renderPostLikes, setRenderPostLikes, renderComments, setRenderComments, profileId, pageNumber}) => {
 
 
 const [likeButton, setLikeButton] = useState('')
@@ -43,6 +37,7 @@ const [description, setDescription] = useState(feedItem.description)
   const postLikes = useSelector(selectPostLikes);
 
   // searches Post Like api for post like with matching userId and Post Id
+
 
   const postLikeCheck = postLikes && postLikes.length ? postLikes.filter(postLike => postLike.userId === user.id && postLike.postId === feedItem.id) : null
 
@@ -100,28 +95,51 @@ const [description, setDescription] = useState(feedItem.description)
 
   const handleDeletePost = (e) => { 
     e.preventDefault();
-    dispatch(asyncDeletePost(feedItem.id));
-    if (!!profileId) {
-      dispatch(fetchUserFeedById(profileId));
-    } else dispatch(fetchGlobalFeed());
-    dispatch(asyncFetchComments());
-  };
+
+    dispatch(asyncDeletePost(feedItem.id)).then(() => {
+      if(!!profileId) {
+        console.log("does this fire?")
+        dispatch(fetchUserFeedById(profileId))
+      } else  dispatch(fetchGlobalFeedByPages(pageNumber))
+    })
+    dispatch(asyncFetchComments())
+  }
+
 
   //!FIXME: handleEditPost does not rerender the feed.
-  const handleEditPost = (e) => {
-    e.preventDefault();
-    dispatch(asyncFetchPosts())
-    setEdit(true)
+  const handleOpenEdit = (e) => {
+    setEdit(!edit)
+  
+
   }
   
+  const handleEdit = (e) => {
+    e.preventDefault()
+    const updatedPost = {
+      id: feedItem.id,
+      title: title,
+      url: url,
+      description: description,
+      userId: feedItem.userId,
+      projectId: feedItem.projectId
+    }
+    dispatch(asyncUpdatePost(updatedPost)).then(() => {
+      if(!!profileId) {
+        console.log("does this fire?")
+        dispatch(fetchUserFeedById(profileId))
+      } else  dispatch(fetchGlobalFeedByPages(pageNumber))
+    })
+      
+
+  }
   return (
     <div>
             <Box className='border'>
               {feedItem.userId === user.id ? <HighlightOff onClick={handleDeletePost} /> : null}
               <div className='flex flex-row'> 
               {/*users can update their own posts*/}
-              {feedItem.userId === user.id ? <Button onClick={handleEditPost}>Edit</Button> : null}
-              {edit ? <FormControl>
+              {feedItem.userId === user.id ? <Button onClick={handleOpenEdit}>Edit</Button> : null}
+              {edit ? <FormControl >
                 <TextField
                 id="outlined-multiline-static"
                 label="Edit Title"
@@ -144,37 +162,11 @@ const [description, setDescription] = useState(feedItem.description)
                   defaultValue={feedItem.description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-                <Button onClick={() => {
-                  const updatedPost = {
-                    id: feedItem.id,
-                    title: title,
-                    url: url,
-                    description: description,
-                    userId: feedItem.userId,
-                    projectId: feedItem.projectId,
-                  };
-                  console.log(
-                    updatedPost,
-                    "this is updated post in handleEditPost"
-                  );
-                  dispatch(asyncUpdatePost(updatedPost));
-                  if (!!profileId) {
-                    dispatch(fetchUserFeedById(profileId));
-                  } else dispatch(fetchGlobalFeed());
-                  setEdit(false);
-                }}
-              >
-                Submit
-              </Button>
-            </FormControl>
-          ) : null}
-          <Link to={`/users/${feedItem.userId}`}>
-            {" "}
-            <Avatar src={feedItem.user.img_url} />{" "}
-          </Link>
-          {feedItem.project && feedItem.project.project_name ? (
-            <div>
-              <Link to={`/users/${feedItem.userId}`}>
+
+                <Button onClick={handleEdit}>Submit</Button>
+              </FormControl> : null}
+               <Link to={`/users/${feedItem.userId}`}> <Avatar src={feedItem.user.img_url} /> </Link>
+                {feedItem.project && feedItem.project.project_name ?
                 <div>
                   {feedItem.user.first_name} {feedItem.user.last_name}{" "}
                 </div>{" "}
