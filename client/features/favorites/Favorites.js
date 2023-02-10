@@ -16,21 +16,14 @@ const Favorites = ({project}) => {
     console.log("--------------------")
     console.log(id);
     console.log("------------------")
-    //make a component that add all stuff to db
     if(partOfFavs){
-      
       dispatch(asyncRmvFavorite(project.id))
       
       //dispatch(asyncRmvFavorite(project))
     }else{
-      const userInfo = {
-        projectId: project.id,
-        userId: user.Id,
-        compositeId: `${ user.Id}&${project.id}`
-      }
       // dispatch(addToFavorites(project))
       console.log('Line 20',project )
-      dispatch(asyncAddFavorite(userInfo))
+      dispatch(asyncAddFavorite(project))
     }
   }
   return (
