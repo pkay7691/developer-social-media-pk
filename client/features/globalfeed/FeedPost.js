@@ -21,9 +21,13 @@ const FeedPost = ({feedItem, renderPostLikes, setRenderPostLikes, renderComments
 const [likeButton, setLikeButton] = useState('')
 const [edit, setEdit] = useState(false)
 
-const [text_field, setText_field] = useState(feedItem.description)
+// this is for new comments
+const [text_field, setText_field] = useState('')
+
+// this is for editing
 const [title, setTitle] = useState(feedItem.title)
 const [url, setURL] = useState(feedItem.url)
+const [description, setDescription] = useState(feedItem.description)
  
   const username = useSelector((state) => state.auth.me.username);
   const user = useSelector((state) => state.auth.me);
@@ -106,6 +110,7 @@ const [url, setURL] = useState(feedItem.url)
   //!FIXME: handleEditPost does not rerender the feed.
   const handleEditPost = (e) => {
     e.preventDefault();
+    dispatch(asyncFetchPosts())
     setEdit(true)
   }
   
@@ -137,14 +142,14 @@ const [url, setURL] = useState(feedItem.url)
                   multiline
                   rows={4}
                   defaultValue={feedItem.description}
-                  onChange={(e) => setText_field(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
                 <Button onClick={() => {
                   const updatedPost = {
                     id: feedItem.id,
                     title: title,
                     url: url,
-                    description: text_field,
+                    description: description,
                     userId: feedItem.userId,
                     projectId: feedItem.projectId
                   }
