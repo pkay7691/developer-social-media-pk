@@ -37,7 +37,7 @@ const AddProject = () => {
         e.preventDefault();
         console.log('project', project)
         dispatch(addProjectAsync(project));
-        navigate(`/client/${id}`);
+        navigate(`/home`);
     }
 
     useEffect(() => {
