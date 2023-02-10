@@ -13,7 +13,7 @@ function Notifications() {
 //       setShow(!show);
 //  }
 
-
+//!FIXME: notification works but when you click on one checkbox all message are removed. I want to incorpuate a button that will delete checked notifications.
   return (
   <div>
     <Typography component='h2' variant="h6" align="center" fontWeight='bold' gutterBottom>All Notifications</Typography>

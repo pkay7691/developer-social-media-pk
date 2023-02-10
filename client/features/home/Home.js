@@ -8,7 +8,7 @@ import { asyncFetchPostLikes } from '../globalfeed/postlikesslice';
 import { asyncFetchCommentLikes } from '../globalfeed/commentlikeslice';
 import { FormControl, TextField, Button, Autocomplete, Box } from '@mui/material';
 import { fetchUserAsync } from '../single_user/singleUserSlice';
-import { asyncCreatePost } from '../globalfeed/postslice';
+import { asyncCreatePost, asyncFetchPosts } from '../globalfeed/postslice';
 
 
 
@@ -34,29 +34,6 @@ const Home = (props) => {
   const [description, setDescription] = useState('')
 
 
-  const handleCreatePost = (e) => {
-    e.preventDefault();
-    const newPost = {
-      userId: userId,
-      description: description,
-      title: title,
-    }
-    console.log(value)
-    if (!!inputValue && inputValue.project_name !== 'You have no projects') {
-      newPost.projectId = value.id
-    }
-    if (!!url) {
-      newPost.url = url
-    }
-    dispatch(asyncCreatePost(newPost))
-    dispatch(fetchGlobalFeed())
-    setDescription('')
-    setInputValue('')
-    setValue('')
-    setTitle('')
-    setUrl('')
-  }
-
 
 useEffect(() => {
   if(router.search.token){
@@ -65,9 +42,9 @@ useEffect(() => {
     dispatch(me())
   }
   dispatch(fetchUserAsync(userId))
-  dispatch(fetchGlobalFeed())
   dispatch(asyncFetchPostLikes())
   dispatch(asyncFetchComments())
+  dispatch(asyncFetchPosts())
 
 },[])
 
@@ -77,57 +54,6 @@ useEffect(() => {
 
   return (
     <div>
-      <FormControl onSubmit={handleCreatePost} sx={{ width: 1 }}>
-        <Autocomplete
-          id='project-select'
-          disablePortal
-          value={value || null}
-          onChange={(e, newValue) => {
-            setValue(newValue);
-          }}
-          inputValue={inputValue}
-          onInputChange={(event, newInputValue) => {
-            setInputValue(newInputValue);
-          }}
-          options={options}
-          getOptionLabel={(option) => option.project_name}
-
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label='Choose a Project'
-            />
-
-          )}
-        />
-
-        <TextField
-          id='main-feed-post-title'
-          placeholder='Title'
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          rows={1}
-        />
-        <TextField
-          id='main-feed-post-url'
-          placeholder='Url'
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          rows={1}
-        />
-
-        <TextField
-
-          id={`main-feed-post-text`}
-          placeholder='Comment'
-          multiline
-          rows={2}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-
-        />
-        <Button onClick={handleCreatePost} type='submit'>Reply</Button>
-      </FormControl>
       <GlobalFeed />
     </div>
   );

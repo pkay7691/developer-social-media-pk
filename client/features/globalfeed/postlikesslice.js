@@ -38,7 +38,7 @@ export const asyncDeleteLike = createAsyncThunk('deleteLike', async (id) => {
 
 const postLikesSlice = createSlice({
   name: "postlikes",
-  initialState: [],
+  initialState: {},
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(asyncFetchPostLikes.fulfilled, (state, action) => {

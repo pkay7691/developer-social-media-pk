@@ -26,7 +26,7 @@ const io = new Server(server, {
 app.use(morgan('dev')) 
 app.use(cors({  //cors is a package that allows us to make requests to our server from a different origin
   origin: 'http://localhost:8080',
-  credentials: true
+  credentials: true,
 }))
 
 // body parsing middleware
@@ -35,6 +35,7 @@ app.use(express.json())
 // auth and api routes
 app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))
+
 
 
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));

@@ -3,6 +3,7 @@
 const {db, models: {User, Post, Project, Comments, Post_like, Comment_Like, Message, Favorite} } = require('../server/db')
 const { faker } = require('@faker-js/faker')
 const Report = require('../server/db/models/Report')
+const Friendship = require('../server/db/models/Friendship')
 
 
 /**
@@ -15,6 +16,8 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Users
+
+
 
     const nic = await User.create({
       username: 'TheRealNicCage',
@@ -72,12 +75,176 @@ async function seed() {
       ban_status: 'banned',
       is_banned: true,
      })
+     
+     function createUsers() {
+      let users = [];
+      for (let i = 0; i < 96; i++) {
+        users.push({
+      username: faker.internet.userName(),
+      // img_url: faker.image.avatar(),
+      password: 'password',
+      is_admin: false,
+      location: `${faker.address.cityName()}, ${faker.address.stateAbbr()} `,
+      skill_level: faker.helpers.arrayElement([
+        "Master",
+        "Beginner",
+        "Intermediate",
+        "Professional",
+      ]),
+      email: faker.helpers.unique(faker.internet.email),
+      first_name: faker.name.firstName(),
+      last_name: faker.name.lastName(),
+      about_me: faker.lorem.lines(3),
+      ban_status: faker.helpers.arrayElement([
+        "good_standing",
+        "banned",
+      ]),
+      is_banned: faker.datatype.boolean(),
+        });
+      }
+      return users;
+    }
+
+    const users = createUsers()
+     await User.bulkCreate(users)
+
 
 
      
+     function createProjects() {
+      let projects = [];
+      for (let i = 0; i < 50; i++) {
+        projects.push({
+      project_name: faker.company.name(),
+      modelType: 'project',
+      technologies: faker.helpers.arrayElement([
+        "Node.js and React",
+        "Python",
+        "Java",
+        "TypeScript",
+      ]),
+      is_admin: faker.datatype.boolean(),
+      createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2021-01-01T00:00:00.000Z'),
+     status: faker.helpers.arrayElement([
+      "Open",
+      "In Progress",
+      "Completed",
+    ]),
+      details: faker.lorem.lines(8),
+      project_type: faker.helpers.arrayElement([
+        "Game",
+        "Ecommerce App",
+        "Fitness App",
+        "Social Media",
+        "Music Streamer",
+       "Photo Editer",
+       "Sports App",
+      ]),
+      // github_url: faker.internet.url(),
+        });
+      }
+      return projects;
+    }
+
+    const projects = createProjects()
+    await Project.bulkCreate(projects)
+
+
+    function createPosts() {
+      let posts = [];
+      for (let i = 0; i < 50; i++) {
+        posts.push({
+      title: faker.company.bs(),
+      modelType: 'post',
+      description: faker.lorem.paragraphs(1),
+      url: faker.internet.url(),
+      createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2021-01-01T00:00:00.000Z'),
+      userId: faker.datatype.number({ 
+        min: 1,
+        max: 100,
+       }),
+      projectId: null,
+        });
+      }
+      return posts;
+    }
+    const posts = createPosts()
+    await Post.bulkCreate(posts)
+
+
+    function createProjectPosts() {
+      let projectPosts = [];
+      for (let i = 0; i < 50; i++) {
+        projectPosts.push({
+      title: faker.company.bs(),
+      modelType: 'post',
+      description: faker.lorem.paragraphs(1),
+      url: faker.internet.url(),
+      createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2021-01-01T00:00:00.000Z'),
+      userId: faker.datatype.number({ 
+        min: 1,
+        max: 100,
+       }),
+      projectId: faker.helpers.arrayElement([
+        faker.datatype.number({ 
+          min: 1,
+          max: 49,
+         }),
+      ]),
+        });
+      }
+      return projectPosts;
+    }
+
+
+
+    const projectPosts = createProjectPosts()
+    await  Post.bulkCreate(projectPosts)
+
+
+    const friendship1 = await Friendship.create({
+      compositeId: '1&2',
+      friendName: 'Johnny Tsunami',
+      userName: 'Nicholas Cage',
+      status: 'isFriend',
+      userId: 1,
+      friendId: 2,
+
+     })
+
+     const friendship2 = await Friendship.create({
+      compositeId: '2&1',
+      friendName: 'Nicholas Cage',
+      userName: 'Johnny Tsunami',
+      status: 'isFriend',
+      userId: 2,
+      friendId: 1,
+     })
+
+     const friendship3 = await Friendship.create({
+      compositeId: '1&3',
+      friendName: 'Pat Kenny',
+      userName: 'Nicholas Cage',
+      userId: 3,
+      friendId: 1,
+     })
+
+     const friendship4 = await Friendship.create({
+      compositeId: '1&4',
+      friendName: 'Aaron Kramer',
+      userName: 'Nicholas Cage',
+      userId: 4,
+      friendId: 1,
+     })
+
+
+
+    
+     
   // User adding another user as a friend
-     await nic.addFriend(johnny)
-     await johnny.addFriend(nic)
+
+
+
 
 
   console.log(`seeded ${User.length} users`)

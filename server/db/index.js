@@ -14,17 +14,20 @@ const Chat = require('./models/Chat');
 const Support = require('./models/Support.js');
 const Favorite = require("./models/Favorite");
 
+const JoinRequest=require('./models/JoinRequest');
+
+
 
 User.belongsToMany(User, {
   as: 'friends',
   foreignKey: 'userId',
   through: Friendship,
-}) 
+})
 User.belongsToMany(User, {
   as: 'userFriends',
   foreignKey: 'friendId',
   through: Friendship,
-}) 
+})
 
 
 
@@ -37,18 +40,26 @@ User.hasMany(Post_like)
 User.hasMany(Favorite)
 User.belongsToMany(User, {
   as: 'sender',
-  foreignKey: 'senderId', 
-  through: Message
+  foreignKey: 'senderId',
+  through: {
+    model: Message,
+    unique: false
+  },
+  constraints: false
 })
 User.belongsToMany(User, {
   as: 'receiver',
   foreignKey: 'receiverId',
-  through: Message
+  through: {
+    model: Message,
+    unique: false
+  },
+  constraints: false
 })
 User.hasMany(Support)
 
 
-Report.belongsTo(User) 
+Report.belongsTo(User)
 Support.belongsTo(User)
 
 Post.hasMany(Comments);
@@ -103,6 +114,7 @@ module.exports = {
     Report,
     Post,
     Post_like,
+    // JoinRequest,
     Project,
     Comments,
     Post_like,
@@ -113,6 +125,7 @@ module.exports = {
     Message,
     Chat,
     Favorite
+
   },
 }
 

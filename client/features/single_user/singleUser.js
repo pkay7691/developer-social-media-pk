@@ -1,17 +1,20 @@
 import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
-import { Box, Grid, Typography, Table, AppBar, Toolbar, Button, Avatar } from "@mui/material";
+import { Box, Grid, Typography, Table, AppBar, Toolbar, Button } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { banUserAsync } from "../single_user/singleUserSlice";
 import Paper from '@mui/material/Paper';
-import { fetchUserFeedById } from "../globalfeed/globalfeedslice";
 import GlobalFeed from "../globalfeed/GlobalFeed";
 import { asyncFetchComments } from "../globalfeed/commentslice";
 import { asyncFetchPostLikes } from "../globalfeed/postlikesslice";
 import { createFriendship, fetchFriendshipById} from "../friends/friendshipSlice";
+import Avatar from '@mui/material/Avatar';
+import UserFeed from '../globalfeed/UserFeed'
+
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,6 +24,8 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
     height: '100px'
 }));
+
+
 
 const SingleUser = () => {
     const loggedInUserId = useSelector((state) => state.auth.me.id);
@@ -53,7 +58,6 @@ const SingleUser = () => {
 
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
-        dispatch(fetchUserFeedById(userId))
         dispatch(asyncFetchComments())
         dispatch(asyncFetchPostLikes())
     }, [dispatch, userId])
@@ -89,11 +93,12 @@ const SingleUser = () => {
                 <Grid container spacing={1}>
                     <Grid item xs={12} container>
                         <Grid item xs={2} />
-                        <Grid item xs={2}><Avatar
+                        <Grid item xs={2}>
+                           <Avatar
                             srcSet={user.img_url}
                             sx={{ width: 140, height: 140 }}
-                            variant= "dot"/>
-                            </Grid>
+                            />
+                        </Grid>
                         <Grid item xs={3.5} />
                         {/* show the user's ban status only for admin view*/}
                         {isAdmin ? <Grid item xs={1}><Typography variant='h6'>Account Standing</Typography>
@@ -126,7 +131,7 @@ const SingleUser = () => {
                                     <Typography key={`friend-${friend.id}`}>{friend.first_name} {friend.last_name}</Typography>
                                 )
                                     :
-                                    null}                    
+                                    null}
                         </Grid>
                     </Grid>
                 </Grid>
@@ -134,17 +139,17 @@ const SingleUser = () => {
                     <Grid item xs={12} container direction='column'>
                         <Grid item xs={8}/>
                         <Typography>Projects</Typography>
-                        
-                            {projects && projects.length ? projects.map((project) => 
-                           <Link key={`project-link-${project.id}`} to={`/project/${project.id}`}><Typography>{project.project_name}</Typography></Link> 
+
+                            {projects && projects.length ? projects.map((project) =>
+                           <Link key={`project-link-${project.id}`} to={`/project/${project.id}`}><Typography>{project.project_name}</Typography></Link>
                             )
                         :
                         null}
-                       
+
                     </Grid>
                 </Grid>
             </Box>
-            <GlobalFeed profileId={userId} />
+            <UserFeed profileId={userId} />
         </div>
     )
 }

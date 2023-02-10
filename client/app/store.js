@@ -18,6 +18,8 @@ import friendshipReducer from '../features/friends/friendshipSlice';
 import allProjectSlice from '../features/all_project/allProjectSlice';
 import messagesslice from '../features/messages/messagesslice';
 import favoriteReducer from '../features/favorites/favoriteSlice';
+import userfeedslice from '../features/globalfeed/userfeedslice';
+
 
 const store = configureStore({
   reducer: { 
@@ -39,6 +41,9 @@ const store = configureStore({
     projects: allProjectSlice,
     message: messagesslice,
     favorite: favoriteReducer,
+    userfeed: userfeedslice,
+
+
    },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
