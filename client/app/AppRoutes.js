@@ -22,7 +22,9 @@ import {
   Project,
   FriendRequests,
   AllProjects,
+  Favorites,
   AddProject,
+
 } from "../features";
 import { me } from "./store";
 import { useLocation } from "react-router-dom";
@@ -93,7 +95,9 @@ const AppRoutes = () => {
           <Route path='/friendrequests' element={<FriendRequests />} />
           <Route path="/notifications" element={<Notifications/>} />
           <Route path="/project" element={<AllProjects/>}/>
+          <Route path="/favorites" element={<Favorites/>}/>
           <Route path="/project/add" element={<AddProject/>}/>
+
         </Routes>
       ) : (
         <Routes>

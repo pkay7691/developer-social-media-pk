@@ -5,7 +5,7 @@ import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { fetchProjectAsync, selectProject } from "./projectSlice";
 import {format} from 'date-fns'
-
+import Favorites from "../favorites/Favorites";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-const Project = () => {
+const Project = ({collectedFavs}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {projectId} = useParams();
@@ -29,8 +29,6 @@ const Project = () => {
     const goBack = () => {
         navigate(-1)
     }
-
-
     return (
         <Box sx={{ flexGrow: 1, p: 4 }}>
             <Grid container spacing={2}>
@@ -48,6 +46,7 @@ const Project = () => {
                         <Typography textAlign='left'>Gihub Url: {project.github_url}</Typography>
                         <Typography textAlign='left'>Date Created: {project.createdAt}</Typography> {/* bug with dates will fix later */}
                         <Typography textAlign='left'>Last Edited: {project.updatedAt}</Typography> {/* bug with dates will fix later */}
+                        <Favorites project={project}/>
                     </Item>
                 </Grid>
             </Grid>

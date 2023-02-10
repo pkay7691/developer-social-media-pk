@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { models: { Project, User, Post }} = require('../db')
+const { models: { Project, User, Post, Favorite}} = require('../db')
 
 module.exports = router
 
@@ -7,7 +7,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
     try {
         const projects = await Project.findAll({
-            include: ['member', Post]
+            include: ['member', Post, Favorite]
         });
         res.json(projects);
     } catch (err) {
@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 //shows a single project
 router.get('/:id', async (req, res, next) => {
     try {
-        const project = await Project.findByPk(req.params.id,  {include: ['member', Post]});
+        const project = await Project.findByPk(req.params.id,  {include: ['member', Post, Favorite]});
         res.json(project);
     } catch (err) {
         next(err)

@@ -11,15 +11,14 @@ import commentsReducer from '../features/globalfeed/commentslice'
 import postLikesReducer from '../features/globalfeed/postlikesslice';
 import commentlikesReducer from '../features/globalfeed/commentlikeslice';
 import postsReducer from '../features/globalfeed/postslice';
-
 import allSupportSlice from '../features/all_support/allSupportSlice';
 import singleSupportSlice from '../features/single_support/singleSupportSlice';
 import projectSlice from '../features/project_page/projectSlice';
 import friendshipReducer from '../features/friends/friendshipSlice';
 import allProjectSlice from '../features/all_project/allProjectSlice';
 import messagesslice from '../features/messages/messagesslice';
+import favoriteReducer from '../features/favorites/favoriteSlice';
 import userfeedslice from '../features/globalfeed/userfeedslice';
-
 
 
 const store = configureStore({
@@ -39,9 +38,9 @@ const store = configureStore({
     singleSupport: singleSupportSlice,
     project: projectSlice,
     friendship: friendshipReducer,
-
     projects: allProjectSlice,
     message: messagesslice,
+    favorite: favoriteReducer,
     userfeed: userfeedslice,
 
 
