@@ -16,7 +16,9 @@ import { fetchUserFeedById } from './userfeedslice';
 /**
  * COMPONENT
  */
+
 const FeedPost = ({feedItem, renderPostLikes, setRenderPostLikes, renderComments, setRenderComments, profileId, pageNumber}) => {
+
 
 const [likeButton, setLikeButton] = useState('')
 const [edit, setEdit] = useState(false)
@@ -31,32 +33,26 @@ const [description, setDescription] = useState(feedItem.description)
  
   const username = useSelector((state) => state.auth.me.username);
   const user = useSelector((state) => state.auth.me);
-  const dispatch = useDispatch()
-  const postLikes = useSelector(selectPostLikes)
+  const dispatch = useDispatch();
+  const postLikes = useSelector(selectPostLikes);
 
   // searches Post Like api for post like with matching userId and Post Id
+
+
   const postLikeCheck = postLikes && postLikes.length ? postLikes.filter(postLike => postLike.userId === user.id && postLike.postId === feedItem.id) : null
 
-  
-
-
-  console.log(pageNumber, 'pagenumber in freedpost comnponent')
-   
-
-
-// Checks if post is liked and manipulates like button text
+  // Checks if post is liked and manipulates like button text
   useEffect(() => {
     if (postLikeCheck && postLikeCheck.length) {
-      setLikeButton('Unlike')   
+      setLikeButton("Unlike");
     } else {
-      setLikeButton('Like')
+      setLikeButton("Like");
     }
-    },[dispatch])
+  }, [dispatch]);
 
   // if Post like Check returns a post like.. it will dispatch asyncDeleteLike.  If it doesn't return a post like, it will create a like
   // dispatch the Createlike with user and post Id
   const handlePostLike = (userId, postId) => {
-
       const like = {
         userId: userId,
         postId: postId,
@@ -80,8 +76,6 @@ const [description, setDescription] = useState(feedItem.description)
   }
 
 
-
-
   // creates new comment and alters commentrender state to render component
   const handleCreateComment = (e) => {
     e.preventDefault();
@@ -89,17 +83,19 @@ const [description, setDescription] = useState(feedItem.description)
       userId: user.id,
       postId: feedItem.id,
       text_field: text_field,
-    }
-    dispatch(asyncCreateComment(newComment))
-    if(!!profileId) {
-      dispatch(fetchUserFeedById(profileId))
+    };
+    dispatch(asyncCreateComment(newComment));
+    if (!!profileId) {
+      dispatch(fetchUserFeedById(profileId));
     } else dispatch(fetchGlobalFeed());
-    setText_field('')
-    dispatch(asyncFetchComments())
-  }
+    setText_field("");
+    dispatch(asyncFetchComments());
+  };
+
 
   const handleDeletePost = (e) => { 
     e.preventDefault();
+
     dispatch(asyncDeletePost(feedItem.id)).then(() => {
       if(!!profileId) {
         console.log("does this fire?")
@@ -108,6 +104,7 @@ const [description, setDescription] = useState(feedItem.description)
     })
     dispatch(asyncFetchComments())
   }
+
 
   //!FIXME: handleEditPost does not rerender the feed.
   const handleOpenEdit = (e) => {
@@ -165,16 +162,23 @@ const [description, setDescription] = useState(feedItem.description)
                   defaultValue={feedItem.description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
+
                 <Button onClick={handleEdit}>Submit</Button>
               </FormControl> : null}
                <Link to={`/users/${feedItem.userId}`}> <Avatar src={feedItem.user.img_url} /> </Link>
                 {feedItem.project && feedItem.project.project_name ?
                 <div>
-                 <Link to={`/users/${feedItem.userId}`}><div>{feedItem.user.first_name} {feedItem.user.last_name} </div> </Link>
-                 <Link to={`/projects/${feedItem.projectId}`}><div>{feedItem.project.project_name}</div></Link>
-                 </div> : <Link to={`/users/${feedItem.userId}`}><div>{feedItem.user.first_name} {feedItem.user.last_name} </div></Link> }
-                
-                
+                  {feedItem.user.first_name} {feedItem.user.last_name}{" "}
+                </div>{" "}
+              </Link>
+              <Link to={`/projects/${feedItem.projectId}`}>
+                <div>{feedItem.project.project_name}</div>
+              </Link>
+            </div>
+          ) : (
+            <Link to={`/users/${feedItem.userId}`}>
+              <div>
+                {feedItem.user.first_name} {feedItem.user.last_name}{" "}
               </div>
              
               <div>{feedItem.title}</div>
@@ -192,18 +196,17 @@ const [description, setDescription] = useState(feedItem.description)
             <Comments feedItem={feedItem} renderComments={renderComments} setRenderComments={setRenderComments}/> 
             <FormControl onSubmit={handleCreateComment} sx={{ width: 1 }}>
             <TextField
-            
           id={`commentbox-${feedItem.id}`}
-          placeholder='Comment'
+          placeholder="Comment"
           multiline
           rows={2}
           value={text_field}
-          onChange={(e) => setText_field(e.target.value)} 
-          
+          onChange={(e) => setText_field(e.target.value)}
         />
-        <Button onClick={handleCreateComment} type='submit'>Reply</Button>
-        </FormControl>
-        
+        <Button onClick={handleCreateComment} type="submit">
+          Reply
+        </Button>
+      </FormControl>
     </div>
   );
 };

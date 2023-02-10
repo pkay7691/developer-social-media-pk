@@ -22,6 +22,7 @@ import {
   Project,
   FriendRequests,
   AllProjects,
+  AddProject,
 } from "../features";
 import { me } from "./store";
 import { useLocation } from "react-router-dom";
@@ -75,6 +76,7 @@ const AppRoutes = () => {
         <Route path="/reportInbox" element={<AllReportInbox />} />
         <Route path="/reportInbox/:id" element={<SingleReport />} />
         <Route path="/project" element={<AllProjects/>}/>
+        <Route path="/project/add" element={<AddProject/>}/>
       </Routes>
       ) : isLoggedIn ? (
         <Routes>
@@ -91,6 +93,7 @@ const AppRoutes = () => {
           <Route path='/friendrequests' element={<FriendRequests />} />
           <Route path="/notifications" element={<Notifications/>} />
           <Route path="/project" element={<AllProjects/>}/>
+          <Route path="/project/add" element={<AddProject/>}/>
         </Routes>
       ) : (
         <Routes>

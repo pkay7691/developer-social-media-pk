@@ -80,8 +80,7 @@ Comment_Like.belongsTo(User);
 
 Project.belongsToMany(User, {
   through: Project_Membership,
-  as: 'member',
-  foreignKey: 'userId',
+  as: 'member'
 })
 Project.hasMany(Post)
 
