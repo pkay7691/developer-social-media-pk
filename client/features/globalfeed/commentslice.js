@@ -44,8 +44,6 @@ export const asyncDeleteComment = createAsyncThunk("deleteComment", async (id) =
   }
 })
 
-
-
 const commentsSlice = createSlice({
   name: "comments",
   initialState: [],

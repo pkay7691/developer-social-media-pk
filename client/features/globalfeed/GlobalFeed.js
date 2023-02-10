@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearFeed, fetchGlobalFeed, fetchUserFeedById, resetGlobalFeed, selectGlobalFeed } from './globalfeedslice';
+import { clearFeed, fetchGlobalFeed, fetchUserFeedById, resetGlobalFeed, selectGlobalFeed, fetchGlobalFeedByPages } from './globalfeedslice';
 import { asyncFetchComments, selectComments } from './commentslice';
 import { asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
 import {  Container, Stack, Avatar, FormControl, TextField, Button, Autocomplete, Box } from '@mui/material';
@@ -27,9 +27,7 @@ const GlobalFeed = ({profileId}) => {
 
   const [value, setValue] = useState('');
   const [inputValue, setInputValue] = useState('');
-  // const [url, setUrl] = useState('')
-  // const [title, setTitle] = useState('')
-  // const [description, setDescription] = useState('')
+
   const url = useRef()
   const title = useRef()
   const description = useRef()
@@ -54,22 +52,9 @@ const GlobalFeed = ({profileId}) => {
     if (!!url) {
       newPost.url = url.current
     }
-    dispatch(asyncCreatePost(newPost))
-    dispatch(resetGlobalFeed())
-    if (pageNumber === 1) {
-      const params = {
-        page: pageNumber,
-        limit: 10,
-      } 
-      dispatch(fetchGlobalFeed(params))
-    } else {
-      setPageNumber(1)
-    }
-    // setDescription('')
-    // setInputValue('')
-    // setValue('')
-    // setTitle('')
-    setUrl('')
+    dispatch(asyncCreatePost(newPost)).then(() => {
+      dispatch(fetchGlobalFeedByPages(pageNumber))
+    })
   }
 
 
@@ -173,7 +158,7 @@ const GlobalFeed = ({profileId}) => {
           feedItem.modelType === 'post' && (globalFeed.length === index + 1) ? 
           <div ref={lastFeedItemref} > 
           <FeedPost
-          
+          pageNumber={pageNumber}
           key={Math.floor(Math.random() * 10000)} 
           feedItem={feedItem} 
           profileId={profileId}
@@ -189,7 +174,7 @@ const GlobalFeed = ({profileId}) => {
             : 
           feedItem.modelType === 'post' ? 
           <FeedPost
-          
+          pageNumber={pageNumber}
           key={Math.floor(Math.random() * 10000)} 
           feedItem={feedItem} 
           profileId={profileId}
