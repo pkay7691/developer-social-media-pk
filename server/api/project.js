@@ -29,6 +29,8 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const project = await Project.create(req.body)
+        const user = await User.findByPk(req.body.member.id)
+        await project.addMember(user)
         res.json(project)
     } catch (err) {
         next(err)

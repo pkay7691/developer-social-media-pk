@@ -11,6 +11,17 @@ export const fetchAllProjectAsync = createAsyncThunk('project', async () => {
     }
 })
 
+//create a slice that adds a project to the database 
+export const addProjectAsync = createAsyncThunk('addProject', async (project) => {
+    try {
+        const { data } = await axios.post('/api/project', project);
+        return data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+})
+
 const projectsSlice = createSlice({
     name: 'projects',
     initialState: [],
@@ -18,7 +29,10 @@ const projectsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchAllProjectAsync.fulfilled, (state, action) => {
             return action.payload
-        })
+        });
+        builder.addCase(addProjectAsync.fulfilled, (state, action) => {
+            state.push(action.payload)
+        });
     }
 })
 

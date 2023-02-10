@@ -21,6 +21,7 @@ const Project = db.define('project', {
     status: {
         type: Sequelize.STRING,
         allowNull: false,
+        defaultValue: 'Open',
         validate: {
             customValidator: (value) => {
               const enums = ['Open', 'In Progress', 'Completed']

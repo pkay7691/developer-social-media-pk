@@ -21,3 +21,5 @@ export {default as AllProjects} from '../features/all_project/allProject'
 export {default as Favorites} from '../features/favorites/Favorites'
 export {default as AllProjects } from '../features/all_project/allProject'
 export {default as Chatbox } from '../features/messages/Chatbox'
+export {default as AddProject } from '../features/add_project/AddProject'
+
