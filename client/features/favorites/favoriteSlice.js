@@ -17,7 +17,7 @@ import {
   export const asyncAddFavorite = createAsyncThunk("addFavorite", async (myFavorite) => {
     try {
       console.log('Line 19', myFavorite);
-      const { data } = await axios.post('/api/favorites', myFavorite);
+      const { data } = await axios.post(`/api/favorites/${myFavorite.id}`, myFavorite);
       return myFavorite;
     } catch (error) {
       console.log(error);
@@ -26,7 +26,6 @@ import {
   export const asyncRmvFavorite = createAsyncThunk("removeFavorite", async (id) => {
     try {
       const data = await axios.delete(`/api/favorites/${id}`)
-      console.log(data);
       return data.data;
     }
     catch {

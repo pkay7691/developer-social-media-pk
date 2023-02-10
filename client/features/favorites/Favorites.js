@@ -8,21 +8,22 @@ const Favorites = ({project}) => {
   //getting the state, thestates name and the array
   const collectedFavs = useSelector((state)=>state.favorite.collectedFavs)
   //should be empty
+  const user = useSelector((state)=> state.auth.me)
+  console.log("LINE 11----------",project)
   const partOfFavs = collectedFavs.includes(project)
-  console.log('part of favs 11', partOfFavs)
-  console.log('Line 12',project )
   //this happens when the button is clicked
-  const addingfavorite = (id) =>{
-    console.log("--------------------")
-    console.log(id);
-    console.log("------------------")
+  const addingfavorite = (project) =>{
     if(partOfFavs){
-      dispatch(asyncRmvFavorite(project.id))
+      dispatch(asyncRmvFavorite(project.id))  
       
-      //dispatch(asyncRmvFavorite(project))
     }else{
-      // dispatch(addToFavorites(project))
-      console.log('Line 20',project )
+      // const userInfo = {
+      //   projectId: project.id,
+      //   userId: user.Id,
+      //   compositeId: `${user.Id}&${project.id}`
+      // }
+
+      //added replaced project with favInfo to see if information will be added to db
       dispatch(asyncAddFavorite(project))
     }
   }
@@ -30,7 +31,7 @@ const Favorites = ({project}) => {
     <>
       <BookmarkAddOutlinedIcon
       
-        onClick={()=>addingfavorite(project.id)}
+        onClick={()=>addingfavorite(project)}
 
       />
       {partOfFavs? 'remove' : 'add'}

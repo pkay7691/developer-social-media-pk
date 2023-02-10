@@ -20,19 +20,19 @@ router.post('/',async(req, res, next) => {
     next(error);
   }
 })
-router.delete('/',async(req,res,next)=>{
-  console.log('at delete route')
-  try{
-    console.log(req.params.id)
-    const remvfavorite = await Favorite.findByPk(req.params.id);
-    console.log(remvfavorite)
-    console.log('THIS IS BACKEND BEFORE SINGLE FAVORITE___________________', remvfavorite)
-    await remvfavorite.destroy();
-    res.send(remvfavorite)
-  }catch (error){
-    next(error)
-  }
-})
+// router.delete('/',async(req,res,next)=>{
+//   console.log('at delete route')
+//   try{
+//     // console.log(req.params.id)
+//     const remvfavorite = await Favorite.findByPk(req.params.id);
+//     console.log(remvfavorite)
+//     console.log('THIS IS BACKEND BEFORE SINGLE FAVORITE___________________', remvfavorite)
+//     await remvfavorite.destroy();
+//     res.send(remvfavorite)
+//   }catch (error){
+//     next(error)
+//   }
+// })
 //get a single favorite project
 .route('/:id')
 .get(async(req, res, next)=>{
@@ -47,8 +47,11 @@ router.delete('/',async(req,res,next)=>{
 })
 .post(async(req, res, next) => {
   try {
-    const newFavorite = await Favorite.create(req.params.id);
-    console.log(req.body)
+    const newFavorite = await Favorite.create(req.body);
+    const  project = await Project.findByPk(req.body.projectId)
+    await project.addFavorite(newFavorite)
+    console.log("LINE 52``````````", project)
+    console.log("LINE 53``````````",req.body)
     res.send(newFavorite);
   } catch (error) {
     next(error);
@@ -67,6 +70,7 @@ router.delete('/',async(req,res,next)=>{
   //remove a single favorite project
 .delete(async(req,res,next)=>{
     try{
+      console.log("DELETE ROUTE------------", req.params.id )
       const remvfavorite = await Favorite.findByPk(req.params.id);
       await remvfavorite.destroy();
       res.send(remvfavorite)
