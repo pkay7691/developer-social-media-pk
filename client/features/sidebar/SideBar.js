@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { Stack, Typography, Button, Divider, Tab } from "@mui/material";
 import { ChatBubble } from "@mui/icons-material";
 import { TabList, TabContext } from "@mui/lab";
@@ -27,7 +28,7 @@ const SideBar = ({receiverId, setReceiverId}) => {
 
   }
 
-  useState(() => {
+  useEffect(() => {
     dispatch(fetchUserAsync(loggedInUserId))
   }, [dispatch])
 
