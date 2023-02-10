@@ -25,6 +25,27 @@ export const fetchGlobalFeed = createAsyncThunk("fetchGlobalFeed", async ({page,
   }
 });
 
+export const fetchGlobalFeedByPages = createAsyncThunk("fetchGlobalFeedByPages", async (page) => {
+  try {
+    console.log(page, 'this is page')
+    page = parseInt(page)
+    const newLimit = page * 10
+    const {data} = await axios.get("/api/feed", {params: {
+      page: 1,
+      limit: newLimit,
+    } });
+    
+
+    return data
+
+
+
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 
 
@@ -38,6 +59,9 @@ const globalFeedSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchGlobalFeed.fulfilled, (state, action) => {
       action.payload.results.forEach((item) => state.push(item))
+    });
+    builder.addCase(fetchGlobalFeedByPages.fulfilled, (state, action) => {
+      return action.payload.results
     });
   
   },
