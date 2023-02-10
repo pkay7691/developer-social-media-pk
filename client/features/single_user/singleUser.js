@@ -34,7 +34,7 @@ const SingleUser = () => {
     const isAdmin = useSelector((state) => state.auth.me.is_admin)
     const banStatus = ['good_standing', 'banned']
     const [bannedType, setBannedType] = useState(banStatus[0])
-    const [banned, setBanned] = useState(false)
+    const [banned, setBanned] = useState(true)
     const dispatch = useDispatch();
     const { userId } = useParams();
     const user = useSelector(selectUser)
@@ -71,9 +71,11 @@ const SingleUser = () => {
             id: userId,
             is_banned: !banned,
             ban_status: bannedType
-        }
+          }
+        console.log('-------------',banUpdate)
         if(bannedType === banStatus[0]) {
             setBannedType(banStatus[1])
+            console.log('------------------',bannedType)
         } else {
             setBannedType(banStatus[0])
         }
@@ -106,7 +108,7 @@ const SingleUser = () => {
                             <Typography>{user.ban_status}</Typography>
                         </Grid> : null}
                         {/*created a ban button that only admins can see. Admins will not have a ban button on their profile.*/}
-                        {isAdmin && user.id !== loggedInUserId ? <Grid item xs={1}><Button onClick={handleBan} variant='contained'>Ban</Button></Grid> : null}
+                        {isAdmin && user.id !== loggedInUserId ? <Grid item xs={1}><Button onClick={(handleBan)} variant='contained'>Ban</Button></Grid> : null}
                         {/* only show the report button if the user is not the logged in user */}
                         {user.id !== loggedInUserId ? <Grid item xs={1}><Link to={`/users/${userId}/reportUser`}><Button variant='contained'>Report</Button></Link></Grid> : null}
                         {/* only show the block button if the user is not the logged in user */}

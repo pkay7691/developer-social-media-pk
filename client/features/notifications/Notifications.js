@@ -21,19 +21,19 @@ function Notifications() {
 
     <TableHead>
       <TableRow>
-          <TableCell>Message Status</TableCell>
+          {/* <TableCell>Message Status</TableCell> */}
           <TableCell>Messages</TableCell>
           <TableCell>Time</TableCell>
       </TableRow>
     </TableHead>
     <TableBody>
-      <TableCell><Checkbox onChange={()=>setShow(!show)}>read</Checkbox>
-      </TableCell>
+      {/* <TableCell><Button onClick={()=>setShow(!show)}  variant='contained'>read</Button> */}
+      {/* </TableCell> */}
       <TableCell>{ show? <h6>Micheal wants to you to join Paper Fan club </h6>:null }</TableCell>
       <TableCell>{ show? <h6>Just now </h6>:null }</TableCell>
      </TableBody>
+     <Button onClick={()=>setShow(!show)} variant='contained'>Mark Read</Button>
      </Table>
-     {/* <Button onChange={()=>setShow(!show)}>Mark Read</Button> */}
     </div>
     );
 }
