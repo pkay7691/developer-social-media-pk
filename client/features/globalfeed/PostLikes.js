@@ -5,7 +5,8 @@ import {Link} from 'react-router-dom'
 import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField } from '@mui/material';
 import { sizing } from '@mui/system';
 import { asyncFetchComments, selectComments } from './commentslice';
-import postlikesslice, { asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
+import { asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
+import { selectPosts } from './postslice';
 
 
 
@@ -21,10 +22,17 @@ const PostLikes = ({feedItem}) => {
   const dispatch = useDispatch()
 
   const allPostLikes = useSelector(selectPostLikes);
+  const allPosts = useSelector(selectPosts)
   const allPostComments = useSelector(selectComments)
 
   // filters to see if post like exists in database to determine Like or Unlike button status
   const postLikes = allPostLikes && allPostLikes.length ? allPostLikes.filter(postLike => feedItem.id === postLike.postId) : null
+
+  const currentPost = allPosts && allPosts.length ? allPosts.filter(post => feedItem.id === post.id) : null
+
+// const postLikes = currentPost[0].post_likes
+// console.log(postLikes)
+
 
 
   
@@ -43,9 +51,8 @@ const PostLikes = ({feedItem}) => {
       : postLikes && postLikes.length > 2 ?
       <div> Liked by <Link to={`/users/${postLikes[0].user.id}`}>{postLikes[0].user.first_name} {postLikes[0].user.last_name}</Link> and {postLikes.length  -1} others</div> 
 :
-       null}
-     
-    
+       <div> <br/> </div>}
+
    
     </div>
   );

@@ -27,7 +27,7 @@ const EditUser =()=> {
   const handleSubmit = (evt)=>{
     evt.preventDefault();
     dispatch(editUser({ id: userId, first_name: name, last_name, email, about_me,skill_level}));
-    Navigate('/')
+    Navigate('/EditUser')
   }
 
 

@@ -65,7 +65,7 @@ const postsSlice = createSlice({
   },
 });
 
-export const selectPostLikes = (state) => {
+export const selectPosts = (state) => {
   return state.posts;
 };
 

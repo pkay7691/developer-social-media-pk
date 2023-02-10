@@ -9,8 +9,10 @@ import SearchProject from '../search/searchProject';
 const AllProjects = () => {
     const dispatch = useDispatch();
     const projects = useSelector(selectProjects);
+
     const [projectName, setProjectName] = useState(null)
     const [ans, setAns] = useState(projects)
+
     useEffect(() => {
         dispatch(fetchAllProjectAsync());
         setAns(projects)
@@ -33,10 +35,10 @@ const AllProjects = () => {
         }
     }, [projectName])
 
-    
+
     return (
         <div>
-            
+
 
             <Typography component='h2' variant="h6" align="center" fontWeight='bold' gutterBottom>All Projects</Typography>
             <SearchProject projectName={projectName} setProjectName ={setProjectName}/>
@@ -53,8 +55,9 @@ const AllProjects = () => {
             </TableHead>
             <TableBody>
             {/* this will return a list of projects and technologies that match */}
-                {ans ? ans.map((project)=>(
-                    //!FIXME: stating that ans.map is not a function, will not navigate back
+            {/** admin needs an all projects button */}
+                {ans && ans.length ? ans.map((project)=>(
+
                     <TableRow key={project.id}>
                         <TableCell><Link to={`/project/${project.id}`}><Button variant="contained">View</Button></Link></TableCell>
                         <TableCell>{project.project_name}</TableCell>
@@ -65,14 +68,18 @@ const AllProjects = () => {
                             <Switch color="warning" onChange={handleChange}>Ban</Switch>
                         </TableCell> */}
                     </TableRow>
-                )):projects.map((project)=>(
-                    <TableRow key={project.id}>
-                        <TableCell>{project.project_name}</TableCell>
-                        <TableCell>{project.technologies}</TableCell>
-                        <TableCell>{project.status}</TableCell>
-                        <TableCell>{project.createdAt}</TableCell>
-                    </TableRow>
-                    ))}
+                 ))
+                 //:projects.map((project)=>(
+
+                //     <TableRow key={project.id}>
+                //         <TableCell>{project.project_name}</TableCell>
+                //         <TableCell>{project.technologies}</TableCell>
+                //         <TableCell>{project.status}</TableCell>
+                //         <TableCell>{project.createdAt}</TableCell>
+
+                //     </TableRow>
+                //
+                :null}
                 </TableBody>
             </Table>
         </div>

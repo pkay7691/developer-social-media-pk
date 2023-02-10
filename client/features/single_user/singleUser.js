@@ -6,12 +6,12 @@ import { Box, Grid, Typography, Table, AppBar, Toolbar, Button } from "@mui/mate
 import { styled } from '@mui/material/styles';
 import { banUserAsync } from "../single_user/singleUserSlice";
 import Paper from '@mui/material/Paper';
-import { fetchUserFeedById } from "../globalfeed/globalfeedslice";
 import GlobalFeed from "../globalfeed/GlobalFeed";
 import { asyncFetchComments } from "../globalfeed/commentslice";
 import { asyncFetchPostLikes } from "../globalfeed/postlikesslice";
 import { createFriendship, fetchFriendshipById} from "../friends/friendshipSlice";
 import Avatar from '@mui/material/Avatar';
+import UserFeed from '../globalfeed/UserFeed'
 
 
 
@@ -34,7 +34,7 @@ const SingleUser = () => {
     const isAdmin = useSelector((state) => state.auth.me.is_admin)
     const banStatus = ['good_standing', 'banned']
     const [bannedType, setBannedType] = useState(banStatus[0])
-    const [banned, setBanned] = useState(false)
+    const [banned, setBanned] = useState(true)
     const dispatch = useDispatch();
     const { userId } = useParams();
     const user = useSelector(selectUser)
@@ -58,7 +58,6 @@ const SingleUser = () => {
 
     useEffect(() => {
         dispatch(fetchUserAsync(userId))
-        dispatch(fetchUserFeedById(userId))
         dispatch(asyncFetchComments())
         dispatch(asyncFetchPostLikes())
     }, [dispatch, userId])
@@ -71,9 +70,11 @@ const SingleUser = () => {
             id: userId,
             is_banned: !banned,
             ban_status: bannedType
-        }
+          }
+        console.log('-------------',banUpdate)
         if(bannedType === banStatus[0]) {
             setBannedType(banStatus[1])
+            console.log('------------------',bannedType)
         } else {
             setBannedType(banStatus[0])
         }
@@ -106,7 +107,7 @@ const SingleUser = () => {
                             <Typography>{user.ban_status}</Typography>
                         </Grid> : null}
                         {/*created a ban button that only admins can see. Admins will not have a ban button on their profile.*/}
-                        {isAdmin && user.id !== loggedInUserId ? <Grid item xs={1}><Button onClick={handleBan} variant='contained'>Ban</Button></Grid> : null}
+                        {isAdmin && user.id !== loggedInUserId ? <Grid item xs={1}><Button onClick={(handleBan)} variant='contained'>Ban</Button></Grid> : null}
                         {/* only show the report button if the user is not the logged in user */}
                         {user.id !== loggedInUserId ? <Grid item xs={1}><Link to={`/users/${userId}/reportUser`}><Button variant='contained'>Report</Button></Link></Grid> : null}
                         {/* only show the block button if the user is not the logged in user */}
@@ -150,7 +151,7 @@ const SingleUser = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <GlobalFeed profileId={userId} />
+            <UserFeed profileId={userId} />
         </div>
     )
 }

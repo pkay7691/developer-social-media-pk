@@ -1,34 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import {
-  fetchGlobalFeed,
-  fetchUserFeedById,
-  selectGlobalFeed,
-} from "./globalfeedslice";
-import {
-  Box,
-  Container,
-  Stack,
-  Avatar,
-  Button,
-  ButtonGroup,
-  TextField,
-  FormControl,
-} from "@mui/material";
-import { sizing } from "@mui/system";
-import Comments from "./Comments";
-import PostLikes from "./PostLikes";
-import {
-  asyncCreateLike,
-  asyncDeleteLike,
-  asyncFetchPostLikes,
-  selectPostLikes,
-} from "./postlikesslice";
-import { asyncCreateComment, asyncFetchComments } from "./commentslice";
-import { asyncFetchCommentLikes } from "./commentlikeslice";
-import { asyncDeletePost, asyncUpdatePost } from "./postslice";
-import { HighlightOff } from "@mui/icons-material";
+import React, { useEffect, useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {Link} from 'react-router-dom'
+import { fetchGlobalFeed,  selectGlobalFeed } from './globalfeedslice';
+import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField, FormControl } from '@mui/material';
+import { sizing } from '@mui/system';
+import Comments from './Comments';
+import PostLikes from './PostLikes';
+import { asyncCreateLike, asyncDeleteLike, asyncFetchPostLikes, selectPostLikes } from './postlikesslice';
+import { asyncCreateComment, asyncFetchComments } from './commentslice';
+import { asyncFetchCommentLikes } from './commentlikeslice';
+import { asyncDeletePost, asyncFetchPosts, asyncUpdatePost } from './postslice';
+import { HighlightOff } from '@mui/icons-material';
+import { fetchUserFeedById } from './userfeedslice';
 
 /**
  * COMPONENT
@@ -41,25 +24,27 @@ const FeedPost = ({
   setRenderComments,
   profileId,
 }) => {
-  const [likeButton, setLikeButton] = useState("");
-  const [text_field, setText_field] = useState(feedItem.description);
-  const [title, setTitle] = useState(feedItem.title);
-  const [url, setURL] = useState(feedItem.url);
-  const [edit, setEdit] = useState(false);
 
+
+const [likeButton, setLikeButton] = useState('')
+const [edit, setEdit] = useState(false)
+
+// this is for new comments
+const [text_field, setText_field] = useState('')
+
+// this is for editing
+const [title, setTitle] = useState(feedItem.title)
+const [url, setURL] = useState(feedItem.url)
+const [description, setDescription] = useState(feedItem.description)
+ 
   const username = useSelector((state) => state.auth.me.username);
   const user = useSelector((state) => state.auth.me);
   const dispatch = useDispatch();
   const postLikes = useSelector(selectPostLikes);
 
   // searches Post Like api for post like with matching userId and Post Id
-  const postLikeCheck =
-    postLikes && postLikes.length
-      ? postLikes.filter(
-          (postLike) =>
-            postLike.userId === user.id && postLike.postId === feedItem.id
-        )
-      : null;
+
+  const postLikeCheck = postLikes && postLikes.length ? postLikes.filter(postLike => postLike.userId === user.id && postLike.postId === feedItem.id) : null
 
   // Checks if post is liked and manipulates like button text
   useEffect(() => {
@@ -73,29 +58,28 @@ const FeedPost = ({
   // if Post like Check returns a post like.. it will dispatch asyncDeleteLike.  If it doesn't return a post like, it will create a like
   // dispatch the Createlike with user and post Id
   const handlePostLike = (userId, postId) => {
-    if (postLikeCheck && postLikeCheck.length) {
-      let id = postLikeCheck[0].id;
-      dispatch(asyncDeleteLike(id));
-      setLikeButton("Like");
-      if (!!profileId) {
-        dispatch(fetchUserFeedById(profileId));
-      } else dispatch(fetchGlobalFeed());
-
-      dispatch(asyncFetchPostLikes());
-    } else {
       const like = {
         userId: userId,
         postId: postId,
-        compositeId: `${userId}&${postId}`,
-      };
-      dispatch(asyncCreateLike(like));
-      setLikeButton("Unlike");
-      if (!!profileId) {
-        dispatch(fetchUserFeedById(profileId));
-      } else dispatch(fetchGlobalFeed());
-      dispatch(asyncFetchPostLikes());
+        compositeId: `${userId}&${postId}`
+      }
+      dispatch(asyncCreateLike(like))
+      dispatch(fetchGlobalFeed())
+      dispatch(asyncFetchPostLikes())
+      dispatch(asyncFetchPosts())
+
     }
-  };
+  
+
+  const handleDeleteLike = (userId, postId) => {
+    let id = postLikeCheck[0].id;
+    dispatch(asyncDeleteLike(id))
+    dispatch(fetchGlobalFeed())
+    dispatch(asyncFetchPostLikes())
+    dispatch(asyncFetchPosts())
+    
+  }
+
 
   // creates new comment and alters commentrender state to render component
   const handleCreateComment = (e) => {
@@ -113,8 +97,8 @@ const FeedPost = ({
     dispatch(asyncFetchComments());
   };
 
-  //!FIXME: handleDeletePost deletes the post but does not rerender the feed.
-  const handleDeletePost = (e) => {
+
+  const handleDeletePost = (e) => { 
     e.preventDefault();
     dispatch(asyncDeletePost(feedItem.id));
     if (!!profileId) {
@@ -126,23 +110,19 @@ const FeedPost = ({
   //!FIXME: handleEditPost does not rerender the feed.
   const handleEditPost = (e) => {
     e.preventDefault();
-    setEdit(true);
-  };
-
+    dispatch(asyncFetchPosts())
+    setEdit(true)
+  }
+  
   return (
     <div>
-      <Box className="border">
-        {feedItem.userId === user.id ? (
-          <HighlightOff onClick={handleDeletePost} />
-        ) : null}
-        <div className="flex flex-row">
-          {/*users can update their own posts*/}
-          {feedItem.userId === user.id ? (
-            <Button onClick={handleEditPost}>Edit</Button>
-          ) : null}
-          {edit ? (
-            <FormControl>
-              <TextField
+            <Box className='border'>
+              {feedItem.userId === user.id ? <HighlightOff onClick={handleDeletePost} /> : null}
+              <div className='flex flex-row'> 
+              {/*users can update their own posts*/}
+              {feedItem.userId === user.id ? <Button onClick={handleEditPost}>Edit</Button> : null}
+              {edit ? <FormControl>
+                <TextField
                 id="outlined-multiline-static"
                 label="Edit Title"
                 rows={4}
@@ -156,21 +136,20 @@ const FeedPost = ({
                 defaultValue={feedItem.url}
                 onChange={(e) => setURL(e.target.value)}
               />
-              <TextField
-                id="outlined-multiline-static"
-                label="Edit Post"
-                multiline
-                rows={4}
-                defaultValue={feedItem.description}
-                onChange={(e) => setText_field(e.target.value)}
-              />
-              <Button
-                onClick={() => {
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Edit Post"
+                  multiline
+                  rows={4}
+                  defaultValue={feedItem.description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <Button onClick={() => {
                   const updatedPost = {
                     id: feedItem.id,
                     title: title,
                     url: url,
-                    description: text_field,
+                    description: description,
                     userId: feedItem.userId,
                     projectId: feedItem.projectId,
                   };
@@ -209,36 +188,22 @@ const FeedPost = ({
               <div>
                 {feedItem.user.first_name} {feedItem.user.last_name}{" "}
               </div>
-            </Link>
-          )}
-        </div>
-
-        <div>{feedItem.title}</div>
-        <div>{feedItem.url}</div>
-        <div>{feedItem.description}</div>
-        <PostLikes feedItem={feedItem} />
-        <ButtonGroup
-          variant="outlined"
-          aria-label="outlined button group"
-          sx={{ width: 1 }}
-        >
-          <Button
-            onClick={(e) => handlePostLike(user.id, feedItem.id)}
-            sx={{ width: 1 / 3 }}
-          >
-            {likeButton}
-          </Button>
-          <Button sx={{ width: 1 / 3 }}>Comment</Button>
-          <Button sx={{ width: 1 / 3 }}>Share</Button>
-        </ButtonGroup>
-      </Box>
-      <Comments
-        feedItem={feedItem}
-        renderComments={renderComments}
-        setRenderComments={setRenderComments}
-      />
-      <FormControl onSubmit={handleCreateComment} sx={{ width: 1 }}>
-        <TextField
+             
+              <div>{feedItem.title}</div>
+              <div>{feedItem.url}</div>
+              <div>{feedItem.description}</div>
+              <PostLikes feedItem={feedItem}  />
+              <ButtonGroup variant='outlined' aria-label='outlined button group' sx={{ width: 1 }}>
+                {postLikeCheck && postLikeCheck.length ? <Button onClick={(e) => handleDeleteLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Unlike</Button> 
+                :
+                 <Button onClick={(e) => handlePostLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Like</Button>}
+                  <Button sx={{ width: 1/3 }}>Comment</Button>
+                  <Button  sx={{ width: 1/3 }}>Share</Button>
+                </ButtonGroup>
+            </Box>
+            <Comments feedItem={feedItem} renderComments={renderComments} setRenderComments={setRenderComments}/> 
+            <FormControl onSubmit={handleCreateComment} sx={{ width: 1 }}>
+            <TextField
           id={`commentbox-${feedItem.id}`}
           placeholder="Comment"
           multiline

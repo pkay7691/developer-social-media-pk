@@ -74,7 +74,7 @@ export const requestBugFeatureSurveyAsync = createAsyncThunk('requestBugFeatureS
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: {},
+    initialState: [],
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchUserAsync.fulfilled, (state, action) => {
@@ -98,5 +98,7 @@ const userSlice = createSlice({
 export const selectUser = (state, action) => {
     return state.user
 }
+
+
 
 export default userSlice.reducer

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
@@ -10,9 +10,11 @@ const FriendRequests = () => {
   const loggedInUserId = useSelector((state) => state.auth.me.id);
   const friendRequests = useSelector(selectFriendRequests)
     const dispatch = useDispatch();
+    const [renderFriendRequests, setRenderFriendRequests] = useState(false)
+
     useEffect(() => {
       dispatch(fetchFriendshipsById(loggedInUserId))
-    },[])
+    },[dispatch, renderFriendRequests])
 
     const handleAcceptFriendRequest = (friendship) => {
 
@@ -35,13 +37,18 @@ const FriendRequests = () => {
       }
       dispatch(updateFriendship(updatedFriendship))
       dispatch(createFriendship(newFriendship))
+      setRenderFriendRequests(!renderFriendRequests)
     }
 
     const handleRejectFriendRequest = (friendship) => {
+      console.log("hello")
       dispatch(deleteFriendship(friendship.id))
+      console.log(renderFriendRequests)
+      setRenderFriendRequests(!renderFriendRequests)
+      console.log(renderFriendRequests)
     }
 
-
+// TODO: Inconsistent rendering of requests
 
     //this will return a table of all users
     return (
