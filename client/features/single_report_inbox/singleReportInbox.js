@@ -11,8 +11,8 @@ import { Box, Grid, Typography, Table, AppBar, Toolbar } from "@mui/material";
 const SingleReport = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { reportId } = useParams();
-  console.log("userId", reportId);
+  const { id } = useParams();
+  console.log("userId", id);
   const user = useSelector(selectReport);
   console.log("user", user);
   const { admin_response, report_status } = user;
@@ -20,7 +20,7 @@ const SingleReport = () => {
   const [status, setStatus] = useState(report_status);
 
   useEffect(() => {
-    dispatch(fetchReportAsync(reportId));
+    dispatch(fetchReportAsync(id));
   }, [dispatch]);
 
   const handleAdminMessageChange = (e) => {
@@ -33,7 +33,7 @@ const SingleReport = () => {
 
   const handleUpdateStatus = () => {
     const updatedReport = {
-        id: reportId,
+        id: id,
         admin_response: response,
         report_status: status,
     };
