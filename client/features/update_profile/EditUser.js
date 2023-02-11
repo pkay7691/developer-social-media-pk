@@ -7,6 +7,7 @@ import {
 } from "../single_user/singleUserSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button ,Grid} from "@mui/material";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 
 const EditUser =()=> {
@@ -22,19 +23,26 @@ const EditUser =()=> {
 
   useEffect(() => {
     dispatch(fetchUserAsync(userId));
-  }, [dispatch, userId]);
+  }, [dispatch]);
 
   const handleSubmit = (evt)=>{
     evt.preventDefault();
-    dispatch(editUser({ id: userId, first_name, last_name, email, about_me, skill_level}));
-    Navigate('/EditUser')
+    const editedUser =  {
+      id: userId,
+       first_name: first_name ,
+        last_name: last_name, email: email,
+         about_me: about_me,
+          skill_level: skill_level
+        }
+    console.log(editedUser, 'editedUser')
+    dispatch(editUser(editedUser));
   }
 
 
   return (
     <form id="edit-user">
 
-      <div className="container" onSubmit={handleSubmit}>
+      <div className="container" >
 
         <label htmlFor="first-name">First Name</label>
         <input
@@ -75,7 +83,7 @@ const EditUser =()=> {
         value={about_me}
         onChange={(e)=>setAboutMe(e.target.value)}
         />
-        <Button variant="contained" type="submit">Submit</Button>
+        <Button onClick={handleSubmit} variant="contained" type="submit">Submit</Button>
       </div>
     </form>
   );
