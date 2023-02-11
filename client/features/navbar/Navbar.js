@@ -111,6 +111,8 @@ const Navbar = () => {
                   <Link to="/home">Home</Link>
                   <Grid item xs={0.5}/>
                   <Link to="/chat">Chat</Link>
+                  <Grid item xs={0.5}/>
+                  <Link to="/project/add">Create Project</Link>
                   <Grid item xs={0.5} />
                   <Link to="/users">Users</Link>
                   <Grid item xs={0.5} />
@@ -260,6 +262,8 @@ const Navbar = () => {
                   <Link to="/home">Home</Link>
                   <Grid item xs={0.5} />
                   <Link to="/chat">Chat</Link>
+                  <Grid item xs={0.5}/>
+                  <Link to="/project/add">Create Project</Link>
                   <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
                   <Grid item xs={0.5} />
