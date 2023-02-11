@@ -19,6 +19,7 @@ export {default as Project } from '../features/project_page/project'
 export {default as FriendRequests } from '../features/friend_requests/friend_requests'
 
 export {default as Favorites} from '../features/favorites/Favorites'
+export {default as AllProjects } from '../features/all_project/allProject'
 export {default as Chatbox } from '../features/messages/Chatbox'
 export {default as AddProject } from '../features/add_project/AddProject'
 

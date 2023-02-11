@@ -12,7 +12,8 @@ import {
   TableBody,
   TableRow,
   TableCell,
-} from "@mui/material";
+  } from "@mui/material";
+  import FolderIcon from '@mui/icons-material/Folder';
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Flag, Settings, Logout } from "@mui/icons-material";
 import { IoMdSearch } from "react-icons/io";
@@ -108,10 +109,6 @@ const Navbar = () => {
                   <Grid item xs={0.5} />
                   <Link to="/chat">Chat</Link>
                   <Grid item xs={0.5} />
-                  <Link to="/project">All Projects </Link>
-                  <Grid item xs={0.5} />
-                  <Link to="/EditUser">Edit Profile</Link>
-                  <Grid item xs={0.5} />
                   <Link to="/users">Users</Link>
                   <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
@@ -182,18 +179,24 @@ const Navbar = () => {
                         <Avatar src={profilePic} /> Profile
                       </MenuItem>
                     </Link>
-
-                    <MenuItem onClick={handleClose}>
-                      <Avatar src={profilePic} /> My account
-                    </MenuItem>
                     <Divider />
-                    <MenuItem onClick={handleClose}>
+                    <Link to="/EditUser">
+                    <MenuItem>
                       <ListItemIcon>
                         <Settings fontSize="small" />
                       </ListItemIcon>
                       Settings
                     </MenuItem>
-                    <Link to="/support">
+                    </Link>
+                    <Link to ="/project">
+                      <MenuItem>
+                      <ListItemIcon>
+                        <FolderIcon fontSize="small" />
+                      </ListItemIcon>
+                      All Projects
+                      </MenuItem>
+                    </Link>
+                        <Link to="/support">
                       <MenuItem>
                         <ListItemIcon>
                           <Flag fontSize="small" />

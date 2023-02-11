@@ -176,7 +176,7 @@ const [description, setDescription] = useState(feedItem.description)
 
 
               </div>
-            </Link>
+
               <div>{feedItem.title}</div>
               <div>{feedItem.url}</div>
               <div>{feedItem.description}</div>
