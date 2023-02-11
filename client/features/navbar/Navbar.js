@@ -102,42 +102,49 @@ const Navbar = () => {
           </>
         ) : isAdmin ? (
           <div>
+            <Box sx={{ flexGrow: 1 }}>
+
             <AppBar position="static">
-              <Container maxWidth="xl">
+              <Container maxWidth="xl" spacing={2}>
                 <Grid item xs={12} container>
                   <Grid item xs={0.5} />
                   <Link to="/home">Home</Link>
-                  <Grid item xs={0.5} />
+                  <Grid item xs={0.5}/>
                   <Link to="/chat">Chat</Link>
                   <Grid item xs={0.5} />
                   <Link to="/users">Users</Link>
                   <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
-                  <Grid item xs={8.5} />
-                  <Tooltip title="Account Settings">
+                  <Grid item xs={0.5}  />
+                  <Tooltip title="Account Settings" display="flex">
                     <IconButton
                       onClick={handleClick}
+                      sx={{marginLeft:'auto'}}
                       size="small"
-                      sx={{ ml: 2 }}
                       aria-controls={open ? "account-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                     >
                       <Stack direction="row" spacing={2}>
                         <StyledBadge
+
                           overlap="circular"
                           anchorOrigin={{
                             vertical: "bottom",
                             horizontal: "right",
+
                           }}
+
                           variant="dot"
                         >
                           <Avatar
                             src={profilePic}
-                            style={{ width: "30px", height: "30px"
+                            style={{ width: "30px", height: "30px",
+                            mr: 0.4,
+                            ml: 0.4,
+
                               }}
-                            edge="start"
-                            size="large"
+
                           />
                         </StyledBadge>
                       </Stack>
@@ -242,6 +249,7 @@ const Navbar = () => {
                 </Grid>
               </Container>
             </AppBar>
+            </Box>
           </div>
         ) : isLoggedIn ? (
           <div>
@@ -254,15 +262,17 @@ const Navbar = () => {
                   <Link to="/chat">Chat</Link>
                   <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
-                  <Grid item xs={8.5} />
-                  <Tooltip title="Account Settings">
+                  <Grid item xs={0.5} />
+                  <Tooltip title="Account Settings" display="flex">
                     <IconButton
+                      sx={{marginLeft:'auto'}}
                       onClick={handleClick}
                       size="small"
-                      sx={{ ml: 2 }}
                       aria-controls={open ? "account-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
+
+
                     >
                       <Stack direction="row" spacing={2}>
                         <StyledBadge
