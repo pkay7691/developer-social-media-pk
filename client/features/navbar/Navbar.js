@@ -13,7 +13,8 @@ import {
   TableRow,
   TableCell,
   } from "@mui/material";
-  import FolderIcon from '@mui/icons-material/Folder';
+import FolderIcon from '@mui/icons-material/Folder';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Flag, Settings, Logout } from "@mui/icons-material";
 import { IoMdSearch } from "react-icons/io";
@@ -133,7 +134,10 @@ const Navbar = () => {
                         >
                           <Avatar
                             src={profilePic}
-                            style={{ width: "30px", height: "30px" }}
+                            style={{ width: "30px", height: "30px"
+                              }}
+                            edge="start"
+                            size="large"
                           />
                         </StyledBadge>
                       </Stack>
@@ -249,12 +253,7 @@ const Navbar = () => {
                   <Grid item xs={0.5} />
                   <Link to="/chat">Chat</Link>
                   <Grid item xs={0.5} />
-                  <Grid item xs={0.5} />
-                  <Link to="/EditUser">Edit Profile</Link>
-                  <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
-                  <Grid item xs={8.5} />
-                  <Link to="/friendrequests">Friend Requests</Link>
                   <Grid item xs={8.5} />
                   <Tooltip title="Account Settings">
                     <IconButton
@@ -322,17 +321,24 @@ const Navbar = () => {
                         <Avatar src={profilePic} /> Profile
                       </MenuItem>
                     </Link>
+                    <Link to="/friendrequests">
 
-                    <MenuItem onClick={handleClose}>
-                      <Avatar src={profilePic} /> My account
-                    </MenuItem>
+                      <MenuItem>
+                      <ListItemIcon>
+                      <PersonAddIcon fontSize ="small"/>
+                      </ListItemIcon>
+                      Friend Requests
+                      </MenuItem>
+                    </Link>
                     <Divider />
-                    <MenuItem onClick={handleClose}>
+                    <Link to="/EditUser">
+                    <MenuItem>
                       <ListItemIcon>
                         <Settings fontSize="small" />
                       </ListItemIcon>
                       Settings
                     </MenuItem>
+                    </Link>
                     <Link to="/support">
                       <MenuItem>
                         <ListItemIcon>
