@@ -27,6 +27,7 @@ import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import theme from "../../app/theme";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -104,9 +105,9 @@ const Navbar = () => {
           <div>
             <Box sx={{ flexGrow: 1 }}>
 
-            <AppBar position="static">
-              <Container maxWidth="xl" spacing={2}>
-                <Grid item xs={12} container>
+            <AppBar position="static"  theme={theme} color="primary">
+              <Container maxWidth="xl" spacing={2} theme={theme} color='primary'>
+                <Grid item xs={12} container color='primary'>
                   <Grid item xs={0.5} />
                   <Link to="/home">Home</Link>
                   <Grid item xs={0.5}/>
@@ -126,8 +127,10 @@ const Navbar = () => {
                       aria-controls={open ? "account-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
+                      theme={theme} color="primary"
                     >
-                      <Stack direction="row" spacing={2}>
+                      <Stack direction="row" spacing={2}
+                      theme={theme} color="primary">
                         <StyledBadge
 
                           overlap="circular"
