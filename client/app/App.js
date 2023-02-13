@@ -24,7 +24,6 @@ const App = () => {
       createTheme({
         palette: {
           mode,
-
         },
       }),
     [mode],
@@ -35,11 +34,10 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <div >
           <Navbar />
-          <AppRoutes />
-          {theme.palette.mode} mode
           <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
+          <AppRoutes />
           <Footer />
         </div>
       </ThemeProvider>
