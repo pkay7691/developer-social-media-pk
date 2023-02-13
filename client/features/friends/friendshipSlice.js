@@ -96,4 +96,4 @@ export const selectFriendRequests = (state, action) => {
   return state.friendship
 }
 
-export default friendshipSlice.reducer;
+export default friendshipSlice.reducer

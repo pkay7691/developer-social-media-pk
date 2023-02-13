@@ -60,15 +60,7 @@ const EditUser =()=> {
           value={last_name}
           onChange={(e) => setLastName(e.target.value)}
         />
-        <label htmlFor="user-email">Email</label>
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="skill-level">Skill level</label>
+       <label htmlFor="skill-level">Skill level</label>
         <input
         type="text"
         placeholder="Skill Level"
