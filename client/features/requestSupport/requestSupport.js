@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { fetchUserAsync, requestBugFeatureSurveyAsync } from "../single_user/singleUserSlice";
+import {Stack, Button, TextField, Typography,Select, FormControl,InputLabel, MenuItem} from '@mui/material';
+import theme from "../../app/theme";
 
 const RequestSupport = () => {
     // selects the user who is logged in currently
@@ -49,26 +51,51 @@ const RequestSupport = () => {
 
     return (
         <>
-        <div>
-            {/*take username and requestType and requestDescription and send to backend to create a request for that user*/}
-            <h1>Request Support</h1>
-            <p>{error}</p>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Request Type:
-                    <select value={requestType} onChange={handleRequestTypeChange}>
-                        {requestTypes.map((requestType) => (
-                            <option value={requestType}>{requestType}</option>
-                        ))}
-                    </select>
-                </label>
-                <label>
-                    Description:
-                    <textarea value={requestDescription} onChange={handleRequestDescriptionChange} />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
+
+            <Stack
+            as="form"
+            spacing="1rem"
+            width={{base: "90%", md:"500px"}}
+            margin="auto"
+            height="100vh"
+            noValidate
+            onSubmit={handleSubmit}
+            >
+         {/*take username and requestType and requestDescription and send to backend to create a request for that user*/}
+
+            <Typography gutterBottom variant="h5" align="center">Request Support</Typography>
+
+
+                <FormControl  sx={{width:1}}>
+                    <InputLabel color="primary" >Report Types</InputLabel>
+
+                    <Select size='small'  value={requestType} onChange=
+                    {handleRequestTypeChange}>
+                    {requestTypes.map((type) => (
+                        <MenuItem key={type} value={type}>
+                            {type}
+                        </MenuItem>
+                    ))}
+                </Select>
+
+                </FormControl>
+              <TextField
+              fullWidth
+              id="description"
+              name="description"
+              placeholder="Description"
+              value={requestDescription}
+              onChange={handleRequestDescriptionChange}
+              />
+              <Button
+              variant="contained"
+              theme={theme}
+              type="submit"
+              color="primary"
+              value="Submit"
+              >Submit</Button>
+          </Stack>
+
         </>
     )
 }

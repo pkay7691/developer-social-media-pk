@@ -174,7 +174,7 @@ const SignUp = () => {
         </Button>
         <Button
           theme={theme}
-          color="secondary"
+          color="primary"
           variant="contained"
           onClick={() => navigate("/login")}
         >
