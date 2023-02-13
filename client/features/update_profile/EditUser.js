@@ -6,7 +6,7 @@ import {
   selectUser,
 } from "../single_user/singleUserSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button ,Grid} from "@mui/material";
+import { Autocomplete, Box, Button ,Container,FormControl,Grid, Stack, TextField, Typography} from "@mui/material";
 import { ConstructionOutlined } from "@mui/icons-material";
 
 
@@ -18,12 +18,15 @@ const EditUser =()=> {
   const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [about_me, setAboutMe] = useState("");
-  const [skill_level, setSkillLevel] = useState("");
+  const [skill_level, setSkillLevel] = useState("")
 
 
   useEffect(() => {
     dispatch(fetchUserAsync(userId));
   }, [dispatch]);
+
+  const [value, setValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = (evt)=>{
     evt.preventDefault();
@@ -32,52 +35,80 @@ const EditUser =()=> {
        first_name: first_name ,
         last_name: last_name, email: email,
          about_me: about_me,
-          skill_level: skill_level
+          skill_level: inputValue
         }
     console.log(editedUser, 'editedUser')
     dispatch(editUser(editedUser));
   }
 
+  const skill = [
+    {label: 'Beginner'},
+    {label: 'Intermediate'},
+    {label: 'Professional'},
+    {label: 'Master'},
+  ]
 
   return (
-    <form id="edit-user">
-
-      <div className="container" >
-
-        <label htmlFor="first-name">First Name</label>
-        <input
-          type="text"
-          placeholder="First Name"
-          name="first"
-          value={first_name}
-          onChange={(e) => setFirstName(e.target.value)}
+    <Stack
+    as='form'
+    spacing='1rem'
+    width={{base: '90%', md: '500px'}}
+    margin='auto'
+    height='100vh'
+    >
+      <Typography variant="h4" align="center" color='primary'>Edit Profile</Typography>
+        <TextField
+        fullWidth
+        id="first_name"
+        name="first_name"
+        label='First name'
+        value={first_name}
+        onChange={(e) => setFirstName(e.target.value)}
         />
-        <label htmlFor="last-name">Last Name</label>{" "}
-        <input
-          type="text"
-          placeholder="Last Name"
-          name="last"
-          value={last_name}
-          onChange={(e) => setLastName(e.target.value)}
+        <TextField
+        id="last_name"
+        name='last_name'
+        label='Last Name'
+        value={last_name}
+        onChange={(e) => setLastName(e.target.value)}
         />
-       <label htmlFor="skill-level">Skill level</label>
-        <input
-        type="text"
-        placeholder="Skill Level"
-        name="skill-level"
-        value={skill_level}
-        onChange={(e)=>setSkillLevel(e.target.value)} />
-
-        <label htmlFor="about-me">About Me</label>
-        <textarea
-        type="text"
-        placeholder="Tell us a little about yourself....."
+        <TextField
+        id="email"
+        name="email"
+        label="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        />
+        <FormControl  onSubmit={handleSubmit} sx={{ width: 1 }}>
+        <Autocomplete
+          id='skill_level'
+          disablePortal
+          value={value}
+          onChange={(e, newValue) => {
+            setValue(newValue);
+          }}
+          inputValue={inputValue}
+          onInputChange={(event, newInputValue) => {
+            setInputValue(newInputValue);
+          }}
+          options={skill}
+          isOptionEqualToValue={(option, value) => option.value === value.value}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label='Skill Level'
+            />)}
+            />
+            </FormControl>
+        <TextField
+        id="about_me"
+        name="about_me"
+        label="Tell us about yourself...."
         value={about_me}
-        onChange={(e)=>setAboutMe(e.target.value)}
+        onChange={(e) => setAboutMe(e.target.value)}
         />
         <Button onClick={handleSubmit} variant="contained" type="submit">Submit</Button>
-      </div>
-    </form>
+    </Stack>
   );
 }
 
