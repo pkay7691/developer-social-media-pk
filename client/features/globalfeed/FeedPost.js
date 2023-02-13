@@ -12,6 +12,7 @@ import { asyncFetchCommentLikes } from './commentlikeslice';
 import { asyncDeletePost, asyncFetchPosts, asyncUpdatePost } from './postslice';
 import { HighlightOff } from '@mui/icons-material';
 import { fetchUserFeedById } from './userfeedslice';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 /**
  * COMPONENT
@@ -62,8 +63,13 @@ const [description, setDescription] = useState(feedItem.description)
         postId: postId,
         compositeId: `${userId}&${postId}`
       }
-      dispatch(asyncCreateLike(like))
-      dispatch(fetchGlobalFeed())
+      dispatch(asyncCreateLike(like)).then(() => {
+        if (profileId) {
+          dispatch(fetchUserFeedById(profileId))
+        } else dispatch(fetchGlobalFeedByPages(pageNumber))
+        
+      })
+      
       dispatch(asyncFetchPostLikes())
       dispatch(asyncFetchPosts())
 
@@ -73,7 +79,7 @@ const [description, setDescription] = useState(feedItem.description)
   const handleDeleteLike = (userId, postId) => {
     let id = postLikeCheck[0].id;
     dispatch(asyncDeleteLike(id))
-    dispatch(fetchGlobalFeed())
+    dispatch(fetchGlobalFeedByPages(pageNumber))
     dispatch(asyncFetchPostLikes())
     dispatch(asyncFetchPosts())
 
@@ -137,11 +143,9 @@ const [description, setDescription] = useState(feedItem.description)
   }
   return (
     <div>
-            <Box className='border'>
-              {feedItem.userId === user.id ? <HighlightOff onClick={handleDeletePost} /> : null}
-              <div className='flex flex-row'>
+            <Box className='border' sx={{padding: 1.5}}>
+              <div className='flex flex-row w-1'> 
               {/*users can update their own posts*/}
-              {feedItem.userId === user.id ? <Button onClick={handleOpenEdit}>Edit</Button> : null}
               {edit ? <FormControl >
                 <TextField
                 id="outlined-multiline-static"
@@ -167,14 +171,20 @@ const [description, setDescription] = useState(feedItem.description)
                 />
                 <Button onClick={handleEdit}>Submit</Button>
               </FormControl> : null}
-               <Link to={`/users/${feedItem.userId}`}> <Avatar src={feedItem.user.img_url} /> </Link>
-                {feedItem.project && feedItem.project.project_name ?
-                <div>
-                 <Link to={`/users/${feedItem.userId}`}><div>{feedItem.user.first_name} {feedItem.user.last_name} </div> </Link>
-                 <Link to={`/project/${feedItem.projectId}`}><div>{feedItem.project.project_name}</div></Link>
-                 </div> : <Link to={`/users/${feedItem.userId}`}><div>{feedItem.user.first_name} {feedItem.user.last_name} </div></Link> }
-
-
+                {feedItem.project && feedItem.project.project_name && !edit ?
+                <div style={{display: 'flex', flexDirection: 'row', alignItems:'center'}}>
+                   <Link to={`/users/${feedItem.userId}`}> <Avatar src={feedItem.user.img_url} /> </Link>
+                 <Link style={{margin: '5px'}} to={`/users/${feedItem.userId}`}><div>{feedItem.user.first_name} {feedItem.user.last_name} </div> </Link>
+                 <ArrowForwardIcon />
+                 <Link style={{margin: '5px'}} to={`/project/${feedItem.projectId}`}><div>{feedItem.project.project_name}</div></Link>
+                 </div> : !edit ?
+                 <div style={{display: 'flex', flexDirection: 'row', alignItems:'center'}}>
+                 <Link  to={`/users/${feedItem.userId}`}> <Avatar src={feedItem.user.img_url} /> </Link>
+                 <Link style={{margin: '5px'}} to={`/users/${feedItem.userId}`}><div>{feedItem.user.first_name} {feedItem.user.last_name} </div></Link> 
+                 </div> 
+                 : null }
+                
+                
               </div>
 
               <div>{feedItem.title}</div>
@@ -185,8 +195,8 @@ const [description, setDescription] = useState(feedItem.description)
                 {postLikeCheck && postLikeCheck.length ? <Button onClick={(e) => handleDeleteLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Unlike</Button>
                 :
                  <Button onClick={(e) => handlePostLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Like</Button>}
-                  <Button sx={{ width: 1/3 }}>Comment</Button>
-                  <Button  sx={{ width: 1/3 }}>Share</Button>
+                  {feedItem.userId === user.id ? <Button onClick={handleOpenEdit} sx={{ width: 1/3 }}>Edit</Button> : <Button disabled sx={{ width: 1/3 }}>Edit</Button>}
+                  {feedItem.userId === user.id ? <Button onClick={handleDeletePost} sx={{ width: 1/3 }}>Delete</Button> : <Button disabled sx={{ width: 1/3 }}>Delete</Button>}
                 </ButtonGroup>
             </Box>
             <Comments feedItem={feedItem} renderComments={renderComments} setRenderComments={setRenderComments}/>

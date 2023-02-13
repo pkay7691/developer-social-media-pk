@@ -9,6 +9,7 @@ import { asyncFetchCommentLikes } from '../globalfeed/commentlikeslice';
 import { FormControl, TextField, Button, Autocomplete, Box } from '@mui/material';
 import { fetchUserAsync } from '../single_user/singleUserSlice';
 import { asyncCreatePost, asyncFetchPosts } from '../globalfeed/postslice';
+import SideNav from '../home/SideNav'
 
 
 
@@ -53,9 +54,14 @@ useEffect(() => {
 
 
   return (
-    <div>
-      <GlobalFeed />
+
+    <div id='home-container' className='flex flex-col' style={{marginTop: 50 }}>
+      <div id='home-left-container' style={{width: '33%'}}><SideNav/></div>
+      
+      <div id='home-left-container' style={{width: '50%'}} ><GlobalFeed /></div>
+      <div id='home-right-container' style={{width: '33%'}}  ></div>
     </div>
+
   );
 };
 

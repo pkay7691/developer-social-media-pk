@@ -84,7 +84,7 @@ const SingleUser = () => {
     }
 
     console.log(userId, loggedInUserId, "userId and loggedinuserId")
-
+console.group(user.img_url)
 
 
 
@@ -99,6 +99,7 @@ const SingleUser = () => {
                            <Avatar
                             srcSet={user.img_url}
                             sx={{ width: 140, height: 140 }}
+                            loading='lazy'
                             />
                         </Grid>
                         <Grid item xs={3.5} />
