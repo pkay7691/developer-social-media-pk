@@ -15,7 +15,6 @@ import UserFeed from '../globalfeed/UserFeed'
 
 
 
-
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -63,7 +62,7 @@ const SingleUser = () => {
     }, [dispatch, userId])
 
 
-    //!FIXME: this button is working but it is not updating the user's ban status on first click.
+    // !FIXME: this button is working but it is not updating the user's ban status on first click.
     const handleBan = (e) => {
         e.preventDefault();
         const banUpdate = {
@@ -84,7 +83,7 @@ const SingleUser = () => {
     }
 
     console.log(userId, loggedInUserId, "userId and loggedinuserId")
-
+console.group(user.img_url)
 
 
 
@@ -99,6 +98,7 @@ const SingleUser = () => {
                            <Avatar
                             srcSet={user.img_url}
                             sx={{ width: 140, height: 140 }}
+                            loading='lazy'
                             />
                         </Grid>
                         <Grid item xs={3.5} />
@@ -126,6 +126,7 @@ const SingleUser = () => {
                             <Typography> Username: {user.username}</Typography>
                             <Typography> Name: {user.first_name} {user.last_name}</Typography>
                             <Typography> Email: {user.email}</Typography>
+                            <Typography> Skill Level: {user.skill_level}</Typography>
                         </Grid>
                         <Grid item xs={4} />
                         <Grid item xs={2}><Typography variant='h2'>Friends</Typography>

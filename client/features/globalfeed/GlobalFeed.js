@@ -100,8 +100,10 @@ const GlobalFeed = ({profileId}) => {
   
   return (
     <div>
-       <FormControl onSubmit={handleCreatePost} sx={{ width: 1 }}>
-        <Autocomplete
+      <Container maxWidth='sm'
+      sx={{marginBottom: 8}}>
+       <FormControl  onSubmit={handleCreatePost} sx={{ width: 1 }}>
+        <Autocomplete 
           id='project-select'
           disablePortal
           value={value || null}
@@ -149,8 +151,10 @@ const GlobalFeed = ({profileId}) => {
           onChange={(e) => description.current = e.target.value}
 
         />
-        <Button onClick={handleCreatePost} type='submit'>Reply</Button>
+        <Button onClick={handleCreatePost} type='submit'>Post</Button>
       </FormControl>
+      </Container>
+
       <Container maxWidth="sm">
         <Stack spacing={3}>
       {globalFeed && globalFeed.length ? (
