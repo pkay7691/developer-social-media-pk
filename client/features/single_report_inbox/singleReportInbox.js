@@ -6,7 +6,7 @@ import {
   selectReport,
   updateReportAsync,
 } from "./singleReportInboxSlice";
-import { Box, Grid, Typography, Table, AppBar, Toolbar } from "@mui/material";
+import { Box, Grid, Typography, Table, AppBar, Toolbar, Stack } from "@mui/material";
 
 const SingleReport = () => {
   const dispatch = useDispatch();
@@ -43,20 +43,26 @@ const SingleReport = () => {
   };
 
   return (
-    <div>
+    <Stack
+    spacing='2rem'
+    width={{base: '90%', md: '500px'}}
+    margin='auto'
+    height='100vh' 
+    >
       <Box
         sx={{
-          width: 300,
-          height: 300,
+          width: 400,
+          height: 400,
+          borderRadius: 2,
           p: 8,
-          border: "1px solid black",
+          border: "3px solid black ",
           marginLeft: 10,
           marginTop: 50,
         }}
       >
         <Grid alignItems="center">
-          <Typography>Offender: {user.reportee}</Typography>
-          <Typography>Type of Report: {user.reason_for_report}</Typography>
+          <Typography variant='h4'>Offender: {user.reportee}</Typography>
+          <Typography variant='p'>Type of Report: {user.reason_for_report}</Typography>
           <Typography>Reporter's message: {user.message}</Typography>
           {/*change admin_repsonse to text area*/}
           <Typography>Admin's response: {user.admin_response}</Typography>
@@ -74,7 +80,7 @@ const SingleReport = () => {
         </select>
         <button onClick={handleUpdateStatus}>Update</button>
       </Box>
-    </div>
+    </Stack>
   );
 };
 
