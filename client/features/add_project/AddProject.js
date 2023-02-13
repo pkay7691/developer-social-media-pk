@@ -8,7 +8,6 @@ import { Button, Stack, TextField, Typography } from '@mui/material';
 const AddProject = () => {
     const dispatch = useDispatch();
     const userId = useSelector(state => state.auth.me);
-    console.log('userId', userId)
     const projects = useSelector(selectProjects);
     const navigate = useNavigate();
     const { id } = useParams();
@@ -31,8 +30,6 @@ const AddProject = () => {
             [e.target.name]: e.target.value
         })
     }
-
-    console.log('userId', userId)
 
     const handleSubmit = (e) => {
         e.preventDefault();
