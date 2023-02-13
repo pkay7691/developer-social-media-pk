@@ -12,7 +12,9 @@ import {
   TableBody,
   TableRow,
   TableCell,
-} from "@mui/material";
+  } from "@mui/material";
+import FolderIcon from '@mui/icons-material/Folder';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Flag, Settings, Logout } from "@mui/icons-material";
 import { IoMdSearch } from "react-icons/io";
@@ -25,6 +27,7 @@ import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import theme from "../../app/theme";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -100,43 +103,53 @@ const Navbar = () => {
           </>
         ) : isAdmin ? (
           <div>
-            <AppBar position="static">
-              <Container maxWidth="xl">
-                <Grid item xs={12} container>
+            <Box sx={{ flexGrow: 1 }}>
+
+            <AppBar position="static"  theme={theme} color="primary">
+              <Container maxWidth="xl" spacing={2} theme={theme} color='primary'>
+                <Grid item xs={12} container color='primary'>
                   <Grid item xs={0.5} />
                   <Link to="/home">Home</Link>
-                  <Grid item xs={0.5} />
+                  <Grid item xs={0.5}/>
                   <Link to="/chat">Chat</Link>
-                  <Grid item xs={0.5} />
-                  <Link to="/project">All Projects </Link>
-                  <Grid item xs={0.5} />
-                  <Link to="/EditUser">Edit Profile</Link>
+                  <Grid item xs={0.5}/>
+                  <Link to="/project/add">Create Project</Link>
                   <Grid item xs={0.5} />
                   <Link to="/users">Users</Link>
                   <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
-                  <Grid item xs={8.5} />
-                  <Tooltip title="Account Settings">
+                  <Grid item xs={0.5}  />
+                  <Tooltip title="Account Settings" display="flex">
                     <IconButton
                       onClick={handleClick}
+                      sx={{marginLeft:'auto'}}
                       size="small"
-                      sx={{ ml: 2 }}
                       aria-controls={open ? "account-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
+                      theme={theme} color="primary"
                     >
-                      <Stack direction="row" spacing={2}>
+                      <Stack direction="row" spacing={2}
+                      theme={theme} color="primary">
                         <StyledBadge
+
                           overlap="circular"
                           anchorOrigin={{
                             vertical: "bottom",
                             horizontal: "right",
+
                           }}
+
                           variant="dot"
                         >
                           <Avatar
                             src={profilePic}
-                            style={{ width: "30px", height: "30px" }}
+                            style={{ width: "30px", height: "30px",
+                            mr: 0.4,
+                            ml: 0.4,
+
+                              }}
+
                           />
                         </StyledBadge>
                       </Stack>
@@ -182,18 +195,24 @@ const Navbar = () => {
                         <Avatar src={profilePic} /> Profile
                       </MenuItem>
                     </Link>
-
-                    <MenuItem onClick={handleClose}>
-                      <Avatar src={profilePic} /> My account
-                    </MenuItem>
                     <Divider />
-                    <MenuItem onClick={handleClose}>
+                    <Link to="/EditUser">
+                    <MenuItem>
                       <ListItemIcon>
                         <Settings fontSize="small" />
                       </ListItemIcon>
                       Settings
                     </MenuItem>
-                    <Link to="/support">
+                    </Link>
+                    <Link to ="/project">
+                      <MenuItem>
+                      <ListItemIcon>
+                        <FolderIcon fontSize="small" />
+                      </ListItemIcon>
+                      All Projects
+                      </MenuItem>
+                    </Link>
+                        <Link to="/support">
                       <MenuItem>
                         <ListItemIcon>
                           <Flag fontSize="small" />
@@ -235,32 +254,33 @@ const Navbar = () => {
                 </Grid>
               </Container>
             </AppBar>
+            </Box>
           </div>
         ) : isLoggedIn ? (
           <div>
-            <AppBar position="static">
-              <Container maxWidth="xl">
+            <AppBar position="static" theme={theme} color="primary">
+              <Container maxWidth="xl" theme={theme} color="primary">
                 <Grid item xs={12} container>
                   <Grid item xs={0.5} />
                   <Link to="/home">Home</Link>
                   <Grid item xs={0.5} />
                   <Link to="/chat">Chat</Link>
-                  <Grid item xs={0.5} />
-                  <Grid item xs={0.5} />
-                  <Link to="/EditUser">Edit Profile</Link>
+                  <Grid item xs={0.5}/>
+                  <Link to="/project/add">Create Project</Link>
                   <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
-                  <Grid item xs={8.5} />
-                  <Link to="/friendrequests">Friend Requests</Link>
-                  <Grid item xs={8.5} />
-                  <Tooltip title="Account Settings">
+                  <Grid item xs={0.5} />
+                  <Tooltip title="Account Settings" display="flex" >
                     <IconButton
+                      sx={{marginLeft:'auto'}}
                       onClick={handleClick}
+                      theme={theme} color="primary"
                       size="small"
-                      sx={{ ml: 2 }}
                       aria-controls={open ? "account-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
+
+
                     >
                       <Stack direction="row" spacing={2}>
                         <StyledBadge
@@ -319,17 +339,24 @@ const Navbar = () => {
                         <Avatar src={profilePic} /> Profile
                       </MenuItem>
                     </Link>
+                    <Link to="/friendrequests">
 
-                    <MenuItem onClick={handleClose}>
-                      <Avatar src={profilePic} /> My account
-                    </MenuItem>
+                      <MenuItem>
+                      <ListItemIcon>
+                      <PersonAddIcon fontSize ="small"/>
+                      </ListItemIcon>
+                      Friend Requests
+                      </MenuItem>
+                    </Link>
                     <Divider />
-                    <MenuItem onClick={handleClose}>
+                    <Link to="/EditUser">
+                    <MenuItem>
                       <ListItemIcon>
                         <Settings fontSize="small" />
                       </ListItemIcon>
                       Settings
                     </MenuItem>
+                    </Link>
                     <Link to="/support">
                       <MenuItem>
                         <ListItemIcon>

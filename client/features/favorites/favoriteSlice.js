@@ -4,7 +4,7 @@ import {
   } from "@reduxjs/toolkit";
   import axios from "axios";
 
-  //fetches all favorite projects 
+  //fetches all favorite projects
   export const asyncFetchFavorite = createAsyncThunk('fetchFavorites', async()=>{
     try {
         const { data } = await axios.get('/api/favorites');
@@ -66,4 +66,4 @@ const favoriteSlice = createSlice({
 });
 
 export const {rmvFavorites, addToFavorites,seeFavorites } = favoriteSlice.actions;
-export default favoriteSlice.reducer;
+export default favoriteSlice.reducer
