@@ -258,8 +258,8 @@ const Navbar = () => {
           </div>
         ) : isLoggedIn ? (
           <div>
-            <AppBar position="static">
-              <Container maxWidth="xl">
+            <AppBar position="static" theme={theme} color="primary">
+              <Container maxWidth="xl" theme={theme} color="primary">
                 <Grid item xs={12} container>
                   <Grid item xs={0.5} />
                   <Link to="/home">Home</Link>
@@ -270,10 +270,11 @@ const Navbar = () => {
                   <Grid item xs={0.5} />
                   <Link to="/contactUs">Contact Us</Link>
                   <Grid item xs={0.5} />
-                  <Tooltip title="Account Settings" display="flex">
+                  <Tooltip title="Account Settings" display="flex" >
                     <IconButton
                       sx={{marginLeft:'auto'}}
                       onClick={handleClick}
+                      theme={theme} color="primary"
                       size="small"
                       aria-controls={open ? "account-menu" : undefined}
                       aria-haspopup="true"
