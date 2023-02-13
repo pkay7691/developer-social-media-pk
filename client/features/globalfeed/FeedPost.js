@@ -176,13 +176,13 @@ const [description, setDescription] = useState(feedItem.description)
                 
                 
               </div>
-             </Link>
+             
               <div>{feedItem.title}</div>
               <div>{feedItem.url}</div>
               <div>{feedItem.description}</div>
               <PostLikes feedItem={feedItem}  />
               <ButtonGroup variant='outlined' aria-label='outlined button group' sx={{ width: 1 }}>
-                {postLikeCheck && postLikeCheck.length ? <Button onClick={(e) => handleDeleteLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Unlike</Button>
+                {postLikeCheck && postLikeCheck.length ? <Button onClick={(e) => handleDeleteLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Unlike</Button> 
                 :
                  <Button onClick={(e) => handlePostLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Like</Button>}
                   <Button sx={{ width: 1/3 }}>Comment</Button>
@@ -201,10 +201,9 @@ const [description, setDescription] = useState(feedItem.description)
           onChange={(e) => setText_field(e.target.value)} 
           
         />
-        <Button onClick={handleCreateComment} type="submit">
-          Reply
-        </Button>
-      </FormControl>
+        <Button onClick={handleCreateComment} type='submit'>Reply</Button>
+        </FormControl>
+        
     </div>
   );
 };
