@@ -81,7 +81,7 @@ async function seed() {
       for (let i = 0; i < 96; i++) {
         users.push({
       username: faker.internet.userName(),
-      // img_url: faker.image.avatar(),
+      img_url: faker.image.avatar(),
       password: 'password',
       is_admin: false,
       location: `${faker.address.cityName()}, ${faker.address.stateAbbr()} `,
@@ -196,10 +196,34 @@ async function seed() {
       return projectPosts;
     }
 
-
-
     const projectPosts = createProjectPosts()
     await  Post.bulkCreate(projectPosts)
+
+    
+    function createComments() {
+      let comments = [];
+      for (let i = 1; i < 100; i++) {
+        comments.push({
+      text_field: faker.lorem.lines(3),
+      modelType: 'comment',
+      userId: i,
+      createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2021-01-01T00:00:00.000Z'),
+      postId: faker.datatype.number({ 
+        min: 1,
+        max: 100,
+       }),
+
+        });
+      }
+      return comments;
+    }
+
+    const comments = createComments()
+    await  Comments.bulkCreate(comments)
+
+
+        
+
 
 
     const friendship1 = await Friendship.create({
