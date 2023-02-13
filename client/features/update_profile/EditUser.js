@@ -58,7 +58,6 @@ const EditUser =()=> {
     >
       <Typography variant="h4" align="center" color='primary'>Edit Profile</Typography>
         <TextField
-        fullWidth
         id="first_name"
         name="first_name"
         label='First name'

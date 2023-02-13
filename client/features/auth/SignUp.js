@@ -157,7 +157,7 @@ const SignUp = () => {
               </p>
             )}
           </Typography>
-
+          
           <TextField
             fullWidth
             id="username"
