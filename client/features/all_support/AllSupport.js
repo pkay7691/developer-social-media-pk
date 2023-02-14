@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import { Table, TableBody, TableCell, TableHead, TableRow, Button } from "@mui/material";
+import theme from "../../app/theme";
 
 const AllSupport = () => {
     const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const AllSupport = () => {
                     {supportTickets.map((supportTicket) => (
                         <TableRow key={supportTicket.id}>
                             <TableCell>
-                                <Button variant="contained" component={Link} to={`/support/${supportTicket.id}`}>View</Button>
+                                <Button variant="contained" theme={theme} color="primary" component={Link} to={`/support/${supportTicket.id}`}>View</Button>
                             </TableCell>
                             <TableCell>{supportTicket.username}</TableCell>
                             <TableCell>{supportTicket.type_of_request}</TableCell>

@@ -41,7 +41,7 @@ const AllProjects = () => {
 
 
             <Typography component='h2' variant="h6" align="center" fontWeight='bold' gutterBottom>All Projects</Typography>
-            <SearchProject projectName={projectName} setProjectName ={setProjectName}/>
+            <SearchProject projectName={projectName} setProjectName ={setProjectName} theme={theme} color="primary"/>
             <Table size="medium">
                 <TableHead>
                     <TableRow>
