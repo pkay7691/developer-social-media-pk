@@ -3,7 +3,8 @@ import { fetchReportsAsync, selectReports } from "./reportInboxSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
-import { Table, TableBody, TableCell, TableHead, TableRow, Button } from "@mui/material";
+import theme from "../../app/theme";
+import { Stack, Table, TableBody, TableCell, TableHead, TableRow, Button } from "@mui/material";
 
 
   
@@ -18,7 +19,12 @@ const AllReportInbox = () => {
 
     //this will return a table of all users
     return (
-        <div>
+        <Stack
+        spacing='2rem'
+        // width={{base: '50%', md: '500px'}}
+        margin='auto'
+        height='100vh' 
+        >
             <Typography component='h2' variant="h6" align="center" fontWeight='bold' gutterBottom>All Reports</Typography>
             <Table size="medium">
                 <TableHead>
@@ -35,7 +41,7 @@ const AllReportInbox = () => {
                         <TableRow key={user.id}>
                             <TableCell>
                                 <Link to={`/report/${user.id}`}>
-                                    <Button variant="contained" color="primary">View Report</Button>
+                                    <Button variant="contained" theme={theme} color="primary">View Report</Button>
                                 </Link>
                             </TableCell>
                             <TableCell>{user.reportee}</TableCell>
@@ -47,7 +53,7 @@ const AllReportInbox = () => {
                     ))}
                 </TableBody>
             </Table>
-        </div>
+        </Stack>
     );
 
 };

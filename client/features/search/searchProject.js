@@ -1,9 +1,12 @@
 import React from 'react'
+import OutlinedInput from '@mui/material/OutlinedInput';
 //creating a search bar so that it can be used again 
 const SearchProject = ({projectName, setProjectName}) => {
   return (
-    <input
+    <OutlinedInput
         type="text"
+        margin='auto'
+        size="small"
         className="mx-1 py-2 outline-none w-auto col-span-4 text-base"
         value={projectName || ""}
         onChange={(e)=>setProjectName(e.target.value)}

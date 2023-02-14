@@ -3,7 +3,7 @@ import React, {useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchAllProjectAsync, selectProjects } from "./allProjectSlice";
-import theme from "../../app/theme"
+import theme from "../../app/theme";
 import SearchProject from '../search/searchProject';
 
 const AllProjects = () => {
@@ -69,16 +69,6 @@ const AllProjects = () => {
                         </TableCell> */}
                     </TableRow>
                  ))
-                 //:projects.map((project)=>(
-
-                //     <TableRow key={project.id}>
-                //         <TableCell>{project.project_name}</TableCell>
-                //         <TableCell>{project.technologies}</TableCell>
-                //         <TableCell>{project.status}</TableCell>
-                //         <TableCell>{project.createdAt}</TableCell>
-
-                //     </TableRow>
-                //
                 :null}
                 </TableBody>
             </Table>

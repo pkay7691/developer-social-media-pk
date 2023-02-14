@@ -19,9 +19,9 @@ const io = new Server(server, {
 
 
 // logging middleware
-// app.use(helmet({
-//   contentSecurityPolicy: false,
-// }))
+app.use(helmet({
+  contentSecurityPolicy: false,
+}))
 //helmet is a security package that helps prevent attacks
 app.use(morgan('dev')) 
 app.use(cors({  //cors is a package that allows us to make requests to our server from a different origin
