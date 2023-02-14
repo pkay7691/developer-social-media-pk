@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Link} from 'react-router-dom'
 import { fetchGlobalFeed,  selectGlobalFeed, fetchGlobalFeedByPages } from './globalfeedslice';
-import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField, FormControl } from '@mui/material';
+import { Box, Container, Stack, Avatar, Button, ButtonGroup, TextField, FormControl, Typography } from '@mui/material';
 import { sizing } from '@mui/system';
 import Comments from './Comments';
 import PostLikes from './PostLikes';
@@ -13,7 +13,7 @@ import { asyncDeletePost, asyncFetchPosts, asyncUpdatePost } from './postslice';
 import { HighlightOff } from '@mui/icons-material';
 import { fetchUserFeedById } from './userfeedslice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
+import theme from "../../app/theme";
 /**
  * COMPONENT
  */
@@ -169,7 +169,7 @@ const [description, setDescription] = useState(feedItem.description)
                   defaultValue={feedItem.description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-                <Button onClick={handleEdit}>Submit</Button>
+                <Button color='primary' theme={theme}  onClick={handleEdit}>Submit</Button>
               </FormControl> : null}
                 {feedItem.project && feedItem.project.project_name && !edit ?
                 <div style={{display: 'flex', flexDirection: 'row', alignItems:'center'}}>
@@ -187,16 +187,18 @@ const [description, setDescription] = useState(feedItem.description)
                 
               </div>
 
-              <div>{feedItem.title}</div>
-              <div>{feedItem.url}</div>
-              <div>{feedItem.description}</div>
+              <Typography variant='h5' sx={{textAlign: 'center', marginTop: '10px'}}>{feedItem.title}</Typography>
+              <a href={feedItem.url} style={{textAlign: 'center'}}>
+                <Typography sx={{textAlign: 'center'}}>{feedItem.url}</Typography>
+                </a>
+              <Typography  sx={{marginTop: '10px', marginBottom: '10px'}}>{feedItem.description}</Typography>
               <PostLikes feedItem={feedItem}  />
               <ButtonGroup variant='outlined' aria-label='outlined button group' sx={{ width: 1 }}>
-                {postLikeCheck && postLikeCheck.length ? <Button onClick={(e) => handleDeleteLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Unlike</Button>
+                {postLikeCheck && postLikeCheck.length ? <Button color='primary' theme={theme} onClick={(e) => handleDeleteLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Unlike</Button>
                 :
-                 <Button onClick={(e) => handlePostLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Like</Button>}
-                  {feedItem.userId === user.id ? <Button onClick={handleOpenEdit} sx={{ width: 1/3 }}>Edit</Button> : <Button disabled sx={{ width: 1/3 }}>Edit</Button>}
-                  {feedItem.userId === user.id ? <Button onClick={handleDeletePost} sx={{ width: 1/3 }}>Delete</Button> : <Button disabled sx={{ width: 1/3 }}>Delete</Button>}
+                 <Button color='primary' theme={theme} onClick={(e) => handlePostLike(user.id, feedItem.id)} sx={{ width: 1/3 }}>Like</Button>}
+                  {feedItem.userId === user.id ? <Button color='primary' theme={theme} onClick={handleOpenEdit} sx={{ width: 1/3 }}>Edit</Button> : <Button disabled sx={{ width: 1/3 }}>Edit</Button>}
+                  {feedItem.userId === user.id ? <Button  color='primary' theme={theme}onClick={handleDeletePost} sx={{ width: 1/3 }}>Delete</Button> : <Button disabled sx={{ width: 1/3 }}>Delete</Button>}
                 </ButtonGroup>
             </Box>
             <Comments feedItem={feedItem} renderComments={renderComments} setRenderComments={setRenderComments}/>
@@ -211,7 +213,7 @@ const [description, setDescription] = useState(feedItem.description)
           onChange={(e) => setText_field(e.target.value)}
 
         />
-        <Button onClick={handleCreateComment} type='submit'>Reply</Button>
+        <Button color='primary' theme={theme} onClick={handleCreateComment} type='submit'>Reply</Button>
         </FormControl>
 
     </div>

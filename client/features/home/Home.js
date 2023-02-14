@@ -55,10 +55,10 @@ useEffect(() => {
 
   return (
 
-    <div id='home-container' className='flex flex-col' style={{marginTop: 50 }}>
+    <div id='home-container' className='flex flex-col' style={{marginTop: 45 }}>
       <div id='home-left-container' style={{width: '33%'}}><SideNav/></div>
       
-      <div id='home-left-container' style={{width: '50%'}} ><GlobalFeed /></div>
+      <div id='home-left-container' style={{width: '50%', marginTop: 20}} ><GlobalFeed /></div>
       <div id='home-right-container' style={{width: '33%'}}  ></div>
     </div>
 

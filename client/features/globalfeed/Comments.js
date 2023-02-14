@@ -93,16 +93,18 @@ const commentLikeButton = (comment) => {
     <div>
       {postComments && postComments.length ?
         postComments.map((comment) => (
-          <Box key={`post-comment-${comment.id}`} className='border'>
+          <Box sx={{padding: '10px'}} key={`post-comment-${comment.id}`} className='border'>
             <div className='flex flex-row'>
               <Link to={`/users/${comment.user.id}`}>
-              <Avatar src={comment.user.img_url} />
+                <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+              <Avatar style={{marginRight: '5px'}} src={comment.user.img_url} />
               
               <div>{comment.user.first_name} {comment.user.last_name}</div>
+              </div>
               </Link>
             </div>
 
-            <div>{comment.text_field}</div>
+            <div style={{marginBottom: '10px', marginTop: '10px'}}>{comment.text_field}</div>
            
             <Badge badgeContent={comment.comment_likes && comment.comment_likes.length ? comment.comment_likes.length : null }>
             {commentLikeButton(comment)}

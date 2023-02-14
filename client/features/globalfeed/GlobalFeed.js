@@ -9,6 +9,7 @@ import FeedProject from './FeedProject';
 import { asyncFetchCommentLikes, selectCommentLikes } from './commentlikeslice';
 import { BookSharp, ConstructionOutlined } from '@mui/icons-material';
 import { asyncCreatePost } from './postslice';
+import theme from '../../app/theme';
 
 
 
@@ -151,7 +152,7 @@ const GlobalFeed = ({profileId}) => {
           onChange={(e) => description.current = e.target.value}
 
         />
-        <Button onClick={handleCreatePost} type='submit'>Post</Button>
+        <Button color='primary' theme={theme} onClick={handleCreatePost} type='submit'>Post</Button>
       </FormControl>
       </Container>
 
