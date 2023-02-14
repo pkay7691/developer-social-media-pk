@@ -24,7 +24,6 @@ import {
   AllProjects,
   Favorites,
   AddProject,
-
 } from "../features";
 import { me } from "./store";
 import { useLocation } from "react-router-dom";

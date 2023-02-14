@@ -6,7 +6,8 @@ import {
   selectReport,
   updateReportAsync,
 } from "./singleReportInboxSlice";
-import { Box, Grid, Typography, Table, AppBar, Toolbar } from "@mui/material";
+import { Select, MenuItem, Box, Grid,Typography, Table, AppBar, Toolbar, Stack } from "@mui/material";
+import Button from '@mui/material/Button';
 
 const SingleReport = () => {
   const dispatch = useDispatch();
@@ -43,24 +44,30 @@ const SingleReport = () => {
   };
 
   return (
-    <div>
+    <Stack
+    spacing='2rem'
+    width={{base: '90%', md: '500px'}}
+    margin='auto'
+    height='100vh' 
+    >
       <Box
         sx={{
-          width: 300,
-          height: 300,
+          width: 500,
+          height: 400,
+          borderRadius: 2,
           p: 8,
-          border: "1px solid black",
+          border: "3px solid black ",
           marginLeft: 10,
           marginTop: 50,
         }}
       >
         <Grid alignItems="center">
-          <Typography>Offender: {user.reportee}</Typography>
-          <Typography>Type of Report: {user.reason_for_report}</Typography>
-          <Typography>Reporter's message: {user.message}</Typography>
+          <Typography variant='h4'>Offender: {user.reportee}</Typography>
+          <Typography variant='p' gutterBottom>Type of Report: {user.reason_for_report}</Typography>
+          <Typography variant='p' gutterBottom>Reporter's message: {user.message}</Typography>
           {/*change admin_repsonse to text area*/}
-          <Typography>Admin's response: {user.admin_response}</Typography>
-          <Typography>Status: {user.report_status}</Typography>
+          <Typography variant='p'>Admin's response: {user.admin_response}</Typography>
+          <Typography variant='p'>Status: {user.report_status}</Typography>
         </Grid>
         <input
           type="text"
@@ -68,13 +75,14 @@ const SingleReport = () => {
           onChange={handleAdminMessageChange}
           placeholder="Enter your response"
         />
-        <select value={status} onChange={handleStatusChange}>
-          <option value="pending">pending</option>
-          <option value="resolved">resolved</option>
-        </select>
-        <button onClick={handleUpdateStatus}>Update</button>
+        <Select value={status} onChange={handleStatusChange}>
+          <MenuItem value="pending">pending</MenuItem>
+          <MenuItem value="resolved">resolved</MenuItem>
+        </Select>
+        <br></br>
+        <Button variant='contained' onClick={handleUpdateStatus}>Update</Button>
       </Box>
-    </div>
+    </Stack>
   );
 };
 
