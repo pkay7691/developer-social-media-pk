@@ -19,7 +19,6 @@ import theme from "../../app/theme";
 
 
 
-
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -67,7 +66,7 @@ const SingleUser = () => {
     }, [dispatch, userId])
 
 
-    //!FIXME: this button is working but it is not updating the user's ban status on first click.
+    // !FIXME: this button is working but it is not updating the user's ban status on first click.
     const handleBan = (e) => {
         e.preventDefault();
         const banUpdate = {

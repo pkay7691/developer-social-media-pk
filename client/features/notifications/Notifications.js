@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, TableHead, TableRow,TableBody, TableCell,Checkbox,Button } from "@mui/material";
+import { Table, TableHead, TableRow,TableBody, TableCell,Checkbox,Button, Stack } from "@mui/material";
 import { useState } from "react";
 import Typography from '@mui/material/Typography';
 import { CheckBox } from "@mui/icons-material";
@@ -15,7 +15,12 @@ function Notifications() {
 
 //!FIXME: notification works but when you click on one checkbox all message are removed. I want to incorpuate a button that will delete checked notifications.
   return (
-  <div>
+  <Stack
+  spacing='1rem'
+  width={{base: '90%', md: '500px'}}
+  margin='auto'
+  height='100vh'
+  >
     <Typography component='h2' variant="h6" align="center" fontWeight='bold' gutterBottom>All Notifications</Typography>
     <Table size= "medium">
 
@@ -34,7 +39,7 @@ function Notifications() {
      </TableBody>
      <Button onClick={()=>setShow(!show)} variant='contained'>Mark Read</Button>
      </Table>
-    </div>
+    </Stack>
     );
 }
 

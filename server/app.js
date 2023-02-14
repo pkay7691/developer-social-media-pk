@@ -19,9 +19,9 @@ const io = new Server(server, {
 
 
 // logging middleware
-// app.use(helmet({
-//   contentSecurityPolicy: false,
-// }))
+app.use(helmet({
+  contentSecurityPolicy: false,
+}))
 //helmet is a security package that helps prevent attacks
 app.use(morgan('dev')) 
 app.use(cors({  //cors is a package that allows us to make requests to our server from a different origin
@@ -41,6 +41,7 @@ app.use('/api', require('./api'))
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
 
 // static file-serving middleware
+app.use(express.static(path.join(__dirname, '..', 'video')));
 app.use(express.static(path.join(__dirname, '..', 'public')))
 
 // any remaining requests with an extension (.js, .css, etc.) send 404
@@ -58,6 +59,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public/index.html'));
 })
+
 
 //socket io connection
 io.on('connect', (socket) => {});
