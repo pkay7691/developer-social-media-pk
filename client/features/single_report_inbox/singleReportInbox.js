@@ -82,7 +82,7 @@ const SingleReport = () => {
           <option value="resolved">resolved</option>
         </select>
         <br></br>
-        <Button variant='contained' theme={theme} color="primary onClick={handleUpdateStatus}>Update</Button>
+        <Button variant='contained' theme={theme} color="primary" onClick={handleUpdateStatus}>Update</Button>
       </Box>
     </Stack>
   );
