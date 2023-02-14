@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import { Table, TableBody, TableCell, TableHead, TableRow, Button } from "@mui/material";
-
+import theme from "../../app/theme";
 
   
 
@@ -35,7 +35,7 @@ const AllReportInbox = () => {
                         <TableRow key={user.id}>
                             <TableCell>
                                 <Link to={`/report/${user.id}`}>
-                                    <Button variant="contained" color="primary">View Report</Button>
+                                    <Button variant="contained" theme={theme} color="primary">View Report</Button>
                                 </Link>
                             </TableCell>
                             <TableCell>{user.reportee}</TableCell>

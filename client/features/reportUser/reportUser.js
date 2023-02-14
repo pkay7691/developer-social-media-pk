@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser, fetchUserAsync, reportUserAsync } from "../single_user/singleUserSlice";
-
+import theme from "../../app/theme";
 const ReportUser = () => {
     // selects the user who is logged in currently
     const dispatch = useDispatch();

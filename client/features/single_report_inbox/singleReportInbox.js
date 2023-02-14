@@ -7,6 +7,7 @@ import {
   updateReportAsync,
 } from "./singleReportInboxSlice";
 import { Box, Grid, Typography, Table, AppBar, Toolbar, Stack } from "@mui/material";
+import theme from "../../app/theme";
 
 const SingleReport = () => {
   const dispatch = useDispatch();
@@ -78,7 +79,7 @@ const SingleReport = () => {
           <option value="pending">pending</option>
           <option value="resolved">resolved</option>
         </select>
-        <button onClick={handleUpdateStatus}>Update</button>
+        <button theme={theme} color="primary"onClick={handleUpdateStatus}>Update</button>
       </Box>
     </Stack>
   );

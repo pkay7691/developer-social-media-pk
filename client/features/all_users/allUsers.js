@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import { Table, TableBody, TableCell, TableHead, TableRow, Button } from "@mui/material";
 import SearchInput from '../search/searchInput.js'
+import theme from "../../app/theme";
 
 const AllUsers = () => {
     const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const AllUsers = () => {
                     {ans ? ans.map((user) => (
                         <TableRow key={user.id}>
                             <TableCell>
-                                <Link to={`/users/${user.id}`}><Button variant="contained">View</Button></Link>
+                                <Link to={`/users/${user.id}`}><Button variant="contained" theme={theme} color="primary">View</Button></Link>
                             </TableCell>
                             <TableCell>{user.username}</TableCell>
                             <TableCell>{user.first_name}</TableCell>
@@ -66,7 +67,7 @@ const AllUsers = () => {
                     )) : users.map((user) => (
                         <TableRow key={user.id}>
                             <TableCell>
-                                <Link to={`/users/${user.id}`}><Button variant="contained">View</Button></Link>
+                                <Link to={`/users/${user.id}`}><Button variant="contained" theme={theme} color="primary">View</Button></Link>
                             </TableCell>
                             <TableCell>{user.username}</TableCell>
                             <TableCell>{user.first_name}</TableCell>
