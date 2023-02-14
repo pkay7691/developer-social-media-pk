@@ -6,8 +6,10 @@ import {
   selectReport,
   updateReportAsync,
 } from "./singleReportInboxSlice";
+import theme from "../../app/theme";
 import { Select, MenuItem, Box, Grid,Typography, Table, AppBar, Toolbar, Stack } from "@mui/material";
 import Button from '@mui/material/Button';
+
 
 const SingleReport = () => {
   const dispatch = useDispatch();
@@ -75,12 +77,12 @@ const SingleReport = () => {
           onChange={handleAdminMessageChange}
           placeholder="Enter your response"
         />
-        <Select value={status} onChange={handleStatusChange}>
-          <MenuItem value="pending">pending</MenuItem>
-          <MenuItem value="resolved">resolved</MenuItem>
-        </Select>
+        <select value={status} onChange={handleStatusChange}>
+          <option value="pending">pending</option>
+          <option value="resolved">resolved</option>
+        </select>
         <br></br>
-        <Button variant='contained' onClick={handleUpdateStatus}>Update</Button>
+        <Button variant='contained' theme={theme} color="primary onClick={handleUpdateStatus}>Update</Button>
       </Box>
     </Stack>
   );

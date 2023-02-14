@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 // import { useSelector } from "react-redux";
 import { selectUser, fetchUserAsync, reportUserAsync } from "../single_user/singleUserSlice";
+import theme from "../../app/theme";
 import {  FormControl,MenuItem, Stack, TextField, Typography } from "@mui/material";
 import Button from '@mui/material/Button';
 import Select from '@mui/material/Select';
+
 const ReportUser = () => {
     // selects the user who is logged in currently
     const dispatch = useDispatch();
