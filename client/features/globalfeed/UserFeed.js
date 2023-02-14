@@ -70,7 +70,6 @@ useEffect(() => {
   
   return (
     <div>
-      <button onClick={(e)=> setPageNumber(pageNumber + 1)}>Hi</button>
       <Container maxWidth="sm">
         <Stack spacing={3}>
       {feed && feed.length ? (

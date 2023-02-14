@@ -24,6 +24,7 @@ async function seed() {
       password: 'password',
       is_admin: true,
       location: 'Chicago IL',
+      img_url:  faker.image.avatar(),
       skill_level: 'Master',
       email: 'admin@gmail.com',
       first_name: 'Nicholas',
@@ -38,6 +39,7 @@ async function seed() {
       password: 'password',
       is_admin: false,
       location: 'New York, NY',
+      img_url:  faker.image.avatar(),
       skill_level: 'Beginner',
       email: 'guy@gmail.com',
       first_name: 'Johnny',
@@ -52,6 +54,7 @@ async function seed() {
       password: 'password',
       is_admin: false,
       location: 'New York, NY',
+      img_url:  faker.image.avatar(),
       skill_level: 'Beginner',
       email: 'pat@gmail.com',
       first_name: 'Pat',
@@ -65,6 +68,7 @@ async function seed() {
      const aaron = await User.create({ 
       username: 'jerkface420',
       password: 'password',
+      img_url:  faker.image.avatar(),
       is_admin: false,
       location: 'Los Angeles, CA',
       skill_level: 'Master',
@@ -124,6 +128,7 @@ async function seed() {
         "TypeScript",
       ]),
       is_admin: faker.datatype.boolean(),
+      github_url: 'https://github.com/fakedata',
       createdAt: faker.date.between('2020-01-01T00:00:00.000Z', '2021-01-01T00:00:00.000Z'),
      status: faker.helpers.arrayElement([
       "Open",
@@ -295,8 +300,8 @@ async function seed() {
       technologies: 'Node and React',
       project_type: 'Ecommerce Website',
       status: 'Open',
-      details: 'Functional Ecommerce website',
-      github_url: "github.com",
+      details: faker.lorem.paragraphs(1),
+      github_url: "https://fakerjs.dev/api/git.html#git",
     })
 
     // project adding user as member
@@ -304,8 +309,8 @@ async function seed() {
 
     const projectPost = await Post.create({
       title: "New Coding Project",
-      description: "Building an app that needs developers!",
-      url: 'www.github.com'
+      description: "Building an app that needs developers!  Looking for a hard working, delligent team member.  Accepting applications from all skill levels!  A great way to get experience!",
+      url: faker.internet.url()
     })
 
     // user Posting a Project Post
@@ -313,7 +318,7 @@ async function seed() {
     await nic.addPost(projectPost)
 
     const projectPostComment = await Comments.create({
-      text_field: "Holy smokes this is a cool post!",
+      text_field: "This sounds like an inredible opportunity!  I would love to learn more about this project!",
     })
 
 

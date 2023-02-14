@@ -2,7 +2,7 @@ import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { fetchUserAsync, selectUser } from "../single_user/singleUserSlice";
-import { Box, Grid, Typography, Table, AppBar, Toolbar, Button } from "@mui/material";
+import { Box, Grid, Typography, Table, AppBar, Toolbar, Button, ButtonGroup, Chip } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { banUserAsync } from "../single_user/singleUserSlice";
 import Paper from '@mui/material/Paper';
@@ -12,6 +12,10 @@ import { asyncFetchPostLikes } from "../globalfeed/postlikesslice";
 import { createFriendship, fetchFriendshipById} from "../friends/friendshipSlice";
 import Avatar from '@mui/material/Avatar';
 import UserFeed from '../globalfeed/UserFeed'
+import FriendList from "../friendlist/friendlist";
+import { flexbox } from "@mui/system";
+import Divider from '@mui/material/Divider';
+import theme from "../../app/theme";
 
 
 
@@ -89,70 +93,45 @@ console.group(user.img_url)
 
 
     return (
-        <div>
-            <Box sx={{ flexGrow: 1 }} marginTop='50px'>
-                <Grid container spacing={1}>
-                    <Grid item xs={12} container>
-                        <Grid item xs={2} />
-                        <Grid item xs={2}>
-                           <Avatar
-                            srcSet={user.img_url}
-                            sx={{ width: 140, height: 140 }}
-                            loading='lazy'
-                            />
-                        </Grid>
-                        <Grid item xs={3.5} />
-                        {/* show the user's ban status only for admin view*/}
-                        {isAdmin ? <Grid item xs={1}><Typography variant='h6'>Account Standing</Typography>
-                            <Typography>{user.ban_status}</Typography>
-                        </Grid> : null}
-                        {/*created a ban button that only admins can see. Admins will not have a ban button on their profile.*/}
-                        {isAdmin && user.id !== loggedInUserId ? <Grid item xs={1}><Button onClick={(handleBan)} variant='contained'>Ban</Button></Grid> : null}
-                        {/* only show the report button if the user is not the logged in user */}
-                        {user.id !== loggedInUserId ? <Grid item xs={1}><Link to={`/users/${userId}/reportUser`}><Button variant='contained'>Report</Button></Link></Grid> : null}
-                        {/* only show the block button if the user is not the logged in user */}
-                        {user.id !== loggedInUserId ? <Grid item xs={1}><Link to={`/users/${userId}/blockUser`}><Button variant='contained'>Block</Button></Link></Grid> : null}
-                        {/* only show the add friend button if the user is not the logged in user.   */}
-                        {user.id !== loggedInUserId ? <Grid item xs={1}><Button onClick={handleCreateFriendRequest} variant='contained'>Add Friend</Button></Grid> : null}
-                    </Grid>
-                    <Grid item xs={12} container />
-                    <Grid item xs={12} container />
-                    <Grid item xs={12} container />
-                </Grid>
-                <Grid container spacing={2} direction='column'>
-                    <Grid item xs={12} container>
-                        <Grid item xs={2} />
-                        <Grid item xs={2}><Typography variant='h2'>Profile</Typography>
-                            <Typography> Username: {user.username}</Typography>
-                            <Typography> Name: {user.first_name} {user.last_name}</Typography>
-                            <Typography> Email: {user.email}</Typography>
-                            <Typography> Skill Level: {user.skill_level}</Typography>
-                        </Grid>
-                        <Grid item xs={4} />
-                        <Grid item xs={2}><Typography variant='h2'>Friends</Typography>
-                                {friends && friends.length ? friends.map((friend) =>
-                                    <Typography key={`friend-${friend.id}`}>{friend.first_name} {friend.last_name}</Typography>
-                                )
-                                    :
-                                    null}
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} container direction='column'>
-                        <Grid item xs={8}/>
-                        <Typography>Projects</Typography>
+        <div style={{display: 'flex' }}>
+            <div style={{width: '25%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '18px'}}>
+            <ButtonGroup color='primary' theme={theme} variant='text' style={{width: '100%', height: '55px'}}>
+                    {user.id !== loggedInUserId ? <Button theme={theme} color='primary' onClick={handleCreateFriendRequest} style={{width: '100%'}}>Add Friend</Button>  : <Button disabled style={{width: '100%'}}>Add Friend</Button> }
+                   {isAdmin && user.id !== loggedInUserId ? <Button theme={theme} color='primary' onClick={(handleBan)} style={{width: '100%'}}>Ban</Button>  : <Button disabled style={{width: '100%'}}>Ban</Button> }
+                   {user.id !== loggedInUserId ? <Button theme={theme} color='primary' href={`/users/${userId}/reportUser`} style={{width: '100%'}}>Report</Button>  : <Button disabled style={{width: '100%'}}>Report</Button> }
+                    
+                </ButtonGroup>
+          
+                 <Avatar
+                  srcSet={user.img_url}
+                  sx={{ width: '80%', height: 'auto',marginBottom: '15px', marginTop: '15px'}}
+                   loading='lazy'
+                    />
+                <Typography variant='h4'>{user.first_name}</Typography>
+                <Typography variant='h4'>{user.last_name}</Typography>
+              
+             
 
-                            {projects && projects.length ? projects.map((project) =>
-                           <Link key={`project-link-${project.id}`} to={`/project/${project.id}`}><Typography>{project.project_name}</Typography></Link>
-                            )
-                        :
-                        null}
+                <Typography> Username: {user.username}</Typography>
+               
+                <Typography> Email: {user.email}</Typography>
+                <Typography> Skill Level: {user.skill_level}</Typography>
 
-                    </Grid>
-                </Grid>
-            </Box>
+                <Divider style={{width: '100%', marginTop: '10px', marginBottom: '10px'}} ></Divider>
+                <Typography>{user.about_me}</Typography>
+                     
+                       
+               
+          
+            </div>
+            <div style={{width: '50%', marginTop: '45px'}}>
+
+
             <UserFeed profileId={userId} />
+            </div>
+            <div  style={{width: '25%'}}>
+            <FriendList/>
+            </div>
         </div>
     )
 }
