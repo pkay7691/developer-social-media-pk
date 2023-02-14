@@ -3,7 +3,7 @@ import React, {useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchAllProjectAsync, selectProjects } from "./allProjectSlice";
-
+import theme from "../../app/theme"
 import SearchProject from '../search/searchProject';
 
 const AllProjects = () => {
@@ -41,7 +41,7 @@ const AllProjects = () => {
 
 
             <Typography component='h2' variant="h6" align="center" fontWeight='bold' gutterBottom>All Projects</Typography>
-            <SearchProject projectName={projectName} setProjectName ={setProjectName}/>
+            <SearchProject projectName={projectName} setProjectName ={setProjectName} theme={theme} color="primary"/>
             <Table size="medium">
                 <TableHead>
                     <TableRow>
@@ -59,7 +59,7 @@ const AllProjects = () => {
                 {ans && ans.length ? ans.map((project)=>(
 
                     <TableRow key={project.id}>
-                        <TableCell><Link to={`/project/${project.id}`}><Button variant="contained">View</Button></Link></TableCell>
+                        <TableCell><Link to={`/project/${project.id}`}><Button variant="contained" theme={theme} color="primary">View</Button></Link></TableCell>
                         <TableCell>{project.project_name}</TableCell>
                         <TableCell>{project.technologies}</TableCell>
                         <TableCell>{project.status}</TableCell>
