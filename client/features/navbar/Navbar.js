@@ -94,14 +94,20 @@ const Navbar = () => {
     <div>
       <nav>
         {isBanned ? (
-          <>
-            <div>
-              <Link to="/contactUs">Contact Us</Link>
+          <div>
+            <Box sx={{ flexGrow: 1 }}>
+              <AppBar position="static" theme={theme} color="primary">
+                <Container maxWidth="xl" spacing={2} theme={theme} color='primary'>
+                  <Grid item xs={12} container color='primary'>
+                    <Grid item xs={0.5} />
+                    <Link to='/'>Banned</Link>
+                    <Grid item xs={0.5} />
+                    <Link to='/contactUs'>Contact Us</Link>
+                    </Grid>
+                  </Container>
+                </AppBar>
+              </Box>
             </div>
-            <button type="button" onClick={logoutAndRedirectHome}>
-              Logout
-            </button>
-          </>
         ) : isAdmin ? (
           <div>
             <Box sx={{ flexGrow: 1 }}>
