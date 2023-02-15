@@ -18,6 +18,7 @@ const io = new Server(server, {
 
 
 
+
 // logging middleware
 app.use(helmet({
   contentSecurityPolicy: false,
@@ -28,6 +29,7 @@ app.use(cors({  //cors is a package that allows us to make requests to our serve
   origin: 'http://localhost:8080',
   credentials: true,
 }))
+
 
 // body parsing middleware
 app.use(express.json())
