@@ -22,6 +22,9 @@ const io = new Server(server, {
 // logging middleware
 app.use(helmet({
   contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: false,
+  
 }))
 //helmet is a security package that helps prevent attacks
 app.use(morgan('dev')) 
