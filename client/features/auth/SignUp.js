@@ -69,29 +69,19 @@ const SignUp = () => {
   return (
     <Box
       component="div"
+      id='signup-page'
       sx={{
+        overflowY: "auto",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "rgba(0, 0, 0, 0.7)",
         objectFit: "cover",
-        height: "97.5vh",
+        height: "85.5vh",
+
       }}
     >
-      <Card
-        sx={{
-          borderRadius: "10px",
-          padding: "1rem",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "25%",
-          height: "75%",
-          top: "50%",
-        }}
-      >
-        <video
+              <video
           autoPlay
           loop
           muted
@@ -108,24 +98,32 @@ const SignUp = () => {
         >
           <source src={devVideo} type="video/mp4" />
         </video>
+       
+
+      
+ 
 
         <Stack
+        id='signup-stack'
+
           as="form"
-          spacing="1rem"
+          spacing="1.5rem"
           margin="auto"
-          height="100vh"
+          height='auto'
+          justifyContent="space-evenly"
           noValidate
           autoComplete="off"
           onSubmit={formik.handleSubmit}
           name={formik.name}
           className="signup-form"
+          style={{ background: 'white', zIndex: 1.2, padding: '3rem' }}
         >
-          <Typography variant="h4" align="center" color="#415A77" fontFamily='fantasy'>
+          <Typography  fontSize='1.5rem' align="center" color="#415A77" fontFamily='fantasy'>
             Create Account
           </Typography>
 
           <TextField
-            fullWidth
+           sx={{height: '10%'}}
             id="first_name"
             name="first_name"
             label="First Name"
@@ -139,6 +137,8 @@ const SignUp = () => {
           />
           <TextField
             fullWidth
+            height= '3%'
+            size='small'
             id="last_name"
             name="last_name"
             label="Last Name"
@@ -158,6 +158,8 @@ const SignUp = () => {
           
           <TextField
             fullWidth
+            height= '3%'
+            size='small'
             id="username"
             name="username"
             label="Username"
@@ -174,6 +176,7 @@ const SignUp = () => {
           </Typography>
 
           <TextField
+            size='small'
             fullWidth
             id="email"
             name="email"
@@ -185,6 +188,7 @@ const SignUp = () => {
             helperText={formik.touched.email && formik.errors.email}
           />
           <TextField
+           size='small'
             fullWidth
             id="password"
             name="password"
@@ -197,6 +201,7 @@ const SignUp = () => {
             helperText={formik.touched.password && formik.errors.password}
           />
           <TextField
+            size='small'
             fullWidth
             id="confirm_password"
             name="confirm_password"
@@ -247,7 +252,7 @@ const SignUp = () => {
             </Button>
           </ButtonGroup>
         </Stack>
-      </Card>
+      
     </Box>
   );
 };
