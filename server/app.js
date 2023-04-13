@@ -70,8 +70,8 @@ app.use('*', (req, res) => {
 io.on('connect', (socket) => {});
 
 //server listening
-server.listen(4000, () => {
-  console.log('listening on *:4000');
+server.listen(process.env.PGPORT, () => {
+  console.log(`listening on *${process.env.PGPORT}`);
 });
 
 // error handling endware
