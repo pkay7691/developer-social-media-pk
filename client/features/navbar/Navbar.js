@@ -105,6 +105,8 @@ const Navbar = () => {
                     <Grid item xs={0.5} />
                     <Link to='/contactUs'>Contact Us</Link>
                     </Grid>
+                    <Grid item xs={0.5} />
+                    <div onClick={logoutAndRedirectHome}> Logout</div>
                   </Container>
                 </AppBar>
               </Box>
