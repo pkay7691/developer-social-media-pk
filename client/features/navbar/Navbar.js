@@ -104,9 +104,11 @@ const Navbar = () => {
                     <Link to='/'>Banned</Link>
                     <Grid item xs={0.5} />
                     <Link to='/contactUs'>Contact Us</Link>
-                    </Grid>
                     <Grid item xs={0.5} />
                     <div onClick={logoutAndRedirectHome}> Logout</div>
+                    <Grid/>
+                    </Grid>
+                    
                   </Container>
                 </AppBar>
               </Box>

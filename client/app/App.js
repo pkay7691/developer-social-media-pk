@@ -34,9 +34,9 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <div >
           <Navbar />
-          <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+          {/* <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
+          </IconButton> */}
           <AppRoutes />
           <Footer />
         </div>

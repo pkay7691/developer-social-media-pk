@@ -324,8 +324,8 @@ async function seed() {
 
     //User being mean to another user in a post
     const meanPost = await Post.create({
-      title: "I hate this guy",
-      description: "I think Nic Cage is dumb",
+      title: "Recruiting for a project",
+      description: "Looking for React developers!",
     })
 
     await aaron.addPost(meanPost)

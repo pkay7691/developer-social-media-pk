@@ -27,11 +27,13 @@ export const fetchFriendshipById = createAsyncThunk('getfriendship', async (user
 export const createFriendship = createAsyncThunk('createFriendship',  async (friendship) => {
   try {
     const { data } = await axios.post('/api/friendship', friendship)
+    alert('Friend Request Sent')
     return data
 
 
   }
   catch (error) {
+    alert('Friend Request Already Sent')
 
   }
 })
