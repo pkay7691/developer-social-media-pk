@@ -53,7 +53,7 @@ const Chatbox = ({receiverId}) => {
 
   return (
     <div>
-      <div>
+      <div style={{ }}>
         <div ref={bottomDiv} />
         {messages.map((message) =>
           message.senderId === userId ? (
@@ -102,7 +102,7 @@ const Chatbox = ({receiverId}) => {
       {/*display chat postion at the bottom of the chatbox*/}
       <div style={{   position: "static", top: "100%", width: "100%", bottom: "8px", right: "0", fontSize: "18px" }}>
         <form onSubmit={handleSendMessage}
-          style={{ display: "flex", justifyContent: "center", position: "sticky", bottom: "0", width: "50%", bottom: "8px", right: "50px", fontSize: "18px" }}
+          style={{ display: "flex", justifyContent: "center", position: "relative", width: "100%", right: "0", fontSize: "18px" }}
         >
           <input
             type="text"
@@ -110,12 +110,13 @@ const Chatbox = ({receiverId}) => {
             placeholder="Type a message..."
             onChange={(e) => setMessage(e.target.value)}
             style={{
-              width: "90%",
+              width: "100%",
               height: "100%",
               padding: "1rem",
               margin: "1rem",
               borderRadius: "1rem",
               justifyContent: "flex-end",
+              border: 'solid'
               }}
           />
           <button 
